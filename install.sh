@@ -46,3 +46,7 @@ TARGET+=(bin)
 for f in "${TARGET[@]}"; do
   symlink_to_home "$f"
 done
+
+if [ ! -f "$SCRIPT_ROOT/.config/git/config" ] && [ ! -f "$HOME/.gitconfig" ]; then
+  git config --file "$SCRIPT_ROOT/.config/git/config" include.path config.core
+fi
