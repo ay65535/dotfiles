@@ -1,4 +1,6 @@
 [alias]
-    ci = commit
-    co = checkout
-    st = status
+	ci = commit
+	co = checkout
+	st = status
+[ghq]
+	root = ~/.local/src
