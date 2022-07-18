@@ -1,6 +1,39 @@
 [alias]
-	ci = commit
-	co = checkout
 	st = status
+	co = checkout
+	ci = commit
+	di = diff
+	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[core]
+	quotepath = false
+	autocrlf = false
+	safecrlf = true
+	pager = diff-so-fancy | LESSCHARSET=utf-8 less --tabs=4 -RFX
+[diff-so-fancy]
+	first-run = false
+[diff]
+	compactionHeuristic = true
+[http "127.0.0.1"]
+	proxy = 
+[http "192.168."]
+	proxy = 
+[http "localhost"]
+	proxy = 
+[http ".local"]
+	proxy = 
 [ghq]
 	root = ~/.local/src

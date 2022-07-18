@@ -40,7 +40,7 @@ symlink_to_home () {
 # Main
 #
 
-TARGET=($(ls -A1 "$SCRIPT_ROOT" | grep -E '^\.\w+$' | grep -v '^\.git$'))
+TARGET=($(ls -A1 "$SCRIPT_ROOT" | grep -E '^\..+$' | grep -v '^\.git.*$'))
 TARGET+=(bin)
 
 for f in "${TARGET[@]}"; do
