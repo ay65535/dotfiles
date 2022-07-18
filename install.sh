@@ -47,9 +47,40 @@ for f in "${TARGET[@]}"; do
   symlink_to_home "$f"
 done
 
+# check os
+set -x
+case "$OSTYPE" in
+  "linux"*) OSDIR=linux ;;
+  "darwin"*) OSDIR=macos ;;
+  "msys"*) OSDIR=windows ;;
+  *) OSDIR=unknown
+esac
+
+
 # setup .gitconfig
-if [ ! -f "$SCRIPT_ROOT/.config/git/config" ] && [ ! -f "$HOME/.gitconfig" ]; then
-  git config --file "$SCRIPT_ROOT/.config/git/config" include.path config.core
+
+git config --get-all include.path | grep -q config.core
+if [[ "$?" == "1" ]]; then
+  if [ ! -f "$HOME/.gitconfig" ]; then
+    git config --file "$SCRIPT_ROOT/.config/git/config" --add include.path config.core
+
+    git config --get-all include.path | grep -q $OSDIR/config
+    if [[ "$?" == "1" ]] && [[ "$OSDIR" != 'unknown' ]]; then
+      git config --file "$SCRIPT_ROOT/.config/git/config" --add include.path $OSDIR/config
+    fi
+
+  elif [ -f "$HOME/.gitconfig" ]; then
+    git config --add include.path config.core
+
+    git config --get-all include.path | grep -q $OSDIR/config
+    if [[ "$?" == "1" ]] && [[ "$OSDIR" != 'unknown' ]]; then
+      git config --add include.path $OSDIR/config
+    fi
+
+    if [ -f "$SCRIPT_ROOT/.config/git/config" ]; then
+      echo "both ~/.gitconfig and ~/.config/git/config exists."
+    fi
+  fi
 fi
 
 # setup bash_completion

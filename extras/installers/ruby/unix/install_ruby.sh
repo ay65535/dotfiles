@@ -35,10 +35,16 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | 
 # ruby
 #
 
-LATEST_VERSION=$(rbenv install --list 2>/dev/null | grep -P '^\d+\.\d+\.\d+' | tail -1)
-rbenv install $LATEST_VERSION
+# rbenv install -l
+# rbenv install -L
+# rbenv install -L | grep 2.6.8
+# LATEST_VERSION=$(
+rbenv install --list 2>/dev/null | grep -P '^\d+\.\d+\.\d+' | tail -1
+# )
+TARGET_VERSION=2.6.8  # for linuxbrew
+rbenv install $TARGET_VERSION
 rbenv versions
-rbenv global $LATEST_VERSION
+rbenv global $TARGET_VERSION
 rbenv global
 ruby -v
-unset LATEST_VERSION
+unset TARGET_VERSION

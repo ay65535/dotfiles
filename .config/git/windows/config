@@ -1,0 +1,25 @@
+[core]
+    filemode = false
+# https://qiita.com/kobake@github/items/fb317b4fdacad718a4b2
+[diff]
+    tool = WinMerge
+[difftool "WinMerge"]
+    path = C:/Program Files/WinMerge/WinMergeU.exe
+    cmd = \"C:/Program Files/WinMerge/WinMergeU.exe\" -f \"*.*\" -e -u -r \"$LOCAL\" \"$REMOTE\"
+[merge]
+    tool = WinMerge
+[mergetool "WinMerge"]
+    path = C:/Program Files/WinMerge/WinMergeU.exe
+    cmd = \"C:/Program Files/WinMerge/WinMergeU.exe\" -e -u \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+[alias]
+    windiff = difftool -y -d -t WinMerge
+    winmerge = mergetool -y -t WinMerge
+[ghq]
+    root = ~/Source/repos
+
+# [http]
+# 	sslCAPath = C:/msys64/usr/ssl/certs
+# 	sslVerify = true
+# 	sslBackend = openssl
+# 	# https://qiita.com/yujimny/items/08f02d9dfb670f0e9ddf
+# 	sslCAInfo = C:/msys64/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt

@@ -22,7 +22,6 @@
 	quotepath = false
 	autocrlf = false
 	safecrlf = true
-	pager = diff-so-fancy | LESSCHARSET=utf-8 less --tabs=4 -RFX
 [diff-so-fancy]
 	first-run = false
 [diff]
