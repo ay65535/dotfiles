@@ -47,6 +47,12 @@ for f in "${TARGET[@]}"; do
   symlink_to_home "$f"
 done
 
+# setup .gitconfig
 if [ ! -f "$SCRIPT_ROOT/.config/git/config" ] && [ ! -f "$HOME/.gitconfig" ]; then
   git config --file "$SCRIPT_ROOT/.config/git/config" include.path config.core
+fi
+
+# setup bash_completion
+if [[ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions" ]]; then
+  mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions"
 fi

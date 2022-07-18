@@ -1,1 +1,1 @@
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+test -r /home/linuxbrew/.linuxbrew/bin/brew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
