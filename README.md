@@ -11,6 +11,7 @@
     * Git Bash: TBD
     * msys2: TBD
     * macOS (zsh): TBD
+* Many initial setup and installation scripts included
 
 ## Install
 
