@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -eu
 
 #
@@ -48,14 +50,12 @@ for f in "${TARGET[@]}"; do
 done
 
 # check os
-set -x
 case "$OSTYPE" in
   "linux"*) OSDIR=linux ;;
   "darwin"*) OSDIR=macos ;;
   "msys"*) OSDIR=windows ;;
   *) OSDIR=unknown
 esac
-
 
 # setup .gitconfig
 

@@ -61,7 +61,8 @@ function Convert-ShellScript {
                 -replace '\bpwd\b', 'Get-Location' `
                 -replace '\bgrep -v', 'Select-String -NotMatch' `
                 -replace '\bgrep\b( -E)?', 'Select-String' `
-                -replace '\bln -[a-zA-Z]*s[a-zA-Z]*\b', 'New-Item -ItemType SymbolicLink -Target ' `
+                -replace '\bmkdir(?: -p)?\b', 'New-Item -ItemType Directory' `
+                -replace '\bln -[a-zA-Z]*s[a-zA-Z]*\b', 'New-Item -ItemType SymbolicLink -Target' `
                 -replace '\$\?', '$$LASTEXITCODE' `
                 -replace '["''](.*)["'']\*', '"$1*"' `
                 -replace 'set -[ex]?u.*(?=\n)', 'Set-StrictMode -Version Latest' `
