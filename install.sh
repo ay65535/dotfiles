@@ -33,7 +33,8 @@ symlink_to_home () {
   fi
 
   # get relative path
-  local orig_relpath="$(realpath --relative-to="$link_dir" "$orig_fullpath")"
+  local orig_relpath
+  orig_relpath="$(realpath --relative-to="$link_dir" "$orig_fullpath")"
 
   ln -snfv "$orig_relpath" "$link_path"
 }
@@ -42,8 +43,7 @@ symlink_to_home () {
 # Main
 #
 
-TARGET=($(ls -A1 "$SCRIPT_ROOT" | grep -E '^\..+$' | grep -v '^\.git.*$'))
-TARGET+=(bin)
+TARGET=("$SCRIPT_ROOT"/@(.!(git|.|)|bin))
 
 for f in "${TARGET[@]}"; do
   symlink_to_home "$f"
