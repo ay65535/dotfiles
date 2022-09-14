@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # setopt no_global_rcs
 
 if globexists ~/.profile.d/*.*(z)sh; then

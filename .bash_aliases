@@ -1,3 +1,5 @@
+#!/bin/bash
+
 alias q=exit
 alias sudo='sudo '
 alias d=docker

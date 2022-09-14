@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ## Options
 shopt -s extglob
 
