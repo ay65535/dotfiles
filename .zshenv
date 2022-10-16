@@ -10,6 +10,8 @@ globexists () {
 
 ## Main
 
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
 # source ~/.profile.d/*.sh if it exists.
 setopt extendedglob
 unsetopt nomatch
@@ -18,4 +20,3 @@ files=($(find -E ~/.profile.d/*.*sh -regex '.*\.z?sh$'))
 for file in $files; do
   . "$file"
 done
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
