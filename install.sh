@@ -43,6 +43,8 @@ symlink_to_home () {
 # Main
 #
 
+shopt -s extglob
+
 TARGET=("$SCRIPT_ROOT"/@(.!(git|.|)|bin))
 
 for f in "${TARGET[@]}"; do
