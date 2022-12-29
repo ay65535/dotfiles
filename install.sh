@@ -48,7 +48,7 @@ shopt -s extglob
 TARGET=("$SCRIPT_ROOT"/@(.!(git|.|)|bin))
 
 for f in "${TARGET[@]}"; do
-  symlink_to_home "$f"
+  symlink_to_home $(basename $f)
 done
 
 # check os
