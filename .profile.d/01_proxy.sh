@@ -24,7 +24,7 @@ else
   fi
 fi
 
-if [ "$PROXY_SERVER" != "" ] && echo "$LOCATION_PROFILE" | grep -q "office|vpn"; then
+if [ "$PROXY_SERVER" != "" ] && echo "$LOCATION_PROFILE" | grep -qE "office|vpn"; then
   PROXY_URL="http://$PROXY_SERVER"
 
   export http_proxy="$PROXY_URL"
