@@ -1,15 +1,14 @@
-if [[ -d "$XDG_DATA_HOME/rbenv" ]]; then
-  export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
-elif [[ -d "$HOME/.rbenv" ]]; then
-  export RBENV_ROOT="$HOME/.rbenv"
-else
+if [[ ! -d "$XDG_DATA_HOME/rbenv" ]]; then
   return
 fi
+
+export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
+export PATH="$RBENV_ROOT/bin:$PATH"
 
 # eval "$(rbenv init - bash)" {{
 export PATH="$RBENV_ROOT/shims:${PATH}"
 export RBENV_SHELL=bash
-source "$RBENV_ROOT/completions/rbenv.bash"
+source "$RBENV_ROOT/libexec/../completions/rbenv.bash"
 command rbenv rehash 2>/dev/null
 rbenv() {
   local command

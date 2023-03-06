@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # https://wiki.archlinux.jp/index.php/XDG_Base_Directory
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -5,7 +7,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
-alias wget=wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"
+alias wget=wget --hsts-file='$XDG_CACHE_HOME/wget-hsts'
 
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 
@@ -16,8 +18,8 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 # export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
 
 export NVM_DIR="$XDG_DATA_HOME"/nvm
-export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
-export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_repl_history
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export NODE_REPL_HISTORY="$XDG_STATE_HOME/node_repl_history"
 # alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
 # export GOPATH="$XDG_DATA_HOME"/go
