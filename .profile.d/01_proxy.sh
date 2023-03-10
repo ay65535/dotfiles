@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if windows && ! hash powershell.exe 2>/dev/null; then
   PATH="$PATH:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0"
@@ -6,15 +6,15 @@ fi
 
 if [ -f "$XDG_CACHE_HOME/proxy_server.sh" ]; then
   . "$XDG_CACHE_HOME/proxy_server.sh"
-  LOCATION_PROFILE=office
 elif windows; then
   # shellcheck disable=SC2016
-  WINIPS=$(powershell.exe -nop -c 'Get-NetIPAddress | ? IPAddress -Match "^10\." | select -expand IPAddress')
-  WIN_HTTP_PROXY=$(powershell.exe -nop -c 'Get-ItemPropertyValue "HKCU:/Software/Microsoft/Windows/CurrentVersion/Internet Settings" -Name AutoConfigURL' | sed 's/[\r\n]//g')
-  PROXY_SERVER=$(curl -fsSL --noproxy .net "$WIN_HTTP_PROXY" | grep -oP "(?<=PROXY )[\d.:]+" | grep -v '10.' | sort -u)
+  WINIPS=$(powershell.exe -nop -c 'gip | ? IPAddress -Match "^10\." | select -exp IPAddress')
+  WIN_HTTP_PROXY=$(powershell.exe -nop -c 'gp "HKCU:/Software/Microsoft/Windows/CurrentVersion/Internet Settings" | select -exp AutoConfigURL -ErrorAction SilentlyContinue')
+  if [ -n "$WIN_HTTP_PROXY" ]; then
+    PROXY_SERVER=$(curl -fsSL --noproxy .net "$WIN_HTTP_PROXY" | grep -oP "(?<=PROXY )[\d.:]+" | grep -v '10.' | sort -u)
+  fi
   if echo "$WINIPS" | grep -q "^10\."; then
     LOCATION_PROFILE=office
-    echo "export PROXY_SERVER=$PROXY_SERVER" >"$XDG_CACHE_HOME/proxy_server.sh"
   else
     case "$WIN_HTTP_PROXY" in
     "" | *.jp*) LOCATION_PROFILE=home ;;
@@ -22,6 +22,7 @@ elif windows; then
     *) echo "error invalid value: $$WIN_HTTP_PROXY" ;;
     esac
   fi
+  echo -e "export PROXY_SERVER=$PROXY_SERVER\nexport LOCATION_PROFILE=$LOCATION_PROFILE" >"$XDG_CACHE_HOME/proxy_server.sh"
 fi
 
 if [ "$PROXY_SERVER" != "" ] && echo "$LOCATION_PROFILE" | grep -qE "office|vpn"; then

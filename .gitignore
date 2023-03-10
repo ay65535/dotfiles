@@ -26,6 +26,7 @@ zinit.git/
 /.config/gnome-initial-setup-done
 /.config/ibus/
 /.config/iterm2/AppSupport
+/.config/JetBrains/RemoteDev-RM/
 /.config/karabiner/
 /.config/libaccounts-glib/
 /.config/Microsoft*VisualStudio Services/*/Cache/
