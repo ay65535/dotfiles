@@ -6,6 +6,8 @@
 *.pid
 *.zwc
 *htoprc
+_zinit
+zinit.git/
 /.config/.mono/keypairs/
 /.config/anyenv/anyenv-install/
 /.config/brewfile/*
@@ -24,7 +26,7 @@
 /.config/gnome-initial-setup-done
 /.config/ibus/
 /.config/iterm2/AppSupport
-/.config/karabiner/automatic_backups/
+/.config/karabiner/
 /.config/libaccounts-glib/
 /.config/Microsoft*VisualStudio Services/*/Cache/
 /.config/nautilus/
@@ -37,19 +39,26 @@
 /.config/yarn/global/node_modules/
 /.config/zsh/.iterm2_shell_integration.zsh
 /.config/zsh/.iterm2/
+/.local/bin/clion
+/.local/bin/fleet
+/.local/bin/gateway
+/.local/bin/idea
+/.local/bin/rider
+/.local/bin/rubymine
 /.local/pkg/
 /.local/share/*/*history*
 /.local/share/fzf/fzf.bash
+/.local/share/karabiner/
+/.local/share/NuGet/
 /.local/share/powershell/Modules/
 /.local/share/powershell/PSReadLine/*history*
 /.local/share/vim/autoload/plug.vim
 /.local/share/vim/plugged/
 /.local/share/winmerge/
-/.local/share/zsh/.zplugin/
+/.local/share/zinit/
 /.local/src/
+/.local/state/*/*history*
 /.ssh/*
 !/.ssh/config
 /bin/*.dll
 /bin/*.exe
-_zinit
-zinit.git/

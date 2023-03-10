@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if ! hash powershell.exe 2>/dev/null; then
+if windows && ! hash powershell.exe 2>/dev/null; then
   PATH="$PATH:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0"
 fi
 
 if [ -f "$XDG_CACHE_HOME/proxy_server.sh" ]; then
   . "$XDG_CACHE_HOME/proxy_server.sh"
   LOCATION_PROFILE=office
-else
+elif windows; then
   # shellcheck disable=SC2016
   WINIPS=$(powershell.exe -nop -c 'Get-NetIPAddress | ? IPAddress -Match "^10\." | select -expand IPAddress')
   WIN_HTTP_PROXY=$(powershell.exe -nop -c 'Get-ItemPropertyValue "HKCU:/Software/Microsoft/Windows/CurrentVersion/Internet Settings" -Name AutoConfigURL' | sed 's/[\r\n]//g')

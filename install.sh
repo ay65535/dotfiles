@@ -48,8 +48,13 @@ shopt -s extglob
 TARGET=("$SCRIPT_ROOT"/@(.!(git|.|)|bin))
 
 for f in "${TARGET[@]}"; do
-  symlink_to_home $(basename $f)
+  symlink_to_home "$(basename $f)"
 done
+
+# if .bashrc not found, create it
+if [ ! -f ~/.bashrc ] || ! grep -q .bash_aliases ~/.bashrc; then
+  echo '. ~/.bash_aliases' >~/.bashrc
+fi
 
 # check os
 case "$OSTYPE" in
