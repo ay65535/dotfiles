@@ -1,3 +1,6 @@
+if [ ! -d "$XDG_STATE_HOME"/zsh ]; then
+  mkdir -p "$XDG_STATE_HOME"/zsh
+fi
 export HISTFILE="$XDG_STATE_HOME"/zsh/history
 
 ### Added by Zinit's installer
