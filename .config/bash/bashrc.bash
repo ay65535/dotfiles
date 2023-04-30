@@ -9,3 +9,6 @@ if [ -n "$http_proxy" ]; then
 else
   test -f "$HOME/curlrc" && rm "$HOME/curlrc"
 fi
+
+# shellcheck source=/home/jetson/.config/fzf/fzf.bash
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
