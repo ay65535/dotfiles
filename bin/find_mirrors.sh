@@ -2,7 +2,7 @@
 # .LINK
 #   https://askubuntu.com/questions/428698/are-there-alternative-repositories-to-ports-ubuntu-com-for-arm
 # .EXAMPLE
-#   ./bin/find_mirrors.sh arm64 bionic main | grep FOUND | awk '{print $2}' >mirrorlist.txt
+#   ./bin/find_mirrors.sh arm64 bionic main | grep FOUND | awk '{print $2}' | tee mirrorlist.txt
 
 if [ $# -ne 3 ]; then
   echo "Usage: $0 <architecture> <distribution> <repository>"
@@ -15,13 +15,13 @@ MIRROR_LIST=https://launchpad.net/ubuntu/+archivemirrors
 
 # Set to the architecture you're looking for (e.g., amd64, i386, arm64, armhf, armel, powerpc, ...).
 # See https://wiki.ubuntu.com/UbuntuDevelopment/PackageArchive#Architectures
-ARCH=$1
+ARCH=${1:-arm64}
 # Set to the Ubuntu distribution you need (e.g., precise, saucy, trusty, ...)
 # See https://wiki.ubuntu.com/DevelopmentCodeNames
-DIST=$2
+DIST=${2:-bionic}
 # Set to the repository you're looking for (main, restricted, universe, multiverse)
 # See https://help.ubuntu.com/community/Repositories/Ubuntu
-REPO=$3
+REPO=${3:-main}
 
 mirrorList=()
 
@@ -38,9 +38,15 @@ download_url_list() {
 check_url_header() {
   url="$1"
   if [ "$2" == "curl" ]; then
-    curl --connect-timeout 1 -m 1 -s --head "$url/dists/$DIST/$REPO/binary-$ARCH/" | head -n 1 | grep -q "HTTP/1.[01] [23].."
+    status_code=$(curl --connect-timeout 1 -m 1 -s -w "%{http_code}" --head "$url/dists/$DIST/$REPO/binary-$ARCH/" -o /dev/null)
   elif [ "$2" == "wget" ]; then
-    wget --timeout=1 -q --spider "$url/dists/$DIST/$REPO/binary-$ARCH/" 2>&1 | grep -q "HTTP/1.[01] [23].."
+    status_code=$(wget --timeout=1 --spider -S "$url/dists/$DIST/$REPO/binary-$ARCH/" 2>&1 | awk '/HTTP\/1\.[01]/ {print $2}')
+  fi
+
+  if [[ $status_code =~ ^[23] ]]; then
+    return 0
+  else
+    return 1
   fi
 }
 
@@ -65,7 +71,7 @@ for url in "${mirrorList[@]}"; do
 done
 
 # Limit the number of parallel processes
-max_parallel=10
+max_parallel=500
 parallel=0
 
 for url in "${mirrorList[@]}"; do
@@ -77,8 +83,10 @@ for url in "${mirrorList[@]}"; do
   ) &
 
   parallel=$((parallel + 1))
+  echo "\$parallel=$parallel"
 
   if [ $parallel -eq $max_parallel ]; then
+    echo "\$max_parallel=$max_parallel: wait"
     wait
     parallel=0
   fi
