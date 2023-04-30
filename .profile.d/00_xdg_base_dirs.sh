@@ -9,6 +9,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 alias wget=wget --hsts-file='$XDG_CACHE_HOME/wget-hsts'
 
+# shellcheck disable=SC2016
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 
 # export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages

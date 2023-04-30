@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # -T: PATH と path を連動する。
 typeset -T INFOPATH infopath
 # -x: 指定された変数をエクスポート
@@ -8,17 +10,17 @@ typeset -xU path cdpath fpath manpath infopath
 
 # $(brew --prefix) は時間がかかる処理であるため、ここで判定して HOMEBREW_PREFIX に格納する。
 if [ "$CPUTYPE" = 'x86_64' ] && [[ -x '/usr/local/bin/brew' ]]; then
-    HOMEBREW_PREFIX="/usr/local"
-    HOMEBREW_PREFIX_ALT="$HOMEBREW_PREFIX"
+  HOMEBREW_PREFIX="/usr/local"
+  HOMEBREW_PREFIX_ALT="$HOMEBREW_PREFIX"
 elif [ "$CPUTYPE" = 'arm64' ] && [[ -x '/opt/homebrew/bin/brew' ]]; then
-    HOMEBREW_PREFIX="/opt/homebrew"
-    HOMEBREW_PREFIX_ALT="/usr/local"  # for cask installer
+  HOMEBREW_PREFIX="/opt/homebrew"
+  HOMEBREW_PREFIX_ALT="/usr/local"  # for cask installer
 elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-    HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-    HOMEBREW_PREFIX_ALT="$HOMEBREW_PREFIX"
+  HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  HOMEBREW_PREFIX_ALT="$HOMEBREW_PREFIX"
 else
-    HOMEBREW_PREFIX="/tmp"
-    HOMEBREW_PREFIX_ALT="$HOMEBREW_PREFIX"
+  HOMEBREW_PREFIX="/tmp"
+  HOMEBREW_PREFIX_ALT="$HOMEBREW_PREFIX"
 fi
 
 export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"

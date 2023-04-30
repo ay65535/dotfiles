@@ -1,6 +1,6 @@
 if [ -d /home/linuxbrew ]; then
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-    alias brew="env PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin brew"
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  alias brew="env PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin brew"
 fi
 alias md5='openssl md5'
 alias aptl='apt list -a'

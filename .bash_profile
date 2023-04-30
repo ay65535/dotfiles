@@ -4,7 +4,7 @@
 shopt -s extglob
 
 ## Functions
-globexists () {
+globexists() {
   # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-a-wildcard-in-a-shell-script
   compgen -G "$1" >/dev/null || [ -e "$1" ]
 }
@@ -19,4 +19,5 @@ if globexists ~/.profile.d/*.*(ba)sh; then
 fi
 
 # source ~/.profile even when ~/.bash_profile exists.
+# shellcheck source=/dev/null
 test -f "$HOME/.profile" && . "$HOME/.profile"

@@ -13,7 +13,7 @@ SCRIPT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 # Functions
 #
 
-symlink_to_home () {
+symlink_to_home() {
   # 1st param is: filename to symlink
   local link_name="$1"
   local link_dir="$HOME"
@@ -58,10 +58,10 @@ fi
 
 # check os
 case "$OSTYPE" in
-  "linux"*) OSDIR=linux ;;
-  "darwin"*) OSDIR=macos ;;
-  "msys"*) OSDIR=windows ;;
-  *) OSDIR=unknown
+"linux"*) OSDIR=linux ;;
+"darwin"*) OSDIR=macos ;;
+"msys"*) OSDIR=windows ;;
+*) OSDIR=unknown ;;
 esac
 
 # setup .gitconfig

@@ -7,7 +7,7 @@ SHELL_SESSION_HISTORY=1
 SHELL_SESSION_HISTFILE_SHARED=$HISTFILE
 
 ##! functions
-brewsci () {
+brewsci() {
     brew search $1
     echo $1 | pbcopy
     if [ -z "$ZSH_NAME" ]; then
@@ -23,8 +23,8 @@ brewsci () {
         read -p "install $caskname ? (y/n): " ans
     fi
     case $ans in
-        [yY]* ) brew cask install $caskname ;;
-            * ) echo 'do nothing' ;;
+    [yY]*) brew cask install $caskname ;;
+    *) echo 'do nothing' ;;
     esac
 }
 
@@ -58,29 +58,31 @@ if type rbenv >/dev/null 2>&1; then
     source "${HOMEBREW_PREFIX}/opt/rbenv/completions/rbenv.${RBENV_SHELL}"
     command rbenv rehash 2>/dev/null
     rbenv() {
-    local command
-    command="${1:-}"
-    if [ "$#" -gt 0 ]; then
-        shift
-    fi
+        local command
+        command="${1:-}"
+        if [ "$#" -gt 0 ]; then
+            shift
+        fi
 
-    case "$command" in
-    rehash|shell)
-        eval "$(rbenv "sh-$command" "$@")";;
-    *)
-        command rbenv "$command" "$@";;
-    esac
+        case "$command" in
+        rehash | shell)
+            eval "$(rbenv "sh-$command" "$@")"
+            ;;
+        *)
+            command rbenv "$command" "$@"
+            ;;
+        esac
     }
 fi
 
 # iTerm
 case "$TERM_PROGRAM" in
-    *iTerm*)
-        if [ -n "$BASH" ]; then
-            test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-        # Disabled (loaded by zplugin)
-        # elif [ -n "$ZSH_NAME" ]; then
-        #     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-        fi
+*iTerm*)
+    if [ -n "$BASH" ]; then
+        test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+    # Disabled (loaded by zplugin)
+    # elif [ -n "$ZSH_NAME" ]; then
+    #     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+    fi
     ;;
 esac
