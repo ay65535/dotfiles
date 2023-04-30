@@ -76,12 +76,12 @@ if [[ "$?" == "1" ]]; then
       git config --file "$SCRIPT_ROOT/.config/git/config" --add include.path $OSDIR/config
     fi
 
-  elif [ -f "$HOME/.gitconfig" ]; then
-    git config --add include.path config.core
+  else
+    git config --global --add include.path ~/.config/git/config.core
 
     git config --get-all include.path | grep -q $OSDIR/config
     if [[ "$?" == "1" ]] && [[ "$OSDIR" != 'unknown' ]]; then
-      git config --add include.path $OSDIR/config
+      git config --add include.path ~/.config/git/$OSDIR/config
     fi
 
     if [ -f "$SCRIPT_ROOT/.config/git/config" ]; then
