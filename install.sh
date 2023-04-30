@@ -45,10 +45,10 @@ symlink_to_home () {
 
 shopt -s extglob
 
-TARGET=("$SCRIPT_ROOT"/@(.!(git|.|)|bin))
+TARGET=("$SCRIPT_ROOT"/@(.!(git|.|)|bin|local))
 
 for f in "${TARGET[@]}"; do
-  symlink_to_home "$(basename $f)"
+  symlink_to_home "$(basename "$f")"
 done
 
 # if .bashrc not found, create it
