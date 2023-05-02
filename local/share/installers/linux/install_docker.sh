@@ -2,11 +2,13 @@
 # https://docs.docker.com/engine/install/ubuntu/
 
 # Uninstall old versions
-sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get -y remove docker docker-engine docker.io containerd runc
+# => The following packages will be REMOVED:
+# =>   containerd docker docker.io nvidia-docker2 runc
 
 # Update the apt package index and install packages to allow apt to use a repository over HTTPS:
 sudo apt-get update
-sudo apt-get install \
+sudo apt-get -y install \
   ca-certificates \
   curl \
   gnupg
@@ -26,7 +28,10 @@ echo \
 sudo apt-get update
 
 # Install Docker Engine, containerd, and Docker Compose.
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin nvidia-docker2
+sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin nvidia-docker2
+
+grep docker /etc/group
+sudo usermod -aG docker "$USER"
 
 # Verify that the Docker Engine installation is successful by running the hello-world image:
-sudo docker run --rm hello-world
+docker run --rm hello-world

@@ -66,14 +66,13 @@ esac
 
 # setup .gitconfig
 
-git config --get-all include.path | grep -q config.core
-if [[ "$?" == "1" ]]; then
+if ! git config --get-all include.path; then
   if [ ! -f "$HOME/.gitconfig" ]; then
-    git config --file "$SCRIPT_ROOT/.config/git/config" --add include.path config.core
+    git config --file "$SCRIPT_ROOT/.config/git/config" --add include.path "$SCRIPT_ROOT/.config/git/config.core"
 
     git config --get-all include.path | grep -q $OSDIR/config
     if [[ "$?" == "1" ]] && [[ "$OSDIR" != 'unknown' ]]; then
-      git config --file "$SCRIPT_ROOT/.config/git/config" --add include.path $OSDIR/config
+      git config --file "$SCRIPT_ROOT/.config/git/config" --add include.path "$SCRIPT_ROOT/.config/git/$OSDIR/config"
     fi
 
   else
@@ -81,7 +80,7 @@ if [[ "$?" == "1" ]]; then
 
     git config --get-all include.path | grep -q $OSDIR/config
     if [[ "$?" == "1" ]] && [[ "$OSDIR" != 'unknown' ]]; then
-      git config --add include.path ~/.config/git/$OSDIR/config
+      git config --global --add include.path ~/.config/git/$OSDIR/config
     fi
 
     if [ -f "$SCRIPT_ROOT/.config/git/config" ]; then

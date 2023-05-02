@@ -30,6 +30,8 @@ else
   git -C "$RBENV_ROOT/plugins/ruby-build" pull
 fi
 
+. ~/.bash_profile
+
 ## Verify
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
 
@@ -40,17 +42,18 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | 
 # rbenv install -l
 # rbenv install -L
 # rbenv install -L | grep 2.6.8
-# LATEST_VERSION=$(
-rbenv install --list 2>/dev/null | grep -P '^\d+\.\d+\.\d+' | tail -1
-# )
-TARGET_VERSION=2.6.8  # for linuxbrew
+LATEST_VERSION=$(rbenv install --list 2>/dev/null | grep -P '^\d+\.\d+\.\d+' | tail -1)
+# TARGET_VERSION=2.6.8  # for linuxbrew
+TARGET_VERSION=$LATEST_VERSION
 
+# get libgdbm package name
+LIBGDBM=$(apt list libgdbm* 2>/dev/null | grep -oP '^libgdbm\d')
 # https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
-apt-get install autoconf bison patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
+sudo apt-get -y install autoconf bison patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev "$LIBGDBM" libgdbm-dev libdb-dev uuid-dev
 
-rbenv install $TARGET_VERSION
+rbenv install "$TARGET_VERSION"
 rbenv versions
-rbenv global $TARGET_VERSION
+rbenv global "$TARGET_VERSION"
 rbenv global
 ruby -v
 unset TARGET_VERSION
