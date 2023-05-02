@@ -1,5 +1,9 @@
 FZF_ROOT="$HOME/.local/src/github.com/junegunn/fzf"
 
+if [ ! -f "$FZF_ROOT/bin/fzf" ]; then
+  return
+fi
+
 # Setup fzf
 # ---------
 if [[ ! "$PATH" == *$FZF_ROOT/bin* ]]; then
