@@ -30,6 +30,7 @@ zinit.git/
 /.config/karabiner/
 /.config/libaccounts-glib/
 /.config/Microsoft*VisualStudio Services/*/Cache/
+/.config/mume/
 /.config/nautilus/
 /.config/NuGet/NuGet.Config
 /.config/pulse/
