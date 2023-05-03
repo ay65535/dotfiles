@@ -33,6 +33,7 @@ zinit.git/
 /.config/mume/
 /.config/nautilus/
 /.config/NuGet/NuGet.Config
+/.config/op/
 /.config/pulse/
 /.config/scoop/config.json
 /.config/stetic/library-cache/
