@@ -1,17 +1,17 @@
 #!/bin/bash
 # https://code.visualstudio.com/docs/remote/tunnels
 
-QUOLITY=${1:-stable}
+QUALITY=${1:-stable}
 PLATFORM=$(dpkg --print-architecture)
 
-# if QUOLITY is not stable or insider, error & exit
-if [ "$QUOLITY" != "stable" ] && [ "$QUOLITY" != "insider" ]; then
-  echo "Error: QUOLITY is not 'stable' or 'insider'"
+# if QUALITY is not stable or insider, error & exit
+if [ "$QUALITY" != "stable" ] && [ "$QUALITY" != "insider" ]; then
+  echo "Error: QUALITY is not 'stable' or 'insider'"
   exit 1
 fi
 
 # for linux x64/arm64
-curl -Lk "https://code.visualstudio.com/sha/download?build=$QUOLITY&os=cli-alpine-$PLATFORM" --output vscode_cli.tar.gz
+curl -Lk "https://code.visualstudio.com/sha/download?build=$QUALITY&os=cli-alpine-$PLATFORM" --output vscode_cli.tar.gz
 
 tar -xf vscode_cli.tar.gz -C ~/.local/bin/
 rm vscode_cli.tar.gz
