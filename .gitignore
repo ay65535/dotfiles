@@ -37,6 +37,7 @@ zinit.git/
 /.config/pulse/
 /.config/scoop/config.json
 /.config/stetic/library-cache/
+/.config/systemd/
 /.config/unity/
 /.config/xbuild/pkgconfig-cache-2.xml
 /.config/yarn/global/node_modules/
