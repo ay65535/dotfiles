@@ -8,7 +8,7 @@ globexists () {
 setopt extendedglob
 unsetopt nomatch
 local -a files
-files=($(find -E ~/.profile.d/*.*sh -regex '.*\.z?sh$'))
+files=($(find -E ~/.profile.d/ -regex '.*\.z?sh$' | sort))
 for file in $files; do
   . "$file"
 done
