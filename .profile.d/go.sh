@@ -1,9 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ -d /usr/local/go ]; then
+if [ -d /usr/lib/go ]; then
+  export GOROOT=/usr/lib/go
+elif [ -d /usr/local/go ]; then
   export GOROOT=/usr/local/go
-  # export GOPATH="$HOME/go"
-  export GOPATH="$HOME/.local"
-  export GOBIN="$GOPATH/bin"
-  export PATH="$PATH:/usr/local/go/bin:$GOBIN"
+else
+  return
 fi
+
+#export GOPATH="$HOME/go"
+export GOPATH="$HOME/.local"
+export GOBIN="$GOPATH/bin"
+export PATH="$PATH:$GOROOT/bin:$GOBIN"
