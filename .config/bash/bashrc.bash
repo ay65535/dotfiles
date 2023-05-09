@@ -3,7 +3,9 @@ if [ ! -d "$XDG_STATE_HOME"/bash ]; then
 fi
 export EDITOR=vi
 export HISTFILE="$XDG_STATE_HOME/bash/history"
-export BASH_COMPLETION_USER_FILE="$XDG_CONFIG_HOME/bash-completion/bash_completion"
+export BASH_COMPLETION_USER_FILE="$XDG_CONFIG_HOME/bash_completion"
+
+[[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 
 if [ -n "$http_proxy" ]; then
   echo "proxy=$http_proxy" >"$HOME/curlrc"

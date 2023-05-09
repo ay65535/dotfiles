@@ -36,3 +36,5 @@
 	proxy = 
 [ghq]
 	root = ~/.local/src
+[init]
+	defaultBranch = main
