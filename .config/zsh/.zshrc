@@ -4,6 +4,16 @@
 # Options
 #
 
+setopt AUTO_CD
+setopt AUTO_LIST
+setopt AUTO_MENU
+setopt AUTO_PARAM_KEYS
+setopt AUTO_PARAM_SLASH
+setopt AUTO_PUSHD
+setopt AUTO_RESUME
+setopt EQUALS
+setopt EXTENDED_HISTORY
+setopt GLOB_DOTS
 setopt HIST_FIND_NO_DUPS          # 履歴検索中、(連続してなくとも)重複を飛ばす
 setopt HIST_IGNORE_ALL_DUPS       # 履歴中の重複行をファイル記録前に無くす
 setopt HIST_IGNORE_DUPS           # 前と重複する行は記録しない
@@ -11,13 +21,49 @@ setopt HIST_IGNORE_SPACE          # 行頭がスペースのコマンドは記�
 setopt HIST_NO_STORE              # histroyコマンドは記録しない
 setopt HIST_REDUCE_BLANKS         # 余分な空白は詰めて記録
 setopt IGNOREEOF                  # supress Ctrl-D logout
-setopt promptsubst                # Most themes use this option.
+setopt INTERACTIVE_COMMENTS
+setopt NO_BEEP
+setopt NUMERIC_GLOB_SORT
+setopt PRINT_EIGHT_BIT
+setopt PROMPT_SUBST               # Most themes use this option.
+setopt PUSHD_IGNORE_DUPS
+#setopt SH_WORD_SPLIT
+unsetopt LIST_BEEP
 
 HISTSIZE=100000
 SAVEHIST=200000
 
 #export HISTFILE="$XDG_STATE_HOME"/zsh/history
 export HISTFILE="$ZDOTDIR/history"
+
+if macos; then
+  if type ggrep >/dev/null 2>&1; then
+      GNU_COREUTILS=1
+      GNU_PREFIX='g'
+  else
+      GNU_COREUTILS=0
+      GNU_PREFIX=''
+  fi
+elif linux; then
+  GNU_COREUTILS=1
+  GNU_PREFIX=''
+fi
+# enable color support of ls and also add handy aliases
+if [ "$GNU_COREUTILS" = 1 ]; then
+    alias ls="${GNU_PREFIX}ls --color=auto"
+    # alias dir="${GNU_PREFIX}dir --color=auto"
+    # alias vdir="${GNU_PREFIX}vdir --color=auto"
+    alias grep="${GNU_PREFIX}grep --color=auto"
+    alias fgrep="${GNU_PREFIX}fgrep --color=auto"
+    alias egrep="${GNU_PREFIX}egrep --color=auto"
+else
+    alias ls='ls -G'
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 
 ### Added by Zinit's installer
 if [[ ! -f $XDG_DATA_HOME/zinit/zinit.git/zinit.zsh ]]; then

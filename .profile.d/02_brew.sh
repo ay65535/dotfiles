@@ -35,6 +35,8 @@ eval_brew_shellenv() {
   false
 }
 
+# ----------
+
 eval_brew_shellenv /opt/homebrew ||
   eval_brew_shellenv /home/linuxbrew/.linuxbrew ||
   eval_brew_shellenv "$HOME/homebrew"
