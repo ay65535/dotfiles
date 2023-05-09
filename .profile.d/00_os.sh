@@ -21,13 +21,13 @@ linux() {
   esac
 }
 
-# case "$OSTYPE" in
-#   "linux"*)  ISLINUX=1; ISMACOS= ; ISWINDOWS= ; OS=linux;;
-#   "darwin"*) ISLINUX= ; ISMACOS=1; ISWINDOWS= ; OS=macos;;
-#   "msys"*)   ISLINUX= ; ISMACOS= ; ISWINDOWS=1; OS=windows;;
-# esac
+case "$OSTYPE" in
+  "linux"*)  ISLINUX=1; ISMACOS= ; ISWINDOWS= ; OSDIR=linux;;
+  "darwin"*) ISLINUX= ; ISMACOS=1; ISWINDOWS= ; OSDIR=macos;;
+  "msys"*)   ISLINUX= ; ISMACOS= ; ISWINDOWS=1; OSDIR=windows;;
+esac
 
-# export ISLINUX ISMACOS ISWINDOWS
+export ISLINUX ISMACOS ISWINDOWS OSDIR
 
 # if [[ "$ISLINUX" ]] && [[ -f '/etc/os-release' ]]; then
 #   os_release="$(cat /etc/os-release)"
