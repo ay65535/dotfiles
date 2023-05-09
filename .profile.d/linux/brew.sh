@@ -27,3 +27,5 @@ if command -v brew >/dev/null; then
     mkdir -p "$HOMEBREW_TEMP"
   fi
 fi
+
+[ -r "$HOMEBREW_PREFIX/opt/dotnet/libexec" ] && export DOTNET_ROOT="$HOMEBREW_PREFIX/opt/dotnet/libexec"
