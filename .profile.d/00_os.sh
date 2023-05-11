@@ -21,6 +21,22 @@ linux() {
   esac
 }
 
+UNAME_A=$(uname -a)
+
+msys() {
+  case "$UNAME_A" in
+  *Msys*) true ;;
+  *) false ;;
+  esac
+}
+
+wsl() {
+  case "$UNAME_A" in
+  *WSL*) true ;;
+  *) false ;;
+  esac
+}
+
 case "$OSTYPE" in
   "linux"*)  ISLINUX=1; ISMACOS= ; ISWINDOWS= ; OSDIR=linux;;
   "darwin"*) ISLINUX= ; ISMACOS=1; ISWINDOWS= ; OSDIR=macos;;
