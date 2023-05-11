@@ -141,6 +141,11 @@ case "$TERM_PROGRAM" in
     zinit is-snippet pick'.iterm2_shell_integration.zsh' wait'!0' for \
       "${ZDOTDIR}/.iterm2_shell_integration.zsh"
   ;;
+  vscode)
+    VSCODE_SHELL_INTEGRATION_PATH="$(code --locate-shell-integration-path zsh)"
+    zinit is-snippet pick"$VSCODE_SHELL_INTEGRATION_PATH" wait'!0' for \
+      "$VSCODE_SHELL_INTEGRATION_PATH"
+  ;;
 esac
 
 # Load starship theme
