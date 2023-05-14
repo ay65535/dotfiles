@@ -1,11 +1,30 @@
 #!/bin/bash
 
+check_brew_shellenv() {
+  local homebrew_prefix_tmp=${1:-$HOMEBREW_PREFIX}
+  if [ "$HOMEBREW_SHELLENV_DID_INIT" = true ]; then
+    return 0
+  elif [ -n "$HOMEBREW_PREFIX" ] && [ "$HOMEBREW_PREFIX" = "$homebrew_prefix_tmp" ] &&
+    [ -n "$HOMEBREW_CELLAR" ] && [ "$HOMEBREW_CELLAR" = "$HOMEBREW_PREFIX/Cellar" ] &&
+    [ -n "$HOMEBREW_REPOSITORY" ] && [ "$HOMEBREW_REPOSITORY" = "$HOMEBREW_PREFIX" ] &&
+    echo "$PATH" | grep "$HOMEBREW_PREFIX/bin"; then
+    HOMEBREW_SHELLENV_DID_INIT=true
+    return 0
+  else
+    HOMEBREW_SHELLENV_DID_INIT=false
+    return 1
+  fi
+}
+
 # eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 # eval "$($HOMEBREW_PREFIX/bin/brew shellenv zsh)"
 eval_brew_shellenv() {
   # find homebrew root directory
-  HOMEBREW_PREFIX=${1:-$HOMEBREW_PREFIX}
-  if [ -z "$HOMEBREW_PREFIX" ]; then
+  local homebrew_prefix_tmp=${1:-$HOMEBREW_PREFIX}
+
+  if check_brew_shellenv "$homebrew_prefix_tmp"; then
+    return 0
+  else
     if macos; then
       UNAME_MACHINE=$(uname -m)
       if [ "$UNAME_MACHINE" = 'arm64' ]; then
@@ -20,19 +39,20 @@ eval_brew_shellenv() {
     else
       echo "Unknown OS: $OSTYPE" >&2
     fi
+
+    if [ -r "$HOMEBREW_PREFIX/bin/brew" ]; then
+      export HOMEBREW_PREFIX
+      export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
+      export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX"
+      export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}"
+      export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH:+:$MANPATH}"
+      export INFOPATH="$HOMEBREW_PREFIX/share/info${INFOPATH:+:$INFOPATH}"
+      HOMEBREW_SHELLENV_DID_INIT=true
+      return 0
+    fi
   fi
 
-  if [ -r "$HOMEBREW_PREFIX/bin/brew" ]; then
-    export HOMEBREW_PREFIX
-    export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
-    export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX"
-    export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}"
-    export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:"
-    export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
-    true
-  fi
-
-  false
+  return 1
 }
 
 # ----------

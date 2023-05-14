@@ -42,20 +42,20 @@ path=(
   /Library/Apple/usr/bin(N-/)
   /Library/Frameworks/Mono.framework/Versions/Current/Commands(N-/)
   /opt/X11/bin(N-/)
-  # "${path[@]}"
+  "${path[@]}"
 )
 manpath=(
-  $HOMEBREW_PREFIX/share/man
+  $HOMEBREW_PREFIX/share/man(N-/)
   #$HOMEBREW_PREFIX_ALT/share/man
-  /usr/share/man
-  # "${manpath[@]}"
+  /usr/share/man(N-/)
+  "${manpath[@]}"
 )
 infopath=(
   $HOMEBREW_PREFIX/share/info(N-/)
   "${infopath[@]}"
 )
 fpath=(
-  $$HOMEBREW_PREFIX/share/zsh-completions
+  $HOMEBREW_PREFIX/share/zsh-completions(N-/)
   "${fpath[@]}"
 )
 xdg_data_dirs=(

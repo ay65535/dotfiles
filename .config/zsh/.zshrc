@@ -11,6 +11,7 @@ setopt AUTO_PARAM_KEYS
 setopt AUTO_PARAM_SLASH
 setopt AUTO_PUSHD
 setopt AUTO_RESUME
+setopt BASH_AUTO_LIST
 setopt EQUALS
 setopt EXTENDED_HISTORY
 setopt GLOB_DOTS
@@ -22,13 +23,15 @@ setopt HIST_NO_STORE              # histroyコマンドは記録しない
 setopt HIST_REDUCE_BLANKS         # 余分な空白は詰めて記録
 setopt IGNOREEOF                  # supress Ctrl-D logout
 setopt INTERACTIVE_COMMENTS
+setopt LIST_AMBIGUOUS
 setopt NO_BEEP
+setopt NO_LIST_BEEP
+setopt NO_MENUCOMPLETE
 setopt NUMERIC_GLOB_SORT
 setopt PRINT_EIGHT_BIT
 setopt PROMPT_SUBST               # Most themes use this option.
 setopt PUSHD_IGNORE_DUPS
 #setopt SH_WORD_SPLIT
-unsetopt LIST_BEEP
 
 HISTSIZE=100000
 SAVEHIST=200000
@@ -83,24 +86,24 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Useful support for interacting with Terminal.app or other terminal programs
-if [ "$TERM_PROGRAM" != 'Apple_Terminal' ]; then
-  zinit snippet "$ZDOTDIR/.zshrc_shell_session"
-fi
+# if [ "$TERM_PROGRAM" != 'Apple_Terminal' ]; then
+#   zinit snippet "$ZDOTDIR/.zshrc_shell_session"
+# fi
 
 # git
-zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/git/git.plugin.zsh
-zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/git-lfs/git-lfs.plugin.zsh
+# zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/git/git.plugin.zsh
+# zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/git-lfs/git-lfs.plugin.zsh
 
 # docker
-zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/docker-compose/docker-compose.plugin.zsh
+# zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/docker-compose/docker-compose.plugin.zsh
 
 # rust
-zinit as'completion' wait'' for \
-  https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/rust/_rustc
+# zinit as'completion' wait'' for \
+#   https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/rust/_rustc
 
 # junegunn/fzf-bin
-# zinit light-mode from"gh-r" as"program" for \
-#   junegunn/fzf-bin
+zinit light-mode from"gh-r" as"program" for \
+  junegunn/fzf
 zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/fzf/fzf.plugin.zsh
 
 # sharkdp/fd
@@ -113,65 +116,40 @@ zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/fzf/fzf.plug
 
 
 # ogham/exa, replacement for ls
-zinit ice wait"2" lucid from"gh-r" as"program" mv"bin/exa* -> exa"
-zinit light ogham/exa
+# zinit ice wait"2" lucid from"gh-r" as"program" mv"bin/exa* -> exa"
+# zinit light ogham/exa
 
 # https://github.com/so-fancy/diff-so-fancy/blob/master/pro-tips.md
-zinit light-mode as:program pick:bin/git-dsf for \
-  zdharma-continuum/zsh-diff-so-fancy
+# zinit light-mode as:program pick:bin/git-dsf for \
+#   zdharma-continuum/zsh-diff-so-fancy
 
 # zdharma-continuum/history-search-multi-word
 # zstyle ":history-search-multi-word" page-size "11"
 # zinit ice wait"1" lucid
 # zinit load zdharma-continuum/history-search-multi-word
 
+    # zdharma-continuum/fast-syntax-highlighting \
+  # as"completion" \
+  #   https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/docker/_docker \
+
+  # atload"_zsh_autosuggest_start" \
+  #   zsh-users/zsh-autosuggestions \
+
+  # atinit"zicompinit; zicdreplay; zmodload -i zsh/complist" \
 zinit wait lucid light-mode for \
   atinit"zicompinit; zicdreplay" \
-    zdharma-continuum/fast-syntax-highlighting \
     https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh \
-  as"completion" \
-    https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/docker/_docker \
-  atload"_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
   blockf atpull'zinit creinstall -q .' \
     zsh-users/zsh-completions
 
-case "$TERM_PROGRAM" in
-  *iTerm*)
-    zinit is-snippet pick'.iterm2_shell_integration.zsh' wait'!0' for \
-      "${ZDOTDIR}/.iterm2_shell_integration.zsh"
-  ;;
-  vscode)
-    VSCODE_SHELL_INTEGRATION_PATH="$(code --locate-shell-integration-path zsh)"
-    zinit is-snippet pick"$VSCODE_SHELL_INTEGRATION_PATH" wait'!0' for \
-      "$VSCODE_SHELL_INTEGRATION_PATH"
-  ;;
-esac
+# This setting slows down fzf history filtering.
+# also, iTerm2's 'Load shell integration automatically' must be disabled.
+# if [ "$TERM_PROGRAM" = 'iTerm.app' ]; then
+#   zinit is-snippet pick'.iterm2_shell_integration.zsh' wait'!0' for \
+#     "${ZDOTDIR}/.iterm2_shell_integration.zsh"
+# fi
 
 # Load starship theme
-if hash starship; then
-  case "$TERM_PROGRAM" in
-    *iTerm*)
-      # zinit light-mode id-as'starship' \
-      #   atclone"starship init zsh --print-full-init >starship.zsh; starship completions zsh >_starship; zicompinit; zicdreplay; zinit creinstall -q _local/zinit" \
-      #   atpull"%atclone" for \
-      #   zdharma-continuum/null
-    ;;
-    *)
-      # source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
-      # if [ ! -e starship.zsh ]; then
-      #     starship init zsh --print-full-init > starship.zsh
-      # fi
-      # source starship.zsh
-      # zinit ice id-as'starship' \
-      #   atclone"starship init zsh --print-full-init > starship.zsh" \
-      #   atpull"%atclone" \
-      #   pick'starship.zsh' wait'!0'
-      # zinit light zdharma-continuum/null
-    ;;
-  esac
-fi
-
 zinit light-mode \
   as"command" from"gh-r" \
   atclone"./starship init zsh >init.zsh; ./starship completions zsh >_starship" \
