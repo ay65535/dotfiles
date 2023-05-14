@@ -102,9 +102,12 @@ fi
 #   https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/rust/_rustc
 
 # junegunn/fzf-bin
+FZF_DEFAULT_OPTS='--height=15 --reverse --inline-info --color=dark --color=fg:-1,bg:-1,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe --color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef'
 zinit light-mode from"gh-r" as"program" for \
   junegunn/fzf
-zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/fzf/fzf.plugin.zsh
+zinit has'fzf' for \
+  https://github.com/junegunn/fzf/raw/master/shell/key-bindings.zsh
+# zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/fzf/fzf.plugin.zsh
 
 # sharkdp/fd
 # zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
@@ -114,31 +117,27 @@ zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/fzf/fzf.plug
 # zinit ice as"command" from"gh-r" mv"bat* -> bat" pick"bat/bat"
 # zinit light sharkdp/bat
 
-
 # ogham/exa, replacement for ls
 # zinit ice wait"2" lucid from"gh-r" as"program" mv"bin/exa* -> exa"
 # zinit light ogham/exa
 
 # https://github.com/so-fancy/diff-so-fancy/blob/master/pro-tips.md
-# zinit light-mode as:program pick:bin/git-dsf for \
-#   zdharma-continuum/zsh-diff-so-fancy
+zinit lucid as:program pick:bin/git-dsf for \
+  zdharma-continuum/zsh-diff-so-fancy
 
 # zdharma-continuum/history-search-multi-word
 # zstyle ":history-search-multi-word" page-size "11"
-# zinit ice wait"1" lucid
-# zinit load zdharma-continuum/history-search-multi-word
+# zinit wait"1" lucid for \
+#   zdharma-continuum/history-search-multi-word
 
-    # zdharma-continuum/fast-syntax-highlighting \
-  # as"completion" \
-  #   https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/docker/_docker \
-
-  # atload"_zsh_autosuggest_start" \
-  #   zsh-users/zsh-autosuggestions \
-
-  # atinit"zicompinit; zicdreplay; zmodload -i zsh/complist" \
 zinit wait lucid light-mode for \
-  atinit"zicompinit; zicdreplay" \
+  atinit"zicompinit; zicdreplay; zmodload -i zsh/complist" \
+    zdharma-continuum/fast-syntax-highlighting \
     https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh \
+  as"completion" \
+    https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/docker/_docker \
+  atload"_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
   blockf atpull'zinit creinstall -q .' \
     zsh-users/zsh-completions
 
