@@ -1,3 +1,4 @@
 [submodule "secret"]
 	path = secret
 	url = https://ay65535@github.com/ay65535/dotfiles-secret.git
+	branch = main
