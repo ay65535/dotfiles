@@ -4,10 +4,10 @@ check_brew_shellenv() {
   local homebrew_prefix_tmp=${1:-$HOMEBREW_PREFIX}
   if [ "$HOMEBREW_SHELLENV_DID_INIT" = true ]; then
     return 0
-  elif [ -n "$HOMEBREW_PREFIX" ] && [ "$HOMEBREW_PREFIX" = "$homebrew_prefix_tmp" ] &&
+  elif [ -O "$HOMEBREW_PREFIX" ] && [ "$HOMEBREW_PREFIX" = "$homebrew_prefix_tmp" ] &&
     [ -n "$HOMEBREW_CELLAR" ] && [ "$HOMEBREW_CELLAR" = "$HOMEBREW_PREFIX/Cellar" ] &&
     [ -n "$HOMEBREW_REPOSITORY" ] && [ "$HOMEBREW_REPOSITORY" = "$HOMEBREW_PREFIX" ] &&
-    echo "$PATH" | grep "$HOMEBREW_PREFIX/bin"; then
+    echo "$PATH" | grep -q "$HOMEBREW_PREFIX/bin"; then
     HOMEBREW_SHELLENV_DID_INIT=true
     return 0
   else
@@ -27,7 +27,9 @@ eval_brew_shellenv() {
   else
     if macos; then
       UNAME_MACHINE=$(uname -m)
-      if [ "$UNAME_MACHINE" = 'arm64' ]; then
+      if [ -n "$homebrew_prefix_tmp" ]; then
+        HOMEBREW_PREFIX=$homebrew_prefix_tmp
+      elif [ "$UNAME_MACHINE" = 'arm64' ]; then
         HOMEBREW_PREFIX=/opt/homebrew
       elif [ "$UNAME_MACHINE" = 'x86_64' ]; then
         HOMEBREW_PREFIX=/usr/local
@@ -35,12 +37,12 @@ eval_brew_shellenv() {
         echo "Unknown machine type: $UNAME_MACHINE" >&2
       fi
     elif linux; then
-      HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+      HOMEBREW_PREFIX=${homebrew_prefix_tmp:-/home/linuxbrew/.linuxbrew}
     else
       echo "Unknown OS: $OSTYPE" >&2
     fi
 
-    if [ -r "$HOMEBREW_PREFIX/bin/brew" ]; then
+    if [ -O "$HOMEBREW_PREFIX/bin/brew" ]; then
       export HOMEBREW_PREFIX
       export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
       export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX"
