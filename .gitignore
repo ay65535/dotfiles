@@ -10,6 +10,7 @@ _zinit
 *htoprc
 /.config/.mono/keypairs/
 /.config/anyenv/anyenv-install/
+/.config/bash-completion.d/kind_completion.bash
 /.config/bash-completion.d/kubectl_completion.bash
 /.config/brewfile/*
 /.config/chromium/
