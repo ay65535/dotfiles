@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ -n "$BASH" ]; then
+  SHEXT_PREFIX=ba
+  shopt -s extglob
+elif [ -n "$ZSH_NAME" ]; then
+  SHEXT_PREFIX=z
+  setopt EXTENDED_GLOB
+fi
+
+# source /.config/bash-completion.d/*.*sh if it exists.
+if globexists "$XDG_CONFIG_HOME"/bash-completion.d/*.*("$SHEXT_PREFIX")sh; then
+  for f in "$XDG_CONFIG_HOME"/bash-completion.d/*.*("$SHEXT_PREFIX")sh; do
+    # shellcheck disable=SC1090
+    . "$f"
+  done
+fi
