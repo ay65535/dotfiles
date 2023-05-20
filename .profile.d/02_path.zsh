@@ -56,6 +56,7 @@ infopath=(
 )
 fpath=(
   $HOMEBREW_PREFIX/share/zsh-completions(N-/)
+  $HOMEBREW_PREFIX/share/zsh/site-functions(N-/)
   "${fpath[@]}"
 )
 xdg_data_dirs=(
