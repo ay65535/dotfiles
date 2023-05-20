@@ -11,7 +11,7 @@ if [ "$QUALITY" != "stable" ] && [ "$QUALITY" != "insider" ]; then
 fi
 
 # for linux x64/arm64
-curl -Lk "https://code.visualstudio.com/sha/download?build=$QUALITY&os=cli-alpine-$PLATFORM" --output vscode_cli.tar.gz
+curl -fsSLk "https://code.visualstudio.com/sha/download?build=$QUALITY&os=cli-alpine-$PLATFORM" --output vscode_cli.tar.gz
 
 tar -xf vscode_cli.tar.gz -C ~/.local/bin/
 rm vscode_cli.tar.gz
@@ -33,7 +33,8 @@ code tunnel service install
 # error error starting service: org.freedesktop.systemd1.NoSuchUnit: Unit code-tunnel.service not found.
 
 systemctl --user daemon-reload
-systemctl --user status code-tunnel
+systemctl --no-pager --user status code-tunnel
+systemctl --user start code-tunnel
 systemctl --user restart code-tunnel
 
 # code tunnel service uninstall

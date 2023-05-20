@@ -1,11 +1,12 @@
 FZF_PATH=$(command -v fzf)
-if [ -n "$FZF_PATH" ]; then
+if [[ "$FZF_PATH" == */bin/fzf ]]; then
+  FZF_BASE=${FZF_PATH%/bin/fzf}
+elif [[ "$FZF_PATH" == *zinit/plugins/*/fzf ]]; then
   FZF_BASE=${FZF_PATH%/fzf}
-else
+elif [[ -d "$HOME/.local/src/github.com/junegunn/fzf" ]]; then
   FZF_BASE="$HOME/.local/src/github.com/junegunn/fzf"
-  if [ ! -f "$FZF_BASE/bin/fzf" ]; then
-    return
-  fi
+else
+  return
 fi
 
 # Setup fzf

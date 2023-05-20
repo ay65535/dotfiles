@@ -82,18 +82,6 @@ if command -v brew >/dev/null; then
   if [ ! -d "$HOMEBREW_TEMP" ]; then
     mkdir -p "$HOMEBREW_TEMP"
   fi
-
-  # formulae specific settings
-  if [ -r "$HOMEBREW_PREFIX/opt/dotnet/libexec" ]; then
-    export DOTNET_ROOT="$HOMEBREW_PREFIX/opt/dotnet/libexec"
-    PATH=$(add_path_after "$PATH" "${DOTNET_ROOT%/libexec}/bin")
-  elif [ -r "$HOMEBREW_PREFIX/opt/dotnet@6/libexec" ]; then
-    export DOTNET_ROOT="$HOMEBREW_PREFIX/opt/dotnet@6/libexec"
-    PATH=$(add_path_after "$PATH" "${DOTNET_ROOT%/libexec}/bin")
-  elif [ -r "$HOME/.dotnet" ]; then
-    export DOTNET_ROOT="$HOME/.dotnet"
-    PATH=$(add_path_after "$PATH" "$DOTNET_ROOT")
-  fi
 fi
 
 export PATH MANPATH INFOPATH
