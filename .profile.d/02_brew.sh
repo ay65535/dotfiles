@@ -72,8 +72,8 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
   export HOMEBREWALT_REPOSITORY="$HOMEBREWALT_PREFIX"
   PATH=$(add_path_after "$PATH" $HOMEBREWALT_PREFIX/bin)
   PATH=$(add_path_after "$PATH" $HOMEBREWALT_PREFIX/sbin)
-  MANPATH=$(add_path_after "$MANPATH" $HOMEBREWALT_PREFIX/share/man)
-  INFOPATH=$(add_path_after "$INFOPATH" $HOMEBREWALT_PREFIX/share/info)
+  [ -d $HOMEBREWALT_PREFIX/share/man ] && MANPATH=$(add_path_after "$MANPATH" $HOMEBREWALT_PREFIX/share/man)
+  [ -d $HOMEBREWALT_PREFIX/share/info ] && INFOPATH=$(add_path_after "$INFOPATH" $HOMEBREWALT_PREFIX/share/info)
 fi
 
 if command -v brew >/dev/null; then
