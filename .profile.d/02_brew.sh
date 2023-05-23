@@ -48,8 +48,8 @@ eval_brew_shellenv() {
       export HOMEBREW_REPOSITORY=$HOMEBREW_PREFIX
       PATH=$(add_path_before "$PATH" "$HOMEBREW_PREFIX/sbin")
       PATH=$(add_path_before "$PATH" "$HOMEBREW_PREFIX/bin")
-      MANPATH=$(add_path_before "$MANPATH" "$HOMEBREW_PREFIX/share/man")
-      INFOPATH=$(add_path_before "$INFOPATH" "$HOMEBREW_PREFIX/share/info")
+      [ -d "$HOMEBREW_PREFIX/share/man" ] && MANPATH=$(add_path_before "$MANPATH" "$HOMEBREW_PREFIX/share/man")
+      [ -d "$HOMEBREW_PREFIX/share/info" ] && INFOPATH=$(add_path_before "$INFOPATH" "$HOMEBREW_PREFIX/share/info")
 
       HOMEBREW_SHELLENV_DID_INIT=true
       return 0
