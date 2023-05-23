@@ -1,16 +1,22 @@
 #!/bin/bash
-# https://www.server-world.info/query?os=Ubuntu_18.04&p=samba&f=1
+# https://www.server-world.info/query?os=Ubuntu_18.04&p=samba&f=2
 # https://applingo.tokyo/article/9401
 
 sudo apt update
+sudo apt -y upgrade && sudo apt -y full-upgrade && sudo apt -y autoremove && sudo apt -y clean
 sudo apt -y install samba
+
 # smabaでのアクセス時のパスワードを設定します。
 sudo pdbedit -a "$USER"
 
-SMB_SHARED_DIR=/home/shared
-
 SMB_GROUP_NAME=sambashare
-SMB_SHARED_DIR=/home/sambashare
+
+# Add your user to the samba group.
+sudo usermod -aG $SMB_GROUP_NAME "$USER"
+grep $SMB_GROUP_NAME /etc/group
+
+#SMB_SHARED_DIR=/home/sambashare
+SMB_SHARED_DIR=/home/shared
 
 sudo mkdir $SMB_SHARED_DIR
 sudo chgrp $SMB_GROUP_NAME $SMB_SHARED_DIR
@@ -38,6 +44,13 @@ ls -lA /home/sambashare/
 touch /home/shared/a.txt
 touch /home/sambashare/a.txt
 
-sudo systemctl status --no-pager smbd.service
+systemctl status --no-pager smbd.service
 sudo systemctl restart smbd
 journalctl -xe --no-pager
+
+# Stop
+#sudo systemctl stop smbd
+
+# Uninstall
+#sudo apt -y purge samba && sudo apt -y autoremove && sudo apt -y clean
+#sudo rm -rfv /var/lib/samba
