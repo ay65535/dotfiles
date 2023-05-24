@@ -13,6 +13,15 @@ available() {
     done
     return 1
 }
+
+update() {
+    sudo apt update &&
+        sudo apt -y upgrade &&
+        sudo apt -y full-upgrade &&
+        sudo apt -y autoremove &&
+        sudo apt -y clean
+}
+
 FILTER=$(available "$INTERACTIVE_FILTER")
 
 if [[ "$FILTER" != "" ]]; then
