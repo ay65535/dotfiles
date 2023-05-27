@@ -68,6 +68,14 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+if ! grep -q pam_tid.so /etc/pam.d/sudo; then
+  [ ! -f /etc/pam.d/sudo.orig ] && sudo ditto /etc/pam.d/sudo /etc/pam.d/sudo.orig
+  if command -v gsed; then
+    echo "Adding pam_tid.so to /etc/pam.d/sudo"
+    sudo gsed -i'' '2i auth       sufficient     pam_tid.so' /etc/pam.d/sudo
+  fi
+fi
+
 ### Added by Zinit's installer
 if [[ ! -f $XDG_DATA_HOME/zinit/zinit.git/zinit.zsh ]]; then
   print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
