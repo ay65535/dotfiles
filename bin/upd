@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo
+echo "Updating system..."
+
+sudo apt update &&
+  sudo apt -y upgrade &&
+  sudo apt -y autoremove &&
+  sudo apt -y clean
+
+echo
+echo "Updating snaps..."
+sudo snap refresh --list &&
+  sudo snap refresh &&
+  snap list --all &&
+  snap changes
+
+echo
+echo "Updating Homebrew..."
+brew update &&
+  brew upgrade &&
+  brew cleanup &&
+  brew doctor
