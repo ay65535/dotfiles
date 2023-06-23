@@ -2,6 +2,8 @@
 
 ARCH=$(dpkg --print-architecture)
 
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 case $ARCH in
 *amd64 | x64*)
   # https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu-1804

@@ -16,3 +16,5 @@ elif [ -r "$HOME/.dotnet" ]; then
   [ -d "$DOTNET_ROOT/tools" ] && PATH=$(add_path_after "$PATH" "$DOTNET_ROOT/tools")
   export PATH
 fi
+
+export DOTNET_CLI_TELEMETRY_OPTOUT=1

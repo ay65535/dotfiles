@@ -31,7 +31,7 @@ echo "Installing Go ${VERSION} for ${ARCH} architecture"
 DOWNLOAD_URL="https://dl.google.com/go/${VERSION}.linux-${ARCH}.tar.gz"
 
 if [ "$DOWNLOADER" == "curl" ]; then
-  curl -o /tmp/go.tar.gz "$DOWNLOAD_URL"
+  curl -fsSLo /tmp/go.tar.gz "$DOWNLOAD_URL"
 else
   wget "$DOWNLOAD_URL" -O /tmp/go.tar.gz
 fi
