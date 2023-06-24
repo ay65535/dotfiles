@@ -76,12 +76,10 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
   [ -d $HOMEBREWALT_PREFIX/share/info ] && INFOPATH=$(add_path_after "$INFOPATH" $HOMEBREWALT_PREFIX/share/info)
 fi
 
-if command -v brew >/dev/null; then
+if command -v brew >/dev/null && [ -v https_proxy ]; then
   export HOMEBREW_CURLRC=${XDG_CONFIG_HOME:-$HOME/.config}/.curlrc
-  export HOMEBREW_TEMP=$HOME/.tmp
-  if [ ! -d "$HOMEBREW_TEMP" ]; then
-    mkdir -p "$HOMEBREW_TEMP"
-  fi
+  # export HOMEBREW_TEMP=$HOME/.tmp
+  # [ ! -d "$HOMEBREW_TEMP" ] && mkdir -p "$HOMEBREW_TEMP"
 fi
 
 export PATH MANPATH INFOPATH
