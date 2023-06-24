@@ -14,10 +14,13 @@ _zinit
 !/.config/fzf/
 !/.config/git/
 /.config/git/config
+/.config/git/gitk
 !/.config/npm/
 !/.config/putty/
 !/.config/tmux/
 !/.config/zsh/
+/.config/zsh/.iterm2_shell_integration.zsh
+/.config/zsh/.iterm2/
 !/.config/bash_completion
 !/.config/wgetrc
 /.local/bin/clion
