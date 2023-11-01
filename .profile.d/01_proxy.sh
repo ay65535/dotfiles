@@ -33,13 +33,11 @@ if [ "$PROXY_SERVER" != "" ] && echo "$LOCATION_PROFILE" | grep -qE "office|vpn"
   export http_proxy="$PROXY_URL"
   export https_proxy="$PROXY_URL"
   export ftp_proxy=$PROXY_URL
-  export all_proxy=$PROXY_URL
   export no_proxy="127.0.0.1,localhost,::1,192.168.39.0/24,192.168.250.0/24,10.6.80.0/23${BYPASS_HOST:+,$BYPASS_HOST}"
 
   export HTTP_PROXY="$http_proxy"
   export HTTPS_PROXY="$https_proxy"
   export FTP_PROXY=$ftp_proxy
-  export ALL_PROXY=$all_proxy
   export NO_PROXY="$no_proxy"
 else
   unset http_proxy https_proxy ftp_proxy all_proxy HTTP_PROXY HTTPS_PROXY FTP_PROXY ALL_PROXY

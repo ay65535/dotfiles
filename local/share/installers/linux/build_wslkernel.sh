@@ -7,7 +7,6 @@ cat <<EOS
 http_proxy  : $http_proxy
 https_proxy : $https_proxy
 ftp_proxy   : $ftp_proxy
-all_proxy   : $all_proxy
 no_proxy    : $no_proxy
 EOS
 
@@ -15,7 +14,6 @@ docker run --name wsl-kernel-builder --rm -it \
   -e http_proxy="$http_proxy" \
   -e https_proxy="$https_proxy" \
   -e ftp_proxy="$ftp_proxy" \
-  -e all_proxy="$all_proxy" \
   -e no_proxy="$no_proxy" \
   -v "${PWD}:/mnt/host" \
   ubuntu:latest bash
