@@ -1,8 +1,9 @@
 #!/bin/bash
 # https://code.visualstudio.com/docs/remote/tunnels
+# https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64
 
 QUALITY=${1:-stable}
-PLATFORM=$(dpkg --print-architecture)
+PLATFORM=$(dpkg --print-architecture | sed 's/amd/x/')
 
 # if QUALITY is not stable or insider, error & exit
 if [ "$QUALITY" != "stable" ] && [ "$QUALITY" != "insider" ]; then
@@ -11,10 +12,14 @@ if [ "$QUALITY" != "stable" ] && [ "$QUALITY" != "insider" ]; then
 fi
 
 # for linux x64/arm64
-curl -fsSLk "https://code.visualstudio.com/sha/download?build=$QUALITY&os=cli-alpine-$PLATFORM" --output vscode_cli.tar.gz
+curl -fsSLk "https://code.visualstudio.com/sha/download?build=$QUALITY&os=cli-alpine-$PLATFORM" --output vscode_cli_alpine_$PLATFORM_cli.tar.gz
 
-tar -xf vscode_cli.tar.gz -C ~/.local/bin/
-rm vscode_cli.tar.gz
+mkdir -p ~/.local/bin/
+tar -xf vscode_cli_alpine_$PLATFORM_cli.tar.gz -C ~/.local/bin/
+rm vscode_cli_alpine_$PLATFORM_cli.tar.gz
+
+exec bash -li
+which -a code
 
 # execute
 code --help
