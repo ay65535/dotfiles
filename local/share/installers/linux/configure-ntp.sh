@@ -18,7 +18,7 @@ timedatectl
 #               NTP service: inactive
 #           RTC in local TZ: no
 
-systemctl status systemd-timesyncd.service
+systemctl status --no-pager systemd-timesyncd.service
 # =>
 # ○ systemd-timesyncd.service - Network Time Synchronization
 #      Loaded: loaded (/lib/systemd/system/systemd-timesyncd.service; enabled; vendor preset: enabled)

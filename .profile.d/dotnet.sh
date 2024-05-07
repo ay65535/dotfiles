@@ -18,3 +18,4 @@ elif [ -r "$HOME/.dotnet" ]; then
 fi
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export POWERSHELL_TELEMETRY_OPTOUT=1

@@ -37,4 +37,6 @@ if [[ "$(uname -m)" == "aarch64" ]]; then
   rm -i homebrew_install.sh
 else
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # WARNING: '/home/linuxbrew/.linuxbrew/share/info' not found.
+  mkdir -p /home/linuxbrew/.linuxbrew/share/info
 fi

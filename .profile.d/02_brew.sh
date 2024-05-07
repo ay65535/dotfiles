@@ -77,7 +77,9 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
 fi
 
 if command -v brew >/dev/null && [ -v https_proxy ]; then
-  export HOMEBREW_CURLRC=${XDG_CONFIG_HOME:-$HOME/.config}/.curlrc
+  if [ -f ${XDG_CONFIG_HOME:-$HOME/.config}/.curlrc ]; then
+    export HOMEBREW_CURLRC=${XDG_CONFIG_HOME:-$HOME/.config}/.curlrc
+  fi
   # export HOMEBREW_TEMP=$HOME/.tmp
   # [ ! -d "$HOMEBREW_TEMP" ] && mkdir -p "$HOMEBREW_TEMP"
 fi
