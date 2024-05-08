@@ -3,24 +3,7 @@
 
 # containerdのプロキシ設定 #
 # https://microk8s.io/docs/install-proxy
-
-# backup
-sudo mv /etc/environment /etc/environment.orig
-sudo cp -a /etc/environment.orig /etc/environment
-# shellcheck disable=SC2154
-cat <<EOF | sudo tee -a /etc/environment
-
-# for microk8s
-http_proxy=$http_proxy
-HTTP_PROXY=$http_proxy
-https_proxy=$https_proxy
-HTTPS_PROXY=$https_proxy
-no_proxy=$no_proxy
-NO_PROXY=$no_proxy
-EOF
-
-# check
-cat /etc/environment
+~/local/share/installers/ubuntu/firstrun/01_configure_global_proxy.sh
 
 # Install #
 sudo snap list
