@@ -6,8 +6,9 @@ if [ "${https_proxy:-}" = "" ]; then
   return
 fi
 
-sudo snap set system proxy.http=$http_proxy
+# shellcheck disable=SC2154
+sudo snap set system proxy.http="$http_proxy"
 sudo snap get system proxy.http
 
-sudo snap set system proxy.https=$https_proxy
+sudo snap set system proxy.https="$https_proxy"
 sudo snap get system proxy.https
