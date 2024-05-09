@@ -4,6 +4,7 @@
 # proxy setting
 #
 
+# shellcheck disable=SC2154
 if [ "$http_proxy" != "" ] || [ "$https_proxy" != "" ]; then
   echo "Yout must set \$http_proxy and \$https_proxy first." >&2
   return

@@ -1,5 +1,6 @@
-#!bin/bash
+#!/bin/bash
 
+# sudo systemctl daemon-reload
 sudo apt update
 apt list --upgradable 
 sudo apt -y upgrade
