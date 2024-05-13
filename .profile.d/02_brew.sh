@@ -45,7 +45,7 @@ eval_brew_shellenv() {
     if [ -O "$HOMEBREW_PREFIX/bin/brew" ]; then
       export HOMEBREW_PREFIX
       export HOMEBREW_CELLAR=$HOMEBREW_PREFIX/Cellar
-      export HOMEBREW_REPOSITORY=$HOMEBREW_PREFIX
+      export HOMEBREW_REPOSITORY=$HOMEBREW_PREFIX/Homebrew
       PATH=$(add_path_before "$PATH" "$HOMEBREW_PREFIX/sbin")
       PATH=$(add_path_before "$PATH" "$HOMEBREW_PREFIX/bin")
       MANPATH=$(add_path_before "$MANPATH" "$HOMEBREW_PREFIX/share/man")
@@ -69,7 +69,7 @@ eval_brew_shellenv /opt/homebrew ||
 if [ -d /home/linuxbrew/.linuxbrew ]; then
   export HOMEBREWALT_PREFIX=/home/linuxbrew/.linuxbrew
   export HOMEBREWALT_CELLAR="$HOMEBREWALT_PREFIX/Cellar"
-  export HOMEBREWALT_REPOSITORY="$HOMEBREWALT_PREFIX"
+  export HOMEBREWALT_REPOSITORY="$HOMEBREWALT_PREFIX"/Homebrew
   PATH=$(add_path_after "$PATH" $HOMEBREWALT_PREFIX/bin)
   PATH=$(add_path_after "$PATH" $HOMEBREWALT_PREFIX/sbin)
   [ -d $HOMEBREWALT_PREFIX/share/man ] && MANPATH=$(add_path_after "$MANPATH" $HOMEBREWALT_PREFIX/share/man)
