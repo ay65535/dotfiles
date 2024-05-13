@@ -7,7 +7,7 @@ export POWERSHELL_TELEMETRY_OPTOUT=1
 
 INSTALL_OPTION=${1:-repo}
 
-if [ $INSTALL_OPTION = repo ]; then
+if [ "$INSTALL_OPTION" = repo ]; then
 
   ###################################
   # Prerequisites
@@ -33,7 +33,9 @@ if [ $INSTALL_OPTION = repo ]; then
   # Update the list of packages after we added packages.microsoft.com
   sudo apt-get update
 
-  apt search pwsh
+  apt search powershell
+  apt list powershell*
+  apt show powershell
 
   ###################################
   # Install PowerShell
@@ -42,7 +44,7 @@ if [ $INSTALL_OPTION = repo ]; then
   # Start PowerShell
   #pwsh
 
-elif [ $INSTALL_OPTION = deb ]; then
+elif [ "$INSTALL_OPTION" = deb ]; then
   # https://learn.microsoft.com/ja-jp/powershell/scripting/install/install-ubuntu?view=powershell-7.4#installation-via-direct-download
   # 直接ダウンロードによるインストール
 

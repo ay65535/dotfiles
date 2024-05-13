@@ -12,13 +12,14 @@ if [ "$QUALITY" != "stable" ] && [ "$QUALITY" != "insider" ]; then
 fi
 
 # for linux x64/arm64
-curl -fsSLk "https://code.visualstudio.com/sha/download?build=$QUALITY&os=cli-alpine-$PLATFORM" --output vscode_cli_alpine_$PLATFORM_cli.tar.gz
+curl -fsSLk "https://code.visualstudio.com/sha/download?build=$QUALITY&os=cli-alpine-$PLATFORM" --output vscode_cli_alpine_"$PLATFORM"_cli.tar.gz
 
 mkdir -p ~/.local/bin/
-tar -xf vscode_cli_alpine_$PLATFORM_cli.tar.gz -C ~/.local/bin/
-rm vscode_cli_alpine_$PLATFORM_cli.tar.gz
+tar -xf vscode_cli_alpine_"$PLATFORM"_cli.tar.gz -C ~/.local/bin/
+rm vscode_cli_alpine_"$PLATFORM"_cli.tar.gz
 
-exec bash -li
+# shellcheck disable=SC1090
+. ~/.bash_profile || . ~/.profile
 which -a code
 
 # execute

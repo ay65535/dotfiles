@@ -25,3 +25,6 @@ rye add nbconvert
 
 rye run python --version
 rye run python -m bash_kernel.install
+
+# deinit
+#rm -rf src/ .gitignore .python-version pyproject.toml README.md requirements*.lock

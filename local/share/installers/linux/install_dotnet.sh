@@ -8,7 +8,7 @@ cat /etc/os-release
 . /etc/os-release
 
 case $VERSION_ID in
-24.04)
+24.04 | 22.04)
   # https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu-install?pivots=os-linux-ubuntu-2404&tabs=dotnet8
   sudo apt-get update &&
     sudo apt-get install -y dotnet-sdk-8.0
