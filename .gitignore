@@ -17,6 +17,7 @@ _zinit
 /.config/git/gitk
 !/.config/npm/
 !/.config/putty/
+!/.config/sheldon/
 !/.config/tmux/
 !/.config/zsh/
 /.config/zsh/.iterm2_shell_integration.zsh

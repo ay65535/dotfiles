@@ -76,22 +76,25 @@ if ! grep -q pam_tid.so /etc/pam.d/sudo; then
   fi
 fi
 
-### Added by Zinit's installer
-if [[ ! -f $XDG_DATA_HOME/zinit/zinit.git/zinit.zsh ]]; then
-  print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-  command mkdir -p "$XDG_DATA_HOME/zinit" && command chmod g-rwX "$XDG_DATA_HOME/zinit"
-  command git clone https://github.com/zdharma-continuum/zinit "$XDG_DATA_HOME/zinit/zinit.git" && \
-    print -P "%F{33} %F{34}Installation successful.%f%b" || \
-    print -P "%F{160} The clone has failed.%f%b"
-fi
-source "$XDG_DATA_HOME/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+### sheldon
+eval "$(sheldon source)"
 
-if [ -f ~/.bash_aliases ]; then
-    # source ~/.bash_aliases
-    zinit snippet ~/.bash_aliases
-fi
+### Added by Zinit's installer
+# if [[ ! -f $XDG_DATA_HOME/zinit/zinit.git/zinit.zsh ]]; then
+#   print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+#   command mkdir -p "$XDG_DATA_HOME/zinit" && command chmod g-rwX "$XDG_DATA_HOME/zinit"
+#   command git clone https://github.com/zdharma-continuum/zinit "$XDG_DATA_HOME/zinit/zinit.git" && \
+#     print -P "%F{33} %F{34}Installation successful.%f%b" || \
+#     print -P "%F{160} The clone has failed.%f%b"
+# fi
+# source "$XDG_DATA_HOME/zinit/zinit.git/zinit.zsh"
+# autoload -Uz _zinit
+# (( ${+_comps} )) && _comps[zinit]=_zinit
+
+# if [ -f ~/.bash_aliases ]; then
+#     # source ~/.bash_aliases
+#     zinit snippet ~/.bash_aliases
+# fi
 
 # Useful support for interacting with Terminal.app or other terminal programs
 # if [ "$TERM_PROGRAM" != 'Apple_Terminal' ]; then
@@ -111,10 +114,10 @@ fi
 
 # junegunn/fzf-bin
 FZF_DEFAULT_OPTS='--height=15 --reverse --inline-info --color=dark --color=fg:-1,bg:-1,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe --color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef'
-zinit light-mode from"gh-r" as"program" for \
-  junegunn/fzf
-zinit has'fzf' for \
-  https://github.com/junegunn/fzf/raw/master/shell/key-bindings.zsh
+# zinit light-mode from"gh-r" as"program" for \
+#   junegunn/fzf
+# zinit has'fzf' for \
+#   https://github.com/junegunn/fzf/raw/master/shell/key-bindings.zsh
 # zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/fzf/fzf.plugin.zsh
 
 # sharkdp/fd
@@ -130,24 +133,24 @@ zinit has'fzf' for \
 # zinit light ogham/exa
 
 # https://github.com/so-fancy/diff-so-fancy/blob/master/pro-tips.md
-zinit lucid as:program pick:bin/git-dsf for \
-  zdharma-continuum/zsh-diff-so-fancy
+# zinit lucid as:program pick:bin/git-dsf for \
+#   zdharma-continuum/zsh-diff-so-fancy
 
 # zdharma-continuum/history-search-multi-word
 # zstyle ":history-search-multi-word" page-size "11"
 # zinit wait"1" lucid for \
 #   zdharma-continuum/history-search-multi-word
 
-zinit wait lucid light-mode for \
-  atinit"zicompinit; zicdreplay; zmodload -i zsh/complist" \
-    zdharma-continuum/fast-syntax-highlighting \
-    https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh \
-  as"completion" \
-    https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/docker/_docker \
-  atload"_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
-  blockf atpull'zinit creinstall -q .' \
-    zsh-users/zsh-completions
+# zinit wait lucid light-mode for \
+#   atinit"zicompinit; zicdreplay; zmodload -i zsh/complist" \
+#     zdharma-continuum/fast-syntax-highlighting \
+#     https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh \
+#   as"completion" \
+#     https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/docker/_docker \
+#   atload"_zsh_autosuggest_start" \
+#     zsh-users/zsh-autosuggestions \
+#   blockf atpull'zinit creinstall -q .' \
+#     zsh-users/zsh-completions
 
 # This setting slows down fzf history filtering.
 # also, iTerm2's 'Load shell integration automatically' must be disabled.
@@ -157,8 +160,8 @@ zinit wait lucid light-mode for \
 # fi
 
 # Load starship theme
-zinit light-mode \
-  as"command" from"gh-r" \
-  atclone"./starship init zsh >init.zsh; ./starship completions zsh >_starship" \
-  atpull"%atclone" src"init.zsh" for \
-  starship/starship
+# zinit light-mode \
+#   as"command" from"gh-r" \
+#   atclone"./starship init zsh >init.zsh; ./starship completions zsh >_starship" \
+#   atpull"%atclone" src"init.zsh" for \
+#   starship/starship
