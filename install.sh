@@ -93,3 +93,9 @@ fi
 if [[ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions" ]]; then
   mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions"
 fi
+
+cd ~
+ln -snfv .dotfiles/secret/.secret .
+ln -snfv .dotfiles/secret/.ssh .
+# cd ~/.ssh
+# chmod 750 .

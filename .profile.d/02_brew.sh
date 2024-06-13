@@ -23,6 +23,7 @@ eval_brew_shellenv() {
   local homebrew_prefix_tmp=${1:-$HOMEBREW_PREFIX}
 
   if check_brew_shellenv "$homebrew_prefix_tmp"; then
+    unset HOMEBREW_PREFIX
     return 0
   else
     if macos; then

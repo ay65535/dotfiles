@@ -24,6 +24,7 @@ fi
 
 # backup
 # sudo cp -fb --backup=numbered /etc/apt/sources.list{,}
+# ll /etc/apt/sources.list*
 
 . /etc/os-release
 
