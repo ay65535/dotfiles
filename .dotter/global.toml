@@ -1,0 +1,30 @@
+# https://zenn.dev/kairkarigohan/articles/5b580a2f10b4ea
+[helpers]
+
+[default]
+depends = []
+
+[default.files]
+"." = { target = "~/.dotfiles", type = "symbolic", recurse = false }
+".bash_aliases" = "~/.bash_aliases"
+".bash_profile" = "~/.bash_profile"
+# https://github.com/SuperCuber/dotter/wiki/Setup-and-Configuration#complex-target
+# https://github.com/SuperCuber/dotter/issues/137#issuecomment-1656018017
+".config" = { target = "~/.config", type = "symbolic", recurse = false }
+".profile.d" = { target = "~/.profile.d", type = "symbolic", recurse = false }
+".shellcheckrc" = "~/.shellcheckrc"
+".zshenv" = "~/.zshenv"
+"bin" = { target = "~/bin", type = "symbolic", recurse = false }
+"local" = { target = "~/local", type = "symbolic", recurse = false }
+"secret/.secret" = { target = "~/.secret", type = "symbolic", recurse = false }
+"secret/.ssh" = { target = "~/.ssh", type = "symbolic", recurse = false }
+
+[default.variables]
+
+[settings]
+default_target_type = "automatic"
+
+# dotter deploy -d
+# dotter deploy
+# dotter undeploy -d
+# dotter undeploy -y  # not work on windows..

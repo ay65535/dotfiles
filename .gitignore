@@ -8,6 +8,7 @@ _zinit
 *.zwc
 **/*sh/*history
 *htoprc
+startship-init.ps1
 /.config/*
 !/.config/bash/
 !/.config/bash-completion.d/
@@ -16,6 +17,7 @@ _zinit
 /.config/git/config
 /.config/git/gitk
 !/.config/npm/
+!/.config/powershell/
 !/.config/putty/
 !/.config/sheldon/
 !/.config/tmux/
@@ -24,6 +26,9 @@ _zinit
 /.config/zsh/.iterm2/
 !/.config/bash_completion
 !/.config/wgetrc
+/.dotter/cache
+/.dotter/cache.toml
+/.dotter/local.toml
 /.local/bin/clion
 /.local/bin/fleet
 /.local/bin/gateway
