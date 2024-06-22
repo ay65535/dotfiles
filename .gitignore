@@ -26,8 +26,8 @@ startship-init.ps1
 /.config/zsh/.iterm2/
 !/.config/bash_completion
 !/.config/wgetrc
+/.dotter/**/cache.toml
 /.dotter/cache
-/.dotter/cache.toml
 /.dotter/local.toml
 /.local/bin/clion
 /.local/bin/fleet
