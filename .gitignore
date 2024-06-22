@@ -10,8 +10,9 @@ _zinit
 *htoprc
 startship-init.ps1
 /.config/*
-!/.config/bash/
+!/.config/bash_completion
 !/.config/bash-completion.d/
+!/.config/bash/
 !/.config/fzf/
 !/.config/git/
 /.config/git/config
@@ -19,13 +20,13 @@ startship-init.ps1
 !/.config/npm/
 !/.config/powershell/
 !/.config/putty/
+!/.config/sh/
 !/.config/sheldon/
 !/.config/tmux/
+!/.config/wgetrc
 !/.config/zsh/
 /.config/zsh/.iterm2_shell_integration.zsh
 /.config/zsh/.iterm2/
-!/.config/bash_completion
-!/.config/wgetrc
 /.dotter/**/cache.toml
 /.dotter/cache
 /.dotter/local.toml
