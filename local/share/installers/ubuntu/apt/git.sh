@@ -31,7 +31,8 @@ pparc)
   sudo add-apt-repository ppa:git-core/candidate
   sudo apt update
   apt list -a git
-  sudo apt install git
+  sudo apt -y upgrade git
+  # sudo apt -y install git
   ;;
 brew)
   brew search git

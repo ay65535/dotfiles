@@ -1,9 +1,11 @@
 #!/bin/bash
 # https://www.guide2wsl.com/k3s/
+# https://k3s.io/
 
 # Install the k3s binary #
 
-K3S_VERSION="v1.29.4+k3s1"
+#K3S_VERSION="v1.29.4+k3s1"
+K3S_VERSION="v1.30.2+k3s2"
 
 archSuffix=""
 if test "$(uname -m)" = "aarch64"; then

@@ -6,6 +6,9 @@ git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 # ~/.rbenv/bin/rbenv init - bash
 rbenv rehash
 
+# https://github.com/rbenv/ruby-build/wiki#ubuntudebianmint
+sudo apt -y install autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
+
 # ruby-build
 git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 
