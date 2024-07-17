@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# systemctl --version
+# systemctl status
+# systemctl status --user
 # sudo systemctl daemon-reload
 sudo apt update
 apt list --upgradable
