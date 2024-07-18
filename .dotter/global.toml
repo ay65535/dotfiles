@@ -5,7 +5,7 @@
 depends = []
 
 [default.files]
-"." = { target = "~/.dotfiles", type = "symbolic", recurse = false }
+# "." = { target = "~/.dotfiles", type = "symbolic", recurse = false }
 ".bash_aliases" = "~/.bash_aliases"
 ".bash_profile" = "~/.bash_profile"
 # https://github.com/SuperCuber/dotter/wiki/Setup-and-Configuration#complex-target
@@ -19,11 +19,21 @@ depends = []
 "secret/.secret" = { target = "~/.secret", type = "symbolic", recurse = false }
 "secret/.ssh" = { target = "~/.ssh", type = "symbolic", recurse = false }
 
+# ".config/powershell/profile.ps1" = ""
+
 [default.variables]
 
 [settings]
 default_target_type = "automatic"
 
+# sudo apt -y install build-essential
+# eval "$(mise activate ${SHELL##*/})"
+# cargo install dotter
+# which -a dotter
+# cd ~/.dotfiles
+# mv ~/.dotfiles/.dotter/global.toml{,.bak}
+# dotter init
+# mv ~/.dotfiles/.dotter/global.toml{.bak,}
 # dotter deploy -d
 # dotter deploy
 # dotter undeploy -d

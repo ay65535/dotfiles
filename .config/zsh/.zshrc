@@ -1,4 +1,17 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
+
+function source {
+  ensure_zcompiled $1
+  builtin source $1
+}
+function ensure_zcompiled {
+  local compiled="$1.zwc"
+  if [[ ! -r "$compiled" || "$1" -nt "$compiled" ]]; then
+    echo "Compiling $1"
+    zcompile $1
+  fi
+}
+ensure_zcompiled ${XDG_CONFIG_HOME}/zsh/.zshrc
 
 #
 # Options
@@ -15,13 +28,13 @@ setopt BASH_AUTO_LIST
 setopt EQUALS
 setopt EXTENDED_HISTORY
 setopt GLOB_DOTS
-setopt HIST_FIND_NO_DUPS          # 履歴検索中、(連続してなくとも)重複を飛ばす
-setopt HIST_IGNORE_ALL_DUPS       # 履歴中の重複行をファイル記録前に無くす
-setopt HIST_IGNORE_DUPS           # 前と重複する行は記録しない
-setopt HIST_IGNORE_SPACE          # 行頭がスペースのコマンドは記録しない
-setopt HIST_NO_STORE              # histroyコマンドは記録しない
-setopt HIST_REDUCE_BLANKS         # 余分な空白は詰めて記録
-setopt IGNOREEOF                  # supress Ctrl-D logout
+setopt HIST_FIND_NO_DUPS    # 履歴検索中、(連続してなくとも)重複を飛ばす
+setopt HIST_IGNORE_ALL_DUPS # 履歴中の重複行をファイル記録前に無くす
+setopt HIST_IGNORE_DUPS     # 前と重複する行は記録しない
+setopt HIST_IGNORE_SPACE    # 行頭がスペースのコマンドは記録しない
+setopt HIST_NO_STORE        # histroyコマンドは記録しない
+setopt HIST_REDUCE_BLANKS   # 余分な空白は詰めて記録
+setopt IGNOREEOF            # supress Ctrl-D logout
 setopt INTERACTIVE_COMMENTS
 setopt LIST_AMBIGUOUS
 setopt NO_BEEP
@@ -29,7 +42,7 @@ setopt NO_LIST_BEEP
 setopt NO_MENUCOMPLETE
 setopt NUMERIC_GLOB_SORT
 setopt PRINT_EIGHT_BIT
-setopt PROMPT_SUBST               # Most themes use this option.
+setopt PROMPT_SUBST # Most themes use this option.
 setopt PUSHD_IGNORE_DUPS
 #setopt SH_WORD_SPLIT
 
@@ -39,13 +52,30 @@ SAVEHIST=200000
 #export HISTFILE="$XDG_STATE_HOME"/zsh/history
 export HISTFILE="$ZDOTDIR/history"
 
+LS_ALTERNATIVES=eza:gls:ls
+
+# # コロン区切りの値を配列に変換
+# IFS=':' read -r commands <<< "$LS_ALTERNATIVES"
+# commands=("${(s/:/)commands}")
+
+# # コマンドを順にチェックして最初に見つけたコマンドをエイリアスに設定
+# for cmd in "${commands[@]}"; do
+#     if type "$cmd" &> /dev/null; then
+#         alias ls="$cmd"
+#         echo "Alias set: ls -> $cmd"
+#         break
+#     fi
+# done
+
+FILTER_ALTERNATIVES=fzf:peco
+
 if macos; then
-  if type ggrep >/dev/null 2>&1; then
-      GNU_COREUTILS=1
-      GNU_PREFIX='g'
+  if type gls >/dev/null 2>&1; then
+    GNU_COREUTILS=1
+    GNU_PREFIX='g'
   else
-      GNU_COREUTILS=0
-      GNU_PREFIX=''
+    GNU_COREUTILS=0
+    GNU_PREFIX=''
   fi
 elif linux; then
   GNU_COREUTILS=1
@@ -53,14 +83,14 @@ elif linux; then
 fi
 # enable color support of ls and also add handy aliases
 if [ "$GNU_COREUTILS" = 1 ]; then
-    alias ls="${GNU_PREFIX}ls --color=auto"
-    # alias dir="${GNU_PREFIX}dir --color=auto"
-    # alias vdir="${GNU_PREFIX}vdir --color=auto"
-    alias grep="${GNU_PREFIX}grep --color=auto"
-    alias fgrep="${GNU_PREFIX}fgrep --color=auto"
-    alias egrep="${GNU_PREFIX}egrep --color=auto"
+  alias ls="${GNU_PREFIX}ls --color=auto"
+  # alias dir="${GNU_PREFIX}dir --color=auto"
+  # alias vdir="${GNU_PREFIX}vdir --color=auto"
+  alias grep="${GNU_PREFIX}grep --color=auto"
+  alias fgrep="${GNU_PREFIX}fgrep --color=auto"
+  alias egrep="${GNU_PREFIX}egrep --color=auto"
 else
-    alias ls='ls -G'
+  alias ls='ls -G'
 fi
 
 # some more ls aliases
@@ -77,7 +107,20 @@ if ! grep -q pam_tid.so /etc/pam.d/sudo; then
 fi
 
 ### sheldon
-eval "$(sheldon source)"
+# eval "$(sheldon source)"
+# https://zenn.dev/fuzmare/articles/zsh-plugin-manager-cache
+# ファイル名を変数に入れる
+cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}
+sheldon_cache="$cache_dir/sheldon.zsh"
+sheldon_toml="$HOME/.config/sheldon/plugins.toml"
+# キャッシュがない、またはキャッシュが古い場合にキャッシュを作成
+if [[ ! -r "$sheldon_cache" || "$sheldon_toml" -nt "$sheldon_cache" ]]; then
+  mkdir -p $cache_dir
+  sheldon source >$sheldon_cache
+fi
+source "$sheldon_cache"
+# 使い終わった変数を削除
+unset cache_dir sheldon_cache sheldon_toml
 
 ### Added by Zinit's installer
 # if [[ ! -f $XDG_DATA_HOME/zinit/zinit.git/zinit.zsh ]]; then
@@ -165,3 +208,5 @@ FZF_DEFAULT_OPTS='--height=15 --reverse --inline-info --color=dark --color=fg:-1
 #   atclone"./starship init zsh >init.zsh; ./starship completions zsh >_starship" \
 #   atpull"%atclone" src"init.zsh" for \
 #   starship/starship
+
+unfunction source

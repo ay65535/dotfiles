@@ -24,8 +24,9 @@ git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec
 # else if version is < v2.36.1 enter this command:
 git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager-core.exe"
 
+
 # clone #
-git clone --recurse-submodules https://ay65535@github.com/ay65535/dotfiles.git ~/.dotfiles
+git clone --recurse-submodules https://ay65535@github.com/ay65535/dotfiles-ay65535.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ```

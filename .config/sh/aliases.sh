@@ -1,3 +1,8 @@
+#!/bin/sh
+
+alias q=exit
+alias sudo='sudo '
+
 alias d=docker
 alias dc='docker container'
 alias dcl='docker container list'
