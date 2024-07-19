@@ -11,11 +11,11 @@ mise ls-remote eza
 # deps
 #sudo apt -y install
 
-sudo apt -y install eza
-# mise install eza
-# mise use eza
+# sudo apt -y install eza
+mise install eza
+mise use eza
 
-apt list --installed eza*
+# apt list --installed eza*
 
 which -a eza
 eza --version

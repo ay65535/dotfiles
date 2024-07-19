@@ -4,6 +4,10 @@
 
 # apt list procs
 
+# ==> procs: stable 0.14.5 (bottled)
+# brew info procs
+# brew install procs
+
 # mise ls-remote procs
 
 # sudo apt -y install procs
