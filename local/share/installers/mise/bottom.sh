@@ -13,7 +13,7 @@ mise ls-remote bottom
 # deps
 # sudo apt -y install
 mise install bottom
-mise use bottom
+mise use --global bottom
 
 # cargo install bottom
 

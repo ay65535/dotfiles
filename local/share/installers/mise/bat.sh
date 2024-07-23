@@ -14,7 +14,7 @@ mise ls-remote bat
 # deps
 #sudo apt -y install
 mise install bat
-mise use bat
+mise use --global bat
 
 which -a bat
 bat --version

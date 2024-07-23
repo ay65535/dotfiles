@@ -13,7 +13,7 @@ mise ls-remote xh
 # deps
 #sudo apt -y install
 mise install xh
-mise use xh
+mise use --global xh
 
 which -a xh
 xh --version

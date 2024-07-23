@@ -13,7 +13,7 @@ mise ls-remote eza
 
 # sudo apt -y install eza
 mise install eza
-mise use eza
+mise use --global eza
 
 # apt list --installed eza*
 

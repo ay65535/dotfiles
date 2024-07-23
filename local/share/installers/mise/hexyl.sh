@@ -17,7 +17,7 @@ apt list --installed hexyl
 # deps
 # sudo apt -y install
 # mise install hexyl
-# mise use hexyl
+# mise use --global hexyl
 
 which -a hexyl
 hexyl --version

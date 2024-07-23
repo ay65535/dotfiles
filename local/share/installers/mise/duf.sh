@@ -14,7 +14,7 @@ mise ls-remote duf
 # deps
 # sudo apt -y install
 mise install duf
-mise use duf
+mise use --global duf
 
 # cargo install duf
 

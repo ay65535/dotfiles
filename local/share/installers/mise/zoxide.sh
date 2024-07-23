@@ -14,7 +14,7 @@ mise ls-remote zoxide
 # deps
 # sudo apt -y install
 mise install zoxide
-mise use zoxide
+mise use --global zoxide
 
 # cargo install zoxide
 

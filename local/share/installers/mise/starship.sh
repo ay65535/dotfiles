@@ -15,7 +15,7 @@ brew install starship
 # deps
 #sudo apt -y install
 # mise install starship
-# mise use starship
+# mise use --global starship
 
 which -a starship
 starship --version

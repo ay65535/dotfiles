@@ -14,7 +14,7 @@ mise ls-remote fd
 
 # sudo apt -y install fd-find
 mise install fd
-mise use fd
+mise use --global fd
 
 apt list --installed fd*
 

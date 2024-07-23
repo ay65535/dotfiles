@@ -5,7 +5,7 @@ mise plugins ls
 
 mise ls-remote python
 mise install python 3.12
-mise use python
+mise use --global python
 
 apt list --installed python3.12*
 mise ls

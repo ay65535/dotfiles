@@ -9,7 +9,7 @@ brew info sheldon
 # sudo apt -y install sheldon
 # apt list --installed sheldon
 # mise install sheldon
-# mise use sheldon
+# mise use --global sheldon
 brew install sheldon
 
 which -a sheldon

@@ -5,7 +5,7 @@ mise plugins ls
 
 mise ls-remote go
 mise install go 1.22
-mise use go
+mise use --global go
 
 apt list --installed go*
 mise ls

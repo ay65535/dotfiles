@@ -12,7 +12,7 @@ mise ls-remote dotnet
 #sudo apt -y install
 
 mise install dotnet
-mise use dotnet
+mise use --global dotnet
 
 apt list --installed dotnet*
 mise ls

@@ -12,7 +12,7 @@ mise ls-remote delta
 
 # sudo apt -y install delta
 mise install delta
-mise use delta
+mise use --global delta
 
 apt list --installed delta*
 

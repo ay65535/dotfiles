@@ -14,7 +14,7 @@ mise ls-remote ripgrep
 # deps
 #sudo apt -y install
 mise install ripgrep
-mise use ripgrep
+mise use --global ripgrep
 
 which -a rg
 rg --version

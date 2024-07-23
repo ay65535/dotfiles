@@ -12,7 +12,7 @@ mise ls-remote ghq
 sudo apt -y install unzip
 
 mise install ghq
-mise use ghq
+mise use --global ghq
 
 apt list --installed ghq*
 mise ls

@@ -13,7 +13,7 @@ mise ls-remote dust
 # deps
 # sudo apt -y install
 mise install dust
-mise use dust
+mise use --global dust
 
 # cargo install dust
 

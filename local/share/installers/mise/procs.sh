@@ -6,7 +6,7 @@
 
 # ==> procs: stable 0.14.5 (bottled)
 # brew info procs
-# brew install procs
+brew install procs
 
 # mise ls-remote procs
 
@@ -16,9 +16,9 @@
 # deps
 # sudo apt -y install
 # mise install procs
-# mise use procs
+# mise use --global procs
 
-cargo install procs
+# cargo install procs
 
 which -a procs
 procs --version
