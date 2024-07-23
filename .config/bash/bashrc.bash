@@ -40,3 +40,6 @@ fi
 
 # shellcheck source=/home/jetson/.config/fzf/fzf.bash
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
+
+export SHELDON_CONFIG_DIR=${XDG_CONFIG_HOME:-${HOME}/.config}/sheldon/${SHELL##*/}
+eval "$(sheldon source)"
