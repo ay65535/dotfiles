@@ -7,7 +7,10 @@ set_command_alias() {
   local cmds=("$@")
 
   for cmd in "${cmds[@]}"; do
-    if command -v "$cmd" >/dev/null 2>&1; then
+    if [[ "$cmd" == "$cmd_alias" ]]; then
+      # エイリアス名と同じコマンドの場合、エイリアスを張らない
+      break
+    elif command -v "$cmd" >/dev/null 2>&1; then
       alias "$cmd_alias"="$cmd"
       break
     fi
