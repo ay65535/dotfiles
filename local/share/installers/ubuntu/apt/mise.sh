@@ -9,3 +9,5 @@ sudo apt update
 sudo apt -y install mise
 
 mise --version
+mise completion "${SHELL##*/}" >"$XDG_DATA_HOME"/bash-completion/completions/mise
+ls -la "$XDG_DATA_HOME"/bash-completion/completions

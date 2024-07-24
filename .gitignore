@@ -13,10 +13,12 @@ startship-init.ps1
 !/.config/bash_completion
 !/.config/bash-completion.d/
 !/.config/bash/
+!/.config/bottom/
 !/.config/fzf/
 !/.config/git/
 /.config/git/config
 /.config/git/gitk
+!/.config/mise/
 !/.config/npm/
 !/.config/powershell/
 !/.config/putty/

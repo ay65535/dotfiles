@@ -9,6 +9,7 @@ export HISTFILE="$XDG_STATE_HOME/bash/history"
 #
 
 export BASH_COMPLETION_USER_FILE="$XDG_CONFIG_HOME/bash_completion"
+# export BASH_COMPLETION_USER_DIR=$XDG_DATA_HOME/bash-completion/completions  # default
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-bash
 if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
@@ -40,6 +41,3 @@ fi
 
 # shellcheck source=/home/jetson/.config/fzf/fzf.bash
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
-
-export SHELDON_CONFIG_DIR=${XDG_CONFIG_HOME:-${HOME}/.config}/sheldon/${SHELL##*/}
-eval "$(sheldon source)"

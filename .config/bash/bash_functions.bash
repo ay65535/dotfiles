@@ -116,9 +116,3 @@ if [[ "$FILTER" != "" ]]; then
         builtin bind '"\C-r": "\C-x1\e^\er"'
     fi
 fi
-
-if available 'diff-so-fancy' >/dev/null 2>&1; then
-    diff() {
-        command diff "$@" | diff-so-fancy
-    }
-fi

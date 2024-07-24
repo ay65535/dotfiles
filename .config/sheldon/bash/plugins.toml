@@ -12,8 +12,15 @@
 
 shell = "bash"
 
+[plugins.eza-completion]
+remote = 'https://github.com/eza-community/eza/raw/main/completions/bash/eza'
+
 [plugins.dotfiles-sh]
 local = '~/.dotfiles/.config/sh'
+use = ['*.{ba,*}sh']
+
+[plugins.dotfiles-bash]
+local = '~/.dotfiles/.config/bash'
 use = ['*.{ba,*}sh']
 
 [plugins.mise]
@@ -21,3 +28,6 @@ inline = 'eval "$(mise activate bash)"'
 
 [plugins.starship]
 inline = 'eval "$(starship init bash)"'
+
+[plugins.fzf]
+inline = 'eval "$(fzf --bash)"'
