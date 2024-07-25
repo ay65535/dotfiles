@@ -22,8 +22,8 @@ ALTERNATIVE_LS=(eza exa gls ls)
 set_command_alias ls "${ALTERNATIVE_LS[@]}"
 
 # alternative to cd
-ALTERNATIVE_CD=(zoxide z gcd cd)
-set_command_alias cd "${ALTERNATIVE_CD[@]}"
+# ALTERNATIVE_CD=(zoxide z gcd cd)
+# set_command_alias cd "${ALTERNATIVE_CD[@]}"
 
 # alternative to find
 ALTERNATIVE_FIND=(fd gfind find)
