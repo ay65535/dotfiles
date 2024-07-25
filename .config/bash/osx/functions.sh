@@ -1,7 +1,3 @@
-##! aliases
-alias o=open
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-
 ##! vars
 SHELL_SESSION_HISTORY=1
 SHELL_SESSION_HISTFILE_SHARED=$HISTFILE
