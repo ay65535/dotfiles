@@ -39,5 +39,4 @@ if command -v kind >/dev/null; then
   . "$XDG_CONFIG_HOME/bash-completion.d/kind_completion.bash"
 fi
 
-# shellcheck source=/home/jetson/.config/fzf/fzf.bash
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
