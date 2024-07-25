@@ -48,8 +48,8 @@ elif [ "$INSTALL_OPTION" = deb ]; then
   # https://learn.microsoft.com/ja-jp/powershell/scripting/install/install-ubuntu?view=powershell-7.4#installation-via-direct-download
   # 直接ダウンロードによるインストール
 
-  VERSION=7.5.0-preview.2-1
-  # VERSION=7.4.2-1
+  # VERSION=7.5.0-preview.2-1
+  VERSION=7.4.4-1
   # VERSION=7.3.12-1
   # VERSION=7.2.19-1
 
@@ -73,7 +73,7 @@ elif [ "$INSTALL_OPTION" = deb ]; then
 
   ###################################
   # Install the PowerShell package
-  sudo dpkg -i powershell${PREVIEW}_${VERSION}.deb_amd64.deb
+    sudo dpkg -i powershell${PREVIEW}_${VERSION}.deb_amd64.deb
 
   # Resolve missing dependencies and finish the install (if necessary)
   sudo apt-get install -f

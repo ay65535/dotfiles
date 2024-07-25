@@ -194,6 +194,46 @@ Register-ArgumentCompleter -CommandName pacs -ParameterName SubCommand -ScriptBl
 # }
 
 #
+# mise
+#
+
+if (Test-Path $HOME/.local/share/mise/shims) {
+    $env:PATH = "$HOME/.local/share/mise/shims:$env:PATH"
+}
+
+#
+# PATHを整理
+#
+
+$pathDict = [ordered]@{}
+foreach ($pathItem in $env:PATH.Split([IO.Path]::PathSeparator)) {
+    $pathDict[$pathItem] = $true
+}
+$env:PATH = $pathDict.Keys -join ':'
+
+# $pathArray = @(
+#     # "$HOME/.vscode/cli/serve-web/*/bin/remote-cli",
+#     "$HOME/.local/share/mise/shims"               ,
+#     "$HOME/.local/bin"                            ,
+#     "$HOME/bin"                                   ,
+#     '/home/linuxbrew/.linuxbrew/sbin'             ,
+#     '/home/linuxbrew/.linuxbrew/bin'              ,
+#     '/usr/local/sbin'                             ,
+#     '/usr/local/bin'                              ,
+#     '/usr/sbin'                                   ,
+#     '/usr/bin'                                    ,
+#     '/sbin'                                       ,
+#     '/bin'                                        ,
+#     '/usr/games'                                  ,
+#     '/usr/local/games'                            ,
+#     '/snap/powershell/271/opt/powershell'         ,
+#     '/snap/bin'                                   ,
+#     '/usr/lib/wsl/lib'
+#     # '/mnt/c/...'
+# )
+# $env:PATH = $pathArray -join ':'
+
+#
 # Dot-source
 #
 
