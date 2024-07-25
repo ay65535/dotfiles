@@ -22,7 +22,13 @@ Remove-Variable binPath
 # Global variables
 #
 
-$global:DotRoot = "$env:OneDrive\dotfiles"
+$global:DotRoot = if ((Test-Path Env:/OneDrive) -and (Test-Path $env:OneDrive)) {
+    "$env:OneDrive/dotfiles"
+} elseif (Test-Path "$HOME/.dotfiles") {
+    "$HOME/.dotfiles"
+}
+
+$global:DotParent = Convert-Path $global:DotRoot/..
 
 $global:Platform = if ($IsWindows) {
     'windows'
@@ -56,7 +62,7 @@ $setPSReadLineOptionParams = @{
     EditMode                      = 'Emacs'
     HistoryNoDuplicates           = $true
     # HistorySavePath:default     = "$env:AppData\Microsoft\Windows\PowerShell\PSReadLine\$($Host.Name)_history.txt"
-    HistorySavePath               = "$env:OneDrive/.local/share/powershell/PSReadLine/PSHistory.txt"
+    HistorySavePath               = "$DotParent/.local/share/powershell/PSReadLine/PSHistory.txt"
     HistorySaveStyle              = 'SaveIncrementally'  # 'SaveIncrementally', 'SaveAtExit'
     HistorySearchCursorMovesToEnd = $true
     MaximumHistoryCount           = 1000000
@@ -69,7 +75,7 @@ $setPSReadLineOptionParams = @{
 function Import-ScriptAsFunction { param ([Parameter(Mandatory)] [string] $Path) Invoke-Expression "function global:$((Get-Item $Path).BaseName) {`n`n$(Get-Content -Raw $Path)`n`n}" }
 
 # PredictionSource = 'History'
-if ($PSVersionTable.PSVersion -ge '7.2' -and (Get-Module PSReadline).Version -ge '2.2.2') {
+if ($PSVersionTable.PSVersion -ge '7.2' -and (Get-Module PSReadline).Version -ge '2.2.2' -and (Get-Module -ListAvailable CompletionPredictor)) {
     # Install-Module CompletionPredictor
     Import-Module CompletionPredictor
     $setPSReadLineOptionParams.PredictionSource = 'HistoryAndPlugin'
@@ -78,7 +84,7 @@ if ($PSVersionTable.PSVersion -ge '7.2' -and (Get-Module PSReadline).Version -ge
 Set-PSReadLineOption @setPSReadLineOptionParams
 
 # source history managemant setting
-#. $PSScriptRoot\profile.PSReadLine.ps1
+#. $PSScriptRoot/profile.PSReadLine.ps1
 
 ## alias functions
 function q() { exit }
