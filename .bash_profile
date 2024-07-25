@@ -26,8 +26,8 @@
 #   done
 # fi
 
-export SHELDON_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/sheldon/${SHELL##*/}
-eval "$(sheldon source)"
+# export SHELDON_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/sheldon/${SHELL##*/}
+# eval "$(sheldon source)"
 
 # source ~/.profile even when ~/.bash_profile exists.
 # shellcheck source=/dev/null
