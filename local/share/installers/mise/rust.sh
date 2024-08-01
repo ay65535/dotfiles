@@ -17,3 +17,5 @@ mise ls
 eval "$(mise activate bash)"
 which -a rustc
 rustc --version
+which -a cargo
+cargo --version

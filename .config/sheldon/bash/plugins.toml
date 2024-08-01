@@ -14,21 +14,21 @@ shell = "bash"
 
 ##! .bash_profile
 
-[plugins.profile-d]
-local = '~/.dotfiles/.profile.d'
+# [plugins.profile-d]
+# local = '~/.dotfiles/.profile.d'
 
 # [plugins.profile-d-linux]
 # local = '~/.dotfiles/.profile.d/linux'
 
 ##! .bashrc
 
-[plugins.mise]
-inline = 'eval "$(mise activate bash)"'
+# [plugins.mise]
+# inline = 'eval "$(mise activate bash)"'
 
-[plugins.mise-shims]
-# inline = 'eval "$(mise activate --shims)"'
-local = '~/.local/share/mise/shims'
-apply = ['PATH']
+# [plugins.mise-shims]
+# # inline = 'eval "$(mise activate --shims)"'
+# local = '~/.local/share/mise/shims'
+# apply = ['PATH']
 
 [plugins.local-sh]
 local = '~/.config/sh'

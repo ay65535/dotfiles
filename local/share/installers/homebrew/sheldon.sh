@@ -10,7 +10,11 @@ brew info sheldon
 # apt list --installed sheldon
 # mise install sheldon
 # mise use --global sheldon
-brew install sheldon
+# brew install sheldon
+
+sudo apt -y install pkg-config # deps
+cargo install --root ~/.local sheldon
+# cargo uninstall --root ~/.local sheldon
 
 which -a sheldon
 sheldon --version

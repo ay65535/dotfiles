@@ -9,4 +9,5 @@ mise install ruby 3
 mise use --global ruby@latest
 mise ls
 
+which -a ruby
 ruby -v

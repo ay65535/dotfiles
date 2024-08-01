@@ -8,6 +8,7 @@ echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=$(dpkg --pr
 sudo apt update
 sudo apt -y install mise
 
+# which -a mise
 # mise --version
 # mise completion "${SHELL##*/}" >"$XDG_DATA_HOME"/bash-completion/completions/mise
 # ls -la "$XDG_DATA_HOME"/bash-completion/completions

@@ -26,12 +26,12 @@ else
   # shellcheck disable=SC2154
   cat <<EOF | sudo tee -a ${TARGET}
 # system-wide proxy settings
-${PREFIX}http_proxy=${http_proxy:-$https_proxy}
-${PREFIX}HTTP_PROXY=${http_proxy:-$https_proxy}
-${PREFIX}https_proxy=$https_proxy
-${PREFIX}HTTPS_PROXY=$https_proxy
-${PREFIX}no_proxy=${no_proxy:-127.0.0.1,localhost,192.168.250.0/24,192.168.0.0/24,10.6.80.0/23,172.16.0.0/12,::1}
-${PREFIX}NO_PROXY=${no_proxy:-127.0.0.1,localhost,192.168.250.0/24,192.168.0.0/24,10.6.80.0/23,172.16.0.0/12,::1}
+${PREFIX}http_proxy="${http_proxy:-$https_proxy}"
+${PREFIX}HTTP_PROXY="${http_proxy:-$https_proxy}"
+${PREFIX}https_proxy="$https_proxy"
+${PREFIX}HTTPS_PROXY="$https_proxy"
+${PREFIX}no_proxy="${no_proxy:-127.0.0.1,localhost,192.168.250.0/24,192.168.0.0/24,10.6.80.0/23,172.16.0.0/12,::1}"
+${PREFIX}NO_PROXY="${no_proxy:-127.0.0.1,localhost,192.168.250.0/24,192.168.0.0/24,10.6.80.0/23,172.16.0.0/12,::1}"
 EOF
 
 fi
