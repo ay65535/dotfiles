@@ -5,6 +5,9 @@ mise plugins ls
 
 # rust-all/noble 1.75.0+dfsg0ubuntu1-0ubuntu7 all
 apt list rust-all
+# cargo/jammy-updates,jammy-security 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 amd64
+apt list cargo
+sudo apt -y install cargo
 
 # 1.80.0
 mise ls-remote rust
@@ -19,3 +22,5 @@ which -a rustc
 rustc --version
 which -a cargo
 cargo --version
+
+# warning: be sure to add `~/.cargo/bin` to your PATH to be able to run the installed binaries

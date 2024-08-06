@@ -12,7 +12,8 @@ brew info sheldon
 # mise use --global sheldon
 # brew install sheldon
 
-sudo apt -y install pkg-config # deps
+sudo apt -y install pkg-config libssl-dev # deps
+cargo install sheldon
 cargo install --root ~/.local sheldon
 # cargo uninstall --root ~/.local sheldon
 
