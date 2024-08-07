@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 VARIANT=${1:-default}
 
@@ -9,38 +9,52 @@ echo "VARIANT='$VARIANT'"
 
 case "$VARIANT" in
 default)
-  # 2.34.1 (22.04)
-  sudo apt update
-  apt list -a git
+  # sudo apt update
+  apt list git
+  # ==> git/noble-updates,noble-security 1:2.43.0-1ubuntu7.1 amd64 (2024-08-07)
   sudo apt install git
   ;;
 ppa)
+  # https://launchpad.net/~git-core/+archive/ubuntu/ppa
+  # sudo apt update
   # For Ubuntu, this PPA provides the latest stable upstream Git version
-  # 2.43.2 (2024-05-14)
   sudo add-apt-repository ppa:git-core/ppa
-  sudo apt update
-  apt list -a git
+  apt list git
+  # ==> git/noble 1:2.46.0-0ppa1~ubuntu24.04.1 amd64 (2024-08-07)
   sudo apt install git
   # Uninstall #
-  # sudo apt remove --purge git
+  # sudo apt -y remove --purge git
   # sudo add-apt-repository --remove ppa:git-core/ppa
   ;;
 pparc)
   # For Ubuntu, this PPA provides the latest release candidates of Git version
-  # 2.45.0 (2024-05-14)
   sudo add-apt-repository ppa:git-core/candidate
   sudo apt update
   apt list -a git
   sudo apt -y upgrade git
   # sudo apt -y install git
+  # Uninstall #
+  # sudo apt -y remove --purge git
+  # sudo add-apt-repository --remove ppa:git-core/candidate
+  # sudo rm /etc/apt/sources.list.d/git-core-ubuntu-candidate-noble.sources
+  # ls -la /etc/apt/sources.list.d
   ;;
 brew)
   brew search git
-  # 2.45.0 (2024-05-14)
   brew info git
+  # ==> git: stable 2.46.0 (bottled), HEAD (2024-08-07)
   read -rp "Press enter to continue"
   brew install git
   # Uninstall #
   #brew remove git
+  ;;
+mise)
+  mise plugins ls-remote | grep git
+  mise ls-remote git
+  # ==> 2.46.0 (2024-08-07)
+  mise install git
+  mise use --global git
+  which -a git
+  git --version
   ;;
 esac

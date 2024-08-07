@@ -12,6 +12,7 @@ startship-init.ps1
 /.config/*
 !/.config/bash_completion
 !/.config/bash-completion.d/
+/.config/bash-completion.d/kubectl_completion.bash
 !/.config/bash/
 !/.config/bottom/
 !/.config/fzf/

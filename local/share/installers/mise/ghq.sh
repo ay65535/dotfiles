@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 
-mise plugins ls-remote | grep ghq
-
 # none
-# apt list ghq
+# apt list ghq*
 
-# 0.54.0
-mise ls-remote ghq
+brew info ghq
+# ==> ghq: stable 1.6.2 (bottled), HEAD
+brew install ghq
 
-# deps
-sudo apt -y install unzip
-
-mise install ghq
-mise use --global ghq
-
-apt list --installed ghq*
-mise ls
+# mise plugins ls-remote | grep ghq
+# mise ls-remote ghq
+# # ==> 1.6.2
+# sudo apt -y install unzip # deps
+# mise install ghq
+# mise use --global ghq
+# mise ls ghq
+# mise uninstall --all ghq && mise plugins uninstall --purge ghq # uninstall
+# rm ~/.local/share/mise/shims/ghq_use_asdf
+# mise reshim
+# mise doctor
 
 which -a ghq
 ghq --version

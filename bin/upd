@@ -4,7 +4,9 @@ echo
 echo "Updating system..."
 
 sudo apt update &&
+  apt list --upgradable &&
   sudo apt -y upgrade &&
+  sudo apt -y full-upgrade &&
   sudo apt -y autoremove &&
   sudo apt -y clean
 
@@ -18,6 +20,17 @@ sudo snap refresh --list &&
 echo
 echo "Updating Homebrew..."
 brew update &&
+  brew outdated &&
   brew upgrade &&
   brew cleanup &&
   brew doctor
+
+echo
+echo "Updating runtimes with mise..."
+mise self-update -y &&
+  # mise plugins update &&
+  mise outdated &&
+  mise upgrade &&
+  mise cache clear &&
+  mise reshim &&
+  mise doctor
