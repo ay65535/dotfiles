@@ -5,7 +5,6 @@
 depends = []
 
 [default.files]
-# "." = { target = "~/.dotfiles", type = "symbolic", recurse = false }
 ".bash_aliases" = "~/.bash_aliases"
 ".bash_profile" = "~/.bash_profile"
 # https://github.com/SuperCuber/dotter/wiki/Setup-and-Configuration#complex-target
@@ -35,6 +34,9 @@ default_target_type = "automatic"
 # dotter init
 # mv ~/.dotfiles/.dotter/global.toml{.bak,}
 # dotter deploy -d
+# dotter deploy -d --force
 # dotter deploy
+# dotter deploy --force
+# ls -la ~
 # dotter undeploy -d
 # dotter undeploy -y  # not work on windows..

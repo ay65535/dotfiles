@@ -3,19 +3,21 @@
 echo
 echo "Updating system..."
 
-sudo apt update &&
-  apt list --upgradable &&
-  sudo apt -y upgrade &&
-  sudo apt -y full-upgrade &&
-  sudo apt -y autoremove &&
-  sudo apt -y clean
+if linux; then
+  sudo apt update &&
+    apt list --upgradable &&
+    sudo apt -y upgrade &&
+    sudo apt -y full-upgrade &&
+    sudo apt -y autoremove &&
+    sudo apt -y clean
 
-echo
-echo "Updating snaps..."
-sudo snap refresh --list &&
-  sudo snap refresh &&
-  snap list --all &&
-  snap changes
+  echo
+  echo "Updating snaps..."
+  sudo snap refresh --list &&
+    sudo snap refresh &&
+    snap list --all &&
+    snap changes
+fi
 
 echo
 echo "Updating Homebrew..."
