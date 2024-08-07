@@ -8,10 +8,16 @@ globexists () {
 setopt extendedglob
 unsetopt nomatch
 local -a files
-files=($(find -E ~/.profile.d/ -regex '.*\.z?sh$' | sort))
+files=($(find ~/.profile.d/ -maxdepth 1 -regex '.*\.z?sh$' | sort))
 for file in $files; do
   . "$file"
 done
+if [ -d ~/.profile.d/${OSDIR:?} ]; then
+  files=($(find ~/.profile.d/${OSDIR:?} -regex '.*\.z?sh$' | sort))
+  for file in $files; do
+    . "$file"
+  done
+fi
 
 # Resume Support: Save/Restore Shell State
 #

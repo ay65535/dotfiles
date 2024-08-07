@@ -3,6 +3,7 @@ _zinit
 .DS_Store
 .zcompcache/
 .zcompdump
+*.cache.zsh
 *.log
 *.pid
 *.zwc

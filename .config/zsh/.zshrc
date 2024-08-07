@@ -52,23 +52,6 @@ SAVEHIST=200000
 #export HISTFILE="$XDG_STATE_HOME"/zsh/history
 export HISTFILE="$ZDOTDIR/history"
 
-LS_ALTERNATIVES=eza:gls:ls
-
-# # コロン区切りの値を配列に変換
-# IFS=':' read -r commands <<< "$LS_ALTERNATIVES"
-# commands=("${(s/:/)commands}")
-
-# # コマンドを順にチェックして最初に見つけたコマンドをエイリアスに設定
-# for cmd in "${commands[@]}"; do
-#     if type "$cmd" &> /dev/null; then
-#         alias ls="$cmd"
-#         echo "Alias set: ls -> $cmd"
-#         break
-#     fi
-# done
-
-FILTER_ALTERNATIVES=fzf:peco
-
 if macos; then
   if type gls >/dev/null 2>&1; then
     GNU_COREUTILS=1
@@ -98,7 +81,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-if ! grep -q pam_tid.so /etc/pam.d/sudo; then
+if [ "$OSTYPE" = darwin ] && ! grep -q pam_tid.so /etc/pam.d/sudo; then
   [ ! -f /etc/pam.d/sudo.orig ] && sudo ditto /etc/pam.d/sudo /etc/pam.d/sudo.orig
   if command -v gsed; then
     echo "Adding pam_tid.so to /etc/pam.d/sudo"
@@ -107,12 +90,13 @@ if ! grep -q pam_tid.so /etc/pam.d/sudo; then
 fi
 
 ### sheldon
+#export SHELDON_CONFIG_DIR=${XDG_CONFIG_HOME:-${HOME}/.config}/sheldon/${SHELL##*/}
 # eval "$(sheldon source)"
 # https://zenn.dev/fuzmare/articles/zsh-plugin-manager-cache
 # ファイル名を変数に入れる
 cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}
 sheldon_cache="$cache_dir/sheldon.zsh"
-sheldon_toml="$HOME/.config/sheldon/plugins.toml"
+sheldon_toml="${XDG_CONFIG_HOME:-$HOME/.config}/sheldon/plugins.toml"
 # キャッシュがない、またはキャッシュが古い場合にキャッシュを作成
 if [[ ! -r "$sheldon_cache" || "$sheldon_toml" -nt "$sheldon_cache" ]]; then
   mkdir -p $cache_dir
@@ -209,4 +193,4 @@ FZF_DEFAULT_OPTS='--height=15 --reverse --inline-info --color=dark --color=fg:-1
 #   atpull"%atclone" src"init.zsh" for \
 #   starship/starship
 
-unfunction source
+# unfunction source

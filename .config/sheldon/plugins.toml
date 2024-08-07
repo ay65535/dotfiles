@@ -31,33 +31,40 @@ apply = ['defer']
 github = 'zsh-users/zsh-syntax-highlighting'
 apply = ['defer']
 
-[plugins.dotfiles-sync]
-local = '~/.dotfiles/.config/zsh/sync'
-use = ['*.zsh']
-apply = ['source']
-
-[plugins.dotfiles-defer]
-local = '~/.dotfiles/.config/zsh/defer'
-use = ['*.zsh']
-apply = ['defer']
-
-[plugins.dotfiles-local-sync]
-local = '~/.dotfiles/.config/zsh/local'
-use = ['*.sync.zsh']
-apply = ['source']
-
 [plugins.dotfiles-sh-defer]
 local = '~/.dotfiles/.config/sh'
 use = ['*.{z,*}sh']
 apply = ['defer']
 
-[plugins.dotfiles-local-defer]
-local = '~/.dotfiles/.config/zsh/local'
-use = ['{!*.sync,*}.zsh']
-apply = ['defer']
+[plugins.dotfiles-sync]
+local = '~/.dotfiles/.config/zsh/sync'
+use = ['*.zsh']
+apply = ['source']
 
 [plugins.mise]
-inline = 'eval "$(mise activate zsh)"'
+# inline = 'eval "$(mise activate zsh)"'
+local = '~/.dotfiles/.config/zsh/mise'
+apply = ['defer']
+# apply = ['source']
+
+# [plugins.mise-shims]
+# # inline = 'eval "$(mise activate --shims)"'
+# local = '~/.local/share/mise/shims'
+# apply = ['PATH']
 
 [plugins.starship]
-inline = 'eval "$(starship init zsh)"'
+# inline = 'eval "$(starship init zsh)"'
+local = '~/.dotfiles/.config/zsh/starship'
+# apply = ['defer']
+apply = ['source']
+
+[plugins.fzf]
+# inline = 'eval "$(fzf --zsh)"'
+local = '~/.dotfiles/.config/zsh/fzf'
+apply = ['defer']
+
+[plugins.zoxide]
+# inline = 'eval "$(zoxide init zsh)"'
+# inline = 'eval "$(zoxide init zsh --cmd cd)"'
+local = '~/.dotfiles/.config/zsh/zoxide'
+apply = ['defer']

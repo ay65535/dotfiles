@@ -24,3 +24,6 @@ brew)
   # brew remove zsh
   ;;
 esac
+
+cat /etc/shells
+chsh -s /bin/zsh
