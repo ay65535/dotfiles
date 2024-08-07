@@ -26,7 +26,10 @@ depends = []
 default_target_type = "automatic"
 
 # sudo apt -y install build-essential
+# export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
 # eval "$(mise activate ${SHELL##*/})"
+# echo $PATH | tr : '\n'
+# mise use --global rust
 # cargo install dotter
 # which -a dotter
 # cd ~/.dotfiles

@@ -52,11 +52,14 @@ use = ['vscode.bash']
 remote = 'https://github.com/eza-community/eza/raw/main/completions/bash/eza'
 
 [plugins.starship]
-inline = 'eval "$(starship init bash)"'
+# inline = 'eval "$(starship init bash)"'
+local = '~/.cache/starship'
 
 [plugins.fzf]
-inline = 'eval "$(fzf --bash)"'
+# inline = 'eval "$(fzf --bash)"'
+local = '~/.cache/fzf'
 
 [plugins.zoxide]
-inline = 'eval "$(zoxide init bash)"'
+# inline = 'eval "$(zoxide init bash)"'
 # inline = 'eval "$(zoxide init bash --cmd cd)"'
+local = '~/.cache/zoxide'
