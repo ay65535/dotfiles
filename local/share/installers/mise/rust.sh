@@ -3,6 +3,7 @@
 mise plugins ls-remote | grep rust
 mise plugins ls
 
+# rust-all/jammy-updates,jammy-security 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 all
 # rust-all/noble 1.75.0+dfsg0ubuntu1-0ubuntu7 all
 apt list rust-all
 # cargo/jammy-updates,jammy-security 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 amd64

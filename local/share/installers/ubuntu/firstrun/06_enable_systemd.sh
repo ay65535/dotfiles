@@ -12,4 +12,6 @@ fi
 
 cat /etc/wsl.conf
 
+systemctl status --no-pager
+systemctl status --user
 systemctl list-unit-files --type=service --no-pager

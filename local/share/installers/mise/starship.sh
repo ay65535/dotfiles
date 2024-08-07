@@ -10,10 +10,8 @@
 
 # sudo apt -y install starship
 # apt list --installed starship
-brew install starship
+# brew install starship
 
-# deps
-#sudo apt -y install
 # mise install starship
 # mise use --global starship
 

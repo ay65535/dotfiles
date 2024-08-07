@@ -11,3 +11,4 @@ mise ls
 
 which -a ruby
 ruby -v
+/usr/bin/ruby -v

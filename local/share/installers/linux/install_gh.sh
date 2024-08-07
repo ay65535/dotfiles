@@ -9,6 +9,9 @@
   sudo apt update &&
   sudo apt install gh -y
 
+# Login
+gh auth login
+
 # Upgrade
 #sudo apt update
 #sudo apt install gh

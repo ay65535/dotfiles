@@ -10,5 +10,6 @@ sudo apt -y install mise
 
 # which -a mise
 # mise --version
+# mkdir -p "$XDG_DATA_HOME"/bash-completion/completions
 # mise completion "${SHELL##*/}" >"$XDG_DATA_HOME"/bash-completion/completions/mise
 # ls -la "$XDG_DATA_HOME"/bash-completion/completions
