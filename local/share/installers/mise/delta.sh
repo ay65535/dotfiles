@@ -15,6 +15,7 @@ mise install delta
 mise use --global delta
 
 apt list --installed delta*
+mise uninstall -a delta
 
 which -a delta
 delta --version

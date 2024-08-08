@@ -25,3 +25,7 @@ which -a cargo
 cargo --version
 
 # warning: be sure to add `~/.cargo/bin` to your PATH to be able to run the installed binaries
+
+# mise uninstall --all rust && mise plugins uninstall --purge rust # uninstall
+# mise reshim
+# mise doctor

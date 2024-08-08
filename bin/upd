@@ -1,9 +1,8 @@
 #!/bin/bash
 
-echo
-echo "Updating system..."
-
-if linux; then
+if [[ $OSTYPE =~ linux ]]; then
+  echo
+  echo "Updating system..."
   sudo apt update &&
     apt list --upgradable &&
     sudo apt -y upgrade &&
@@ -19,20 +18,31 @@ if linux; then
     snap changes
 fi
 
-echo
-echo "Updating Homebrew..."
-brew update &&
-  brew outdated &&
-  brew upgrade &&
-  brew cleanup &&
-  brew doctor
+if [[ $OSTYPE =~ darwin|linux ]]; then
+  echo
+  echo "Updating Homebrew..."
+  brew update &&
+    brew outdated &&
+    brew upgrade &&
+    brew cleanup &&
+    brew doctor
 
-echo
-echo "Updating runtimes with mise..."
-mise self-update -y &&
-  # mise plugins update &&
+  echo
+  echo "Updating runtimes with mise..."
+  if [[ $OSTYPE =~ linux ]]; then
+    mise self-update -y
+  elif [[ $OSTYPE =~ darwin ]]; then
+    mise plugins update
+  fi
   mise outdated &&
-  mise upgrade &&
-  mise cache clear &&
-  mise reshim &&
-  mise doctor
+    mise upgrade &&
+    mise cache clear &&
+    mise reshim &&
+    mise doctor
+fi
+
+if [[ $OS =~ Windows ]]; then
+  winget upgrade -i --all
+  scoop update scoop &&
+    scoop update '*'
+fi
