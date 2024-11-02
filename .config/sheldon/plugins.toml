@@ -19,6 +19,9 @@ defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file 
 github = 'romkatv/zsh-defer'
 apply = ['source']
 
+[plugins.compinit]
+inline = 'autoload -Uz compinit && zsh-defer compinit'
+
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
 apply = ['defer']
@@ -42,13 +45,13 @@ use = ['*.zsh']
 apply = ['source']
 
 [plugins.mise]
-# inline = 'eval "$(mise activate zsh)"'
+#inline = 'eval "$(mise activate zsh)"'
 local = '~/.dotfiles/.config/zsh/mise'
-apply = ['defer']
-# apply = ['source']
+apply = ['source']
+#apply = ['defer']
 
 # [plugins.mise-shims]
-# # inline = 'eval "$(mise activate --shims)"'
+# #inline = 'eval "$(mise activate --shims)"'
 # local = '~/.local/share/mise/shims'
 # apply = ['PATH']
 

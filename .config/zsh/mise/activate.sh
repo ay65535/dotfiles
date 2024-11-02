@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
-
 # https://zenn.dev/fuzmare/articles/zsh-plugin-manager-cache
 # ファイル名を変数に入れる
 target_dir=$ZDOTDIR/mise

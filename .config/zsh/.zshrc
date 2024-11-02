@@ -89,6 +89,12 @@ if [ "$OSTYPE" = darwin ] && ! grep -q pam_tid.so /etc/pam.d/sudo; then
   fi
 fi
 
+if command -v brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  autoload -Uz compinit
+  compinit
+fi
+
 ### sheldon
 #export SHELDON_CONFIG_DIR=${XDG_CONFIG_HOME:-${HOME}/.config}/sheldon/${SHELL##*/}
 # eval "$(sheldon source)"

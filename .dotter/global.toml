@@ -22,8 +22,8 @@ depends = []
 
 [default.variables]
 
-[settings]
-default_target_type = "automatic"
+# [settings]
+# default_target_type = "automatic"
 
 # sudo apt -y install build-essential
 # export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
@@ -36,6 +36,10 @@ default_target_type = "automatic"
 # mv ~/.dotfiles/.dotter/global.toml{,.bak}
 # dotter init
 # mv ~/.dotfiles/.dotter/global.toml{.bak,}
+# --
+# includes = [".dotter/macos.toml"]
+# packages = ["default", "dotfiles"]
+# --
 # dotter deploy -d
 # dotter deploy -d --force
 # dotter deploy
