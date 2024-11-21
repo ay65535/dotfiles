@@ -71,3 +71,28 @@ apply = ['defer']
 # inline = 'eval "$(zoxide init zsh --cmd cd)"'
 local = '~/.config/zsh/zoxide'
 apply = ['defer']
+
+[plugins.tre-y]
+local = '~/.config/zsh/tre-y'
+apply = ['defer']
+# inline = '''tre() {
+#   if [[ "$1" == "-y" ]]; then
+#     shift
+#     tre -j | jq '
+#       def transform:
+#         if type == "object" and has("contents") then
+#           {(.name): (.contents | map(transform))}
+#         elif type == "object" then
+#           .name
+#         elif type == "array" then
+#           map(transform)
+#         else
+#           .
+#         end;
+
+#       {".": (.contents | map(transform) | add)}
+#     ' | yq -P
+#   else
+#     command tre "$@"
+#   fi
+# }'''
