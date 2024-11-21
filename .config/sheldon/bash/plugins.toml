@@ -22,8 +22,10 @@ shell = "bash"
 
 ##! .bashrc
 
-# [plugins.mise]
-# inline = 'eval "$(mise activate bash)"'
+[plugins.mise]
+#inline = 'eval "$(mise activate bash)"'
+local = '~/.cache/eval_cache/mise'
+apply = ['source']
 
 # [plugins.mise-shims]
 # # inline = 'eval "$(mise activate --shims)"'

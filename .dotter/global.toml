@@ -27,9 +27,19 @@ depends = []
 
 # sudo apt -y install build-essential
 # export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
+# echo $MISE_CONFIG_DIR
 # eval "$(mise activate ${SHELL##*/})"
+# eval "$(mise completion ${SHELL##*/})"
 # echo $PATH | tr : '\n'
+# sudo mise self-update
+# mise plugins update
+# mise outdated
+# mise list --global
+# mise upgrade -y
+# mise upgrade -y --bump # upgrade all new versions
+# mise doctor
 # mise use --global rust
+# which -a cargo
 # cargo install dotter
 # which -a dotter
 # cd ~/.dotfiles

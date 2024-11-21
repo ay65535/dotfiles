@@ -8,7 +8,7 @@ create_and_source_cache() {
   local name=$1
   local eval_cmd=$2
   local source_file=${3:-$(command -v "$name")}
-  local cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}/$name
+  local cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}/eval_cache/$name
   local cache_file=$cache_dir/cache.bash
 
   if [[ ! -r "$cache_file" || "$source_file" -nt "$cache_file" ]]; then
@@ -20,10 +20,12 @@ create_and_source_cache() {
   . "$cache_file"
 }
 
+# 依存関係: mise <-- (sheldon)
+
 # Setup mise
 export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
-# mise activate --shims
 create_and_source_cache "mise" "mise activate bash"
+# mise activate --shims
 export PATH="${XDG_DATA_HOME:-$HOME/.local/share}/mise/shims:$PATH"
 
 # Setup starship

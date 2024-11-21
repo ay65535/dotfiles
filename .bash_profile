@@ -20,8 +20,8 @@ if globexists ~/.profile.d/*.*(ba)sh; then
 fi
 
 # source ~/.profile.d/$OSDIR/*.sh if it exists.
-if globexists ~/.profile.d/$OSDIR/*.*(ba)sh; then
-  for f in ~/.profile.d/$OSDIR/*.*(ba)sh; do
+if globexists ~/.profile.d/"$OSDIR"/*.*(ba)sh; then
+  for f in ~/.profile.d/"$OSDIR"/*.*(ba)sh; do
     . "$f"
   done
 fi
