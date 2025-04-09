@@ -4,7 +4,7 @@
 # mise plugins ls-remote | grep sheldon
 
 # ==> sheldon: stable 0.7.4 (bottled), HEAD
-brew info sheldon
+# brew info sheldon
 
 # sudo apt -y install sheldon
 # apt list --installed sheldon
@@ -15,9 +15,10 @@ brew info sheldon
 sudo apt -y install pkg-config libssl-dev # deps
 cargo install cargo-binstall
 cargo binstall --root ~/.local sheldon
-cargo install sheldon
-cargo install --root ~/.local sheldon
+# cargo install sheldon
+# cargo install --root ~/.local sheldon
 # cargo uninstall --root ~/.local sheldon
+export PATH="$HOME/.local/bin:$PATH"
 
 which -a sheldon
 sheldon --version

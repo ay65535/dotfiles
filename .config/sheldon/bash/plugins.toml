@@ -55,13 +55,13 @@ remote = 'https://github.com/eza-community/eza/raw/main/completions/bash/eza'
 
 [plugins.starship]
 # inline = 'eval "$(starship init bash)"'
-local = '~/.cache/starship'
+local = '~/.cache/eval_cache/starship'
 
 [plugins.fzf]
 # inline = 'eval "$(fzf --bash)"'
-local = '~/.cache/fzf'
+local = '~/.cache/eval_cache/fzf'
 
 [plugins.zoxide]
 # inline = 'eval "$(zoxide init bash)"'
 # inline = 'eval "$(zoxide init bash --cmd cd)"'
-local = '~/.cache/zoxide'
+local = '~/.cache/eval_cache/zoxide'

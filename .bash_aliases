@@ -26,7 +26,7 @@ create_and_source_cache() {
 export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
 create_and_source_cache "mise" "mise activate bash"
 # mise activate --shims
-export PATH="${XDG_DATA_HOME:-$HOME/.local/share}/mise/shims:$PATH"
+#export PATH="${XDG_DATA_HOME:-$HOME/.local/share}/mise/shims:$PATH"
 
 # Setup starship
 create_and_source_cache "starship" "starship init bash"
@@ -45,8 +45,4 @@ create_and_source_cache "sheldon" "sheldon source" "$SHELDON_CONFIG_DIR/plugins.
 unset -f create_and_source_cache
 
 # Reset
-# rm -v ~/.cache/mise/cache.bash
-# rm -v ~/.cache/starship/cache.bash
-# rm -v ~/.cache/fzf/cache.bash
-# rm -v ~/.cache/zoxide/cache.bash
-# rm -v ~/.cache/sheldon/cache.bash
+# rm -rv ~/.cache/eval_cache/*
