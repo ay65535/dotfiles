@@ -8,7 +8,7 @@ mise plugins ls
 apt list rust-all
 # cargo/jammy-updates,jammy-security 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 amd64
 apt list cargo
-sudo apt -y install cargo
+# sudo apt -y install cargo
 
 # 1.80.0
 mise ls-remote rust

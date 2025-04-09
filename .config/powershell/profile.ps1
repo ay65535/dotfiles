@@ -2,35 +2,40 @@
 # AllPlatforms-AllHosts Settings #
 ##################################
 
+# https://learn.microsoft.com/ja-jp/powershell/gallery/powershellget/update-powershell-51?view=powershellget-3.x
+# [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+
 #
 # Environment variables
 #
 
 ## Add ~/bin/ to the PATH
-$private:binPath = Join-Path $HOME bin
-if (!$env:PATH.Contains($private:binPath)) {
-    $env:PATH = "$private:binPath$([System.IO.Path]::PathSeparator)$env:PATH"
-}
-$private:binPath = Join-Path $HOME .local bin
-if (!$env:PATH.Contains($private:binPath)) {
-    $env:PATH = "$private:binPath$([System.IO.Path]::PathSeparator)$env:PATH"
-}
-Remove-Variable binPath
+# $private:binPath = Join-Path $HOME bin
+# if (!$env:PATH.Contains($private:binPath)) {
+#     $env:PATH = "$private:binPath$([System.IO.Path]::PathSeparator)$env:PATH"
+# }
+# $private:binPath = Join-Path $HOME .local | Join-Path -ChildPath bin
+# if (!$env:PATH.Contains($private:binPath)) {
+#     $env:PATH = "$private:binPath$([System.IO.Path]::PathSeparator)$env:PATH"
+# }
+# Remove-Variable binPath
 # $env:PATH -split [System.IO.Path]::PathSeparator
+#
+# rundll32 sysdm.cpl,EditEnvironmentVariables
 
 #
 # Global variables
 #
 
 $global:DotRoot = if ((Test-Path Env:/OneDrive) -and (Test-Path $env:OneDrive)) {
-    "$env:OneDrive/dotfiles"
+    Convert-Path "$env:OneDrive/dotfiles"
 } elseif (Test-Path "$HOME/.dotfiles") {
-    "$HOME/.dotfiles"
+    Convert-Path "$HOME/.dotfiles"
 }
 
 $global:DotParent = Convert-Path $global:DotRoot/..
 
-$global:Platform = if ($IsWindows) {
+$global:Platform = if ($IsWindows -or $PSVersionTable.PSVersion.Major -le 5) {
     'windows'
 } elseif ($IsLinux) {
     'linux'
@@ -55,8 +60,6 @@ $global:LoadedProfiles = @()
 # Local variables
 #
 
-$scriptRoot = if ($PSScriptRoot) { $PSScriptRoot } else { "$DotRoot/.config/powershell" }
-
 $setPSReadLineOptionParams = @{
     BellStyle                     = 'None'
     EditMode                      = 'Emacs'
@@ -75,7 +78,8 @@ $setPSReadLineOptionParams = @{
 function Import-ScriptAsFunction { param ([Parameter(Mandatory)] [string] $Path) Invoke-Expression "function global:$((Get-Item $Path).BaseName) {`n`n$(Get-Content -Raw $Path)`n`n}" }
 
 # PredictionSource = 'History'
-if ($PSVersionTable.PSVersion -ge '7.2' -and (Get-Module PSReadline).Version -ge '2.2.2' -and (Get-Module -ListAvailable CompletionPredictor)) {
+$psReadLineModule = Get-Module PSReadline
+if ($PSVersionTable.PSVersion -ge '7.2' -and $psReadLineModule -and $psReadLineModule.Version -ge '2.2.2' -and (Get-Module -ListAvailable CompletionPredictor)) {
     # Install-Module CompletionPredictor
     Import-Module CompletionPredictor
     $setPSReadLineOptionParams.PredictionSource = 'HistoryAndPlugin'
@@ -95,10 +99,10 @@ function q() { exit }
 ## starship
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     $env:STARSHIP_CONFIG = "$DotRoot/.config/starship.toml"
-    $startshipInitDir = Join-Path $scriptRoot $Platform
+    $startshipInitDir = Join-Path $PSScriptRoot $Platform
     $startshipInitPath = Join-Path $startshipInitDir startship-init.ps1
     function Update-StartShipInitScript {
-        starship init powershell --print-full-init | Out-File -Encoding $Encoding $startshipInitPath
+        starship init powershell --print-full-init | Out-File -Encoding $Utf8Encoding $startshipInitPath
     }
 
     if (!(Test-Path $startshipInitPath)) {
@@ -109,6 +113,23 @@ if (Get-Command starship -ErrorAction SilentlyContinue) {
         . $startshipInitPath
     }
     Initialize-StartShip
+}
+
+## zoxide
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+    $zoxideInitDir = Join-Path $PSScriptRoot $Platform
+    $zoxideInitPath = Join-Path $zoxideInitDir zoxide-init.ps1
+    function Update-ZoxideInitScript {
+        zoxide init powershell | Out-File -Encoding $Utf8Encoding $zoxideInitPath
+    }
+    if (!(Test-Path $zoxideInitPath)) {
+        New-Item -ItemType Directory $zoxideInitDir -Force >$null
+        Update-ZoxideInitScript
+    }
+    function Initialize-Zoxide {
+        . $zoxideInitPath
+    }
+    Initialize-Zoxide
 }
 
 # /opt/homebrew/bin/brew shellenv
@@ -198,18 +219,18 @@ Register-ArgumentCompleter -CommandName pacs -ParameterName SubCommand -ScriptBl
 #
 
 if (Test-Path $HOME/.local/share/mise/shims) {
-    $env:PATH = "$HOME/.local/share/mise/shims:$env:PATH"
+    $env:PATH = "$HOME/.local/share/mise/shims" + [IO.Path]::PathSeparator + "$env:PATH"
 }
 
 #
 # PATHを整理
 #
 
-$pathDict = [ordered]@{}
-foreach ($pathItem in $env:PATH.Split([IO.Path]::PathSeparator)) {
-    $pathDict[$pathItem] = $true
-}
-$env:PATH = $pathDict.Keys -join ':'
+# $pathDict = [ordered]@{}
+# foreach ($pathItem in $env:PATH.Split([IO.Path]::PathSeparator)) {
+#     $pathDict[$pathItem] = $true
+# }
+# $env:PATH = $pathDict.Keys -join [IO.Path]::PathSeparator
 
 # $pathArray = @(
 #     # "$HOME/.vscode/cli/serve-web/*/bin/remote-cli",
@@ -238,12 +259,12 @@ $env:PATH = $pathDict.Keys -join ':'
 #
 
 # Load platform-specific profile
-if (Test-Path "$scriptRoot/$Platform/profile.ps1") {
-    . "$scriptRoot/$Platform/profile.ps1"
+if (Test-Path "$PSScriptRoot/$Platform/profile.ps1") {
+    . "$PSScriptRoot/$Platform/profile.ps1"
 }
 
 # Load host-specific profile
 $profileFilename = $PROFILE.CurrentUserCurrentHost | Split-Path -Leaf
-if (Test-Path "$scriptRoot/$profileFilename") {
-    . "$scriptRoot/$profileFilename"
+if (Test-Path "$PSScriptRoot/$profileFilename") {
+    . "$PSScriptRoot/$profileFilename"
 }

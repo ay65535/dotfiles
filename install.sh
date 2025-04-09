@@ -13,43 +13,12 @@ SCRIPT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 # Functions
 #
 
-symlink_to_home() {
-  # 1st param is: filename to symlink
-  local link_name="$1"
-  local link_dir="$HOME"
-  local link_path="$link_dir/$link_name"
-  local orig_fullpath="$SCRIPT_ROOT/$link_name"
-
-  # check original file existence
-  if [[ ! -e "$orig_fullpath" ]]; then
-    echo "$orig_fullpath is not found, do nothing." >&2
-    return
-  fi
-
-  # check symlink existence
-  if [[ -e "$link_path" ]]; then
-    echo "$link_path is already exists, do nothing." >&2
-    return
-  fi
-
-  # get relative path
-  local orig_relpath
-  orig_relpath="$(realpath --relative-to="$link_dir" "$orig_fullpath")"
-
-  ln -snfv "$orig_relpath" "$link_path"
-}
 
 #
 # Main
 #
 
 shopt -s extglob
-
-TARGET=("$SCRIPT_ROOT"/@(.!(git|.|)|bin|local))
-
-for f in "${TARGET[@]}"; do
-  symlink_to_home "$(basename "$f")"
-done
 
 # if .bashrc not found, create it
 if [ ! -f ~/.bashrc ] || ! grep -q .bash_aliases ~/.bashrc; then
@@ -99,3 +68,47 @@ ln -snfv .dotfiles/secret/.secret .
 ln -snfv .dotfiles/secret/.ssh .
 # cd ~/.ssh
 # chmod 750 .
+
+# sudo apt -y install build-essential
+
+# install mise
+# export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
+export MISE_CONFIG_DIR=${SCRIPT_ROOT:?}/.config/mise/${OSDIR:?}
+echo $MISE_CONFIG_DIR
+local/share/installers/mise/install_mise-apt.sh
+eval "$(mise activate ${SHELL##*/})"
+#eval "$(mise completion ${SHELL##*/})"
+echo $PATH | tr : '\n'
+# sudo mise self-update
+mise plugins update
+mise outdated
+mise list --global
+# mise upgrade -y
+# mise upgrade -y --bump # upgrade all new versions
+mise doctor
+
+# install rust
+local/share/installers/rust/install_rust-mise.sh
+mise use --global rust
+
+# install dotter
+local/share/installers/dotter/install_dotter-cargo.sh
+
+# execute dotter
+cd ~/.dotfiles
+mv ~/.dotfiles/.dotter/global.toml{,.bak}
+dotter init
+mv ~/.dotfiles/.dotter/global.toml{.bak,}
+
+# edit local.toml
+sed -i -e "s@includes = \[\]@includes = [\".dotter/${OSDIR}.toml\"]@" ~/.dotfiles/.dotter/local.toml
+sed -i -e 's@packages = \["default"\]@packages = ["default", "dotfiles"]@' ~/.dotfiles/.dotter/local.toml
+cat ~/.dotfiles/.dotter/local.toml
+
+dotter deploy -d
+dotter deploy -d --force
+# dotter deploy
+# dotter deploy --force
+ls -la ~
+# dotter undeploy -d
+# dotter undeploy -y  # not work on windows..

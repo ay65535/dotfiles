@@ -33,10 +33,12 @@ case "$VERSION_ID" in
   cat /etc/apt/sources.list*
   cat /etc/apt/sources.list.d/ubuntu.sources
 
-  cat <<EOF | sudo tee /etc/apt/sources.list.d/icscoe.list
-deb https://ftp.udx.icscoe.jp/Linux/ubuntu/ $VERSION_CODENAME main
-# deb-src https://ftp.udx.icscoe.jp/Linux/ubuntu/ $VERSION_CODENAME main
-EOF
+  #   cat <<EOF | sudo tee /etc/apt/sources.list.d/icscoe.list
+  # deb https://ftp.udx.icscoe.jp/Linux/ubuntu/ $VERSION_CODENAME main
+  # # deb-src https://ftp.udx.icscoe.jp/Linux/ubuntu/ $VERSION_CODENAME main
+  # EOF
+  sudo sed -r 's@http://(jp\.)?archive\.ubuntu\.com/ubuntu/?@https://ftp.udx.icscoe.jp/Linux/ubuntu/@g' /etc/apt/sources.list.d/ubuntu.sources | sudo tee /etc/apt/sources.list.d/icscoe.sources
+  sudo mv /etc/apt/sources.list.d/ubuntu.sources{,.orig}
 
   ls -l /etc/apt/sources.list*
   ;;

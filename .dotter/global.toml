@@ -24,36 +24,3 @@ depends = []
 
 # [settings]
 # default_target_type = "automatic"
-
-# sudo apt -y install build-essential
-# export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
-# echo $MISE_CONFIG_DIR
-# eval "$(mise activate ${SHELL##*/})"
-# eval "$(mise completion ${SHELL##*/})"
-# echo $PATH | tr : '\n'
-# sudo mise self-update
-# mise plugins update
-# mise outdated
-# mise list --global
-# mise upgrade -y
-# mise upgrade -y --bump # upgrade all new versions
-# mise doctor
-# mise use --global rust
-# which -a cargo
-# cargo install dotter
-# which -a dotter
-# cd ~/.dotfiles
-# mv ~/.dotfiles/.dotter/global.toml{,.bak}
-# dotter init
-# mv ~/.dotfiles/.dotter/global.toml{.bak,}
-# --
-# includes = [".dotter/macos.toml"]
-# packages = ["default", "dotfiles"]
-# --
-# dotter deploy -d
-# dotter deploy -d --force
-# dotter deploy
-# dotter deploy --force
-# ls -la ~
-# dotter undeploy -d
-# dotter undeploy -y  # not work on windows..

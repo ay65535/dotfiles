@@ -22,6 +22,8 @@
 	quotepath = false
 	autocrlf = false
 	safecrlf = true
+[credential "https://dev.azure.com"]
+	useHttpPath = true
 [diff-so-fancy]
 	first-run = false
 [diff]

@@ -1,2 +1,2 @@
 [dotfiles.files]
-"." = { target = "~/.dotfiles", type = "symbolic", recurse = false }
+# "." = { target = "~/.dotfiles", type = "symbolic", recurse = false }

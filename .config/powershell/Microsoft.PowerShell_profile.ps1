@@ -23,6 +23,6 @@ if ($LoadedProfiles -contains $PSCommandPath) {
 # }
 
 # Load platform-specific profile
-if (Test-Path "$scriptRoot/$Platform/Microsoft.PowerShell_profile.ps1") {
-    . "$scriptRoot/$Platform/Microsoft.PowerShell_profile.ps1"
+if (Test-Path "$PSScriptRoot/$Platform/Microsoft.PowerShell_profile.ps1") {
+    . "$PSScriptRoot/$Platform/Microsoft.PowerShell_profile.ps1"
 }

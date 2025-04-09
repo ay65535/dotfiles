@@ -10,6 +10,7 @@
 
 wsl.exe --list --verbose
 
+wsl.exe --distribution rancher-desktop cat /etc/rc.conf
 wsl.exe --distribution rancher-desktop grep proxy /etc/rc.conf
 
 # /etc/rc.conf に以下を追記
@@ -22,10 +23,19 @@ export no_proxy="$env:no_proxy"
 
 wsl.exe --distribution rancher-desktop
 # vi /etc/rc.conf
+# mv /etc/rc.conf /etc/rc.conf.orig && mv /etc/rc.conf.edited /etc/rc.conf
 # exit
+# mv /etc/rc.conf /etc/rc.conf.edited && mv /etc/rc.conf.orig /etc/rc.conf
 
+wsl.exe --distribution rancher-desktop grep proxy /etc/rc.conf
+wsl.exe --distribution rancher-desktop grep rc_env_allow /etc/rc.conf
+
+wsl.exe --terminate rancher-desktop-data
+wsl.exe --terminate rancher-desktop
 wsl.exe --terminate Ubuntu-24.04
 wsl.exe --shutdown
+
+wsl.exe --list --verbose
 
 # 追記後、 exit で WSL から抜けて Windows を再起動すると、
 docker info
