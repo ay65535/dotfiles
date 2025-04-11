@@ -83,16 +83,20 @@ echo $PATH | tr : '\n'
 mise plugins update
 mise outdated
 mise list --global
-# mise upgrade -y
-# mise upgrade -y --bump # upgrade all new versions
+mise reshim
 mise doctor
 
-# install rust
-local/share/installers/rust/install_rust-mise.sh
+sudo apt -y install build-essential
 mise use --global rust
 
-# install dotter
-local/share/installers/dotter/install_dotter-cargo.sh
+# cargo-binstall deps
+#wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb && \
+#  sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+#mise use --global cargo-binstall
+
+mise use --global cargo:dotter
+sudo apt -y install pkg-config libssl-dev # sheldon deps
+mise use --global cargo:sheldon
 
 # execute dotter
 cd ~/.dotfiles
@@ -112,3 +116,5 @@ dotter deploy -d --force
 ls -la ~
 # dotter undeploy -d
 # dotter undeploy -y  # not work on windows..
+
+mise upgrade --bump # upgrade all new versions

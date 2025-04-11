@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
+mise plugins ls --core | grep rust
 mise plugins ls-remote | grep rust
-mise plugins ls
 
 # rust-all/jammy-updates,jammy-security 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 all
 # rust-all/noble 1.75.0+dfsg0ubuntu1-0ubuntu7 all
@@ -12,7 +12,7 @@ apt list cargo
 
 # 1.80.0
 mise ls-remote rust
-mise install rust
+# mise install rust
 mise use --global rust
 
 apt list --installed rust*
