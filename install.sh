@@ -58,21 +58,27 @@ if ! git config --get-all include.path; then
   fi
 fi
 
+git config --list --global
+git config --list --show-origin
+
 # setup bash_completion
 if [[ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions" ]]; then
   mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions"
 fi
 
-cd ~
-ln -snfv .dotfiles/secret/.secret .
-ln -snfv .dotfiles/secret/.ssh .
-# cd ~/.ssh
-# chmod 750 .
+#
+# homebrew
+#
 
-# sudo apt -y install build-essential
+# https://docs.brew.sh/Homebrew-on-Linux
+sudo apt-get -y install build-essential procps curl file git # deps
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# install mise
-# export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
+#
+# mise
+#
+
+#export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
 export MISE_CONFIG_DIR=${SCRIPT_ROOT:?}/.config/mise/${OSDIR:?}
 echo $MISE_CONFIG_DIR
 local/share/installers/mise/install_mise-apt.sh
@@ -94,8 +100,18 @@ mise use --global rust
 #  sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
 #mise use --global cargo-binstall
 
+#
+# dotter
+#
+
 mise use --global cargo:dotter
+
+#
+# sheldon
+#
+
 sudo apt -y install pkg-config libssl-dev # sheldon deps
+apt list libssl*
 mise use --global cargo:sheldon
 
 # execute dotter
