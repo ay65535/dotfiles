@@ -1,88 +1,96 @@
 #!/bin/bash
 
-check_brew_shellenv() {
-  local homebrew_prefix_tmp=${1:-$HOMEBREW_PREFIX}
-  if [ "$HOMEBREW_SHELLENV_DID_INIT" = true ]; then
+# Homebrewが既に環境に設定されているかをチェックする関数
+check_brew_initialized() {
+  # PATH内にHomebrewのパスが含まれていれば初期化済みと判断
+  if [ -n "$HOMEBREW_PREFIX" ] && echo "$PATH" | grep -q "$HOMEBREW_PREFIX/bin"; then
     return 0
-  elif [ -O "$HOMEBREW_PREFIX" ] && [ "$HOMEBREW_PREFIX" = "$homebrew_prefix_tmp" ] &&
-    [ -n "$HOMEBREW_CELLAR" ] && [ "$HOMEBREW_CELLAR" = "$HOMEBREW_PREFIX/Cellar" ] &&
-    [ -n "$HOMEBREW_REPOSITORY" ] && [ "$HOMEBREW_REPOSITORY" = "$HOMEBREW_PREFIX" ] &&
-    echo "$PATH" | grep -q "$HOMEBREW_PREFIX/bin"; then
-    HOMEBREW_SHELLENV_DID_INIT=true
-    return 0
-  else
-    HOMEBREW_SHELLENV_DID_INIT=false
-    return 1
   fi
-}
-
-# eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-# eval "$($HOMEBREW_PREFIX/bin/brew shellenv zsh)"
-eval_brew_shellenv() {
-  # find homebrew root directory
-  local homebrew_prefix_tmp=${1:-$HOMEBREW_PREFIX}
-
-  if check_brew_shellenv "$homebrew_prefix_tmp"; then
-    unset HOMEBREW_PREFIX
-    return 0
-  else
-    if macos; then
-      UNAME_MACHINE=$(uname -m)
-      if [ -n "$homebrew_prefix_tmp" ]; then
-        HOMEBREW_PREFIX=$homebrew_prefix_tmp
-      elif [ "$UNAME_MACHINE" = 'arm64' ]; then
-        HOMEBREW_PREFIX=/opt/homebrew
-      elif [ "$UNAME_MACHINE" = 'x86_64' ]; then
-        HOMEBREW_PREFIX=/usr/local
-      else
-        echo "Unknown machine type: $UNAME_MACHINE" >&2
-      fi
-    elif linux; then
-      HOMEBREW_PREFIX=${homebrew_prefix_tmp:-/home/linuxbrew/.linuxbrew}
-    else
-      echo "Unknown OS: $OSTYPE" >&2
-    fi
-
-    if [ -O "$HOMEBREW_PREFIX/bin/brew" ]; then
-      export HOMEBREW_PREFIX
-      export HOMEBREW_CELLAR=$HOMEBREW_PREFIX/Cellar
-      export HOMEBREW_REPOSITORY=$HOMEBREW_PREFIX/Homebrew
-      PATH=$(add_path_before "$PATH" "$HOMEBREW_PREFIX/sbin")
-      PATH=$(add_path_before "$PATH" "$HOMEBREW_PREFIX/bin")
-      MANPATH=$(add_path_before "$MANPATH" "$HOMEBREW_PREFIX/share/man")
-      INFOPATH=$(add_path_before "$INFOPATH" "$HOMEBREW_PREFIX/share/info")
-
-      HOMEBREW_SHELLENV_DID_INIT=true
-      return 0
-    fi
-  fi
-
   return 1
 }
 
-# ----------
+# Linuxbrew用の環境設定
+setup_linuxbrew() {
+  local prefix="/home/linuxbrew/.linuxbrew"
 
-eval_brew_shellenv /opt/homebrew ||
-  eval_brew_shellenv /home/linuxbrew/.linuxbrew ||
-  eval_brew_shellenv "$HOME/homebrew"
+  # ディレクトリが存在しない場合はスキップ
+  [ -d "$prefix" ] || return 1
 
-# 2nd Homebrew home
-if [ -d /home/linuxbrew/.linuxbrew ]; then
-  export HOMEBREWALT_PREFIX=/home/linuxbrew/.linuxbrew
-  export HOMEBREWALT_CELLAR="$HOMEBREWALT_PREFIX/Cellar"
-  export HOMEBREWALT_REPOSITORY="$HOMEBREWALT_PREFIX"/Homebrew
-  PATH=$(add_path_after "$PATH" $HOMEBREWALT_PREFIX/bin)
-  PATH=$(add_path_after "$PATH" $HOMEBREWALT_PREFIX/sbin)
-  [ -d $HOMEBREWALT_PREFIX/share/man ] && MANPATH=$(add_path_after "$MANPATH" $HOMEBREWALT_PREFIX/share/man)
-  [ -d $HOMEBREWALT_PREFIX/share/info ] && INFOPATH=$(add_path_after "$INFOPATH" $HOMEBREWALT_PREFIX/share/info)
-fi
-
-if command -v brew >/dev/null && [ -v https_proxy ]; then
-  if [ -f ${XDG_CONFIG_HOME:-$HOME/.config}/.curlrc ]; then
-    export HOMEBREW_CURLRC=${XDG_CONFIG_HOME:-$HOME/.config}/.curlrc
+  # 既に初期化済みならスキップ
+  if [ "$HOMEBREW_PREFIX" = "$prefix" ]; then
+    return 0
   fi
-  # export HOMEBREW_TEMP=$HOME/.tmp
-  # [ ! -d "$HOMEBREW_TEMP" ] && mkdir -p "$HOMEBREW_TEMP"
-fi
 
-export PATH MANPATH INFOPATH
+  # 環境変数を直接設定（brew shellenvの出力と同等）
+  export HOMEBREW_PREFIX="$prefix"
+  export HOMEBREW_CELLAR="$prefix/Cellar"
+  export HOMEBREW_REPOSITORY="$prefix/Homebrew"
+
+  # PATHを設定（既存のPATHの前に追加）
+  if ! echo "$PATH" | grep -q "$prefix/bin"; then
+    export PATH="$prefix/bin:$prefix/sbin${PATH+:$PATH}"
+  fi
+
+  # MANPATHとINFOPATHを設定
+  [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
+  export INFOPATH="$prefix/share/info:${INFOPATH:-}"
+
+  return 0
+}
+
+# macOS用のHomebrew環境設定
+setup_macos_homebrew() {
+  if ! macos; then
+    return 1
+  fi
+
+  local prefix
+  if [ "$(uname -m)" = "arm64" ]; then
+    prefix="/opt/homebrew"
+  else
+    prefix="/usr/local"
+  fi
+
+  # ディレクトリが存在しない場合はスキップ
+  [ -d "$prefix" ] || return 1
+
+  # 既に初期化済みならスキップ
+  if [ "$HOMEBREW_PREFIX" = "$prefix" ]; then
+    return 0
+  fi
+
+  # 環境変数を直接設定
+  export HOMEBREW_PREFIX="$prefix"
+  export HOMEBREW_CELLAR="$prefix/Cellar"
+  export HOMEBREW_REPOSITORY="$prefix/Homebrew"
+
+  # PATHを設定（既存のPATHの前に追加）
+  if ! echo "$PATH" | grep -q "$prefix/bin"; then
+    export PATH="$prefix/bin:$prefix/sbin${PATH+:$PATH}"
+  fi
+
+  # MANPATHとINFOPATHを設定
+  [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
+  export INFOPATH="$prefix/share/info:${INFOPATH:-}"
+
+  return 0
+}
+
+# メイン処理
+main() {
+  # 既に初期化済みなら何もしない
+  check_brew_initialized && return 0
+
+  # プラットフォームに応じたHomebrew環境を順番に試行
+  setup_macos_homebrew || setup_linuxbrew
+
+  # プロキシ設定がある場合のHomebrewの設定
+  if [ -n "$https_proxy" ] && command -v brew >/dev/null; then
+    if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/.curlrc" ]; then
+      export HOMEBREW_CURLRC="${XDG_CONFIG_HOME:-$HOME/.config}/.curlrc"
+    fi
+  fi
+}
+
+# スクリプト実行
+main
