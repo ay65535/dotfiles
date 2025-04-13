@@ -10,30 +10,29 @@ check_brew_initialized() {
 }
 
 # Linuxbrew用の環境設定
+# test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# を関数化
 setup_linuxbrew() {
   local prefix="/home/linuxbrew/.linuxbrew"
 
   # ディレクトリが存在しない場合はスキップ
-  [ -d "$prefix" ] || return 1
-
-  # 既に初期化済みならスキップ
-  if [ "$HOMEBREW_PREFIX" = "$prefix" ]; then
-    return 0
+  if [ ! -d "$prefix" ]; then
+    return 1
   fi
-
-  # 環境変数を直接設定（brew shellenvの出力と同等）
-  export HOMEBREW_PREFIX="$prefix"
-  export HOMEBREW_CELLAR="$prefix/Cellar"
-  export HOMEBREW_REPOSITORY="$prefix/Homebrew"
 
   # PATHを設定（既存のPATHの前に追加）
   if ! echo "$PATH" | grep -q "$prefix/bin"; then
     export PATH="$prefix/bin:$prefix/sbin${PATH+:$PATH}"
   fi
 
+  # 環境変数を設定
+  export HOMEBREW_PREFIX="$prefix"
+  export HOMEBREW_CELLAR="$prefix/Cellar"
+  export HOMEBREW_REPOSITORY="$prefix/Homebrew"
+
   # MANPATHとINFOPATHを設定
   [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
-  export INFOPATH="$prefix/share/info:${INFOPATH:-}"
+  export INFOPATH="$prefix/share/info${INFOPATH+:$INFOPATH}"
 
   return 0
 }
