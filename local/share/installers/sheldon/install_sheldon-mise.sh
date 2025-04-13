@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 
 # apt list *sheldon*
-# mise plugins ls-remote | grep sheldon
-
-# ==> sheldon: stable 0.7.4 (bottled), HEAD
-# brew info sheldon
-
+# -
 # sudo apt -y install sheldon
 # apt list --installed sheldon
 
+# brew info sheldon
 # brew install sheldon
+# ==> sheldon: stable 0.8.1 (bottled), HEAD
+
+mise plugins ls-remote | grep sheldon
+mise ls-remote sheldon
+
+curl --proto '=https' -fLsS https://rossmacarthur.github.io/install/crate.sh |
+  bash -s -- --repo rossmacarthur/sheldon --to ~/.local/bin
+
 sudo apt -y install pkg-config libssl-dev # deps
 mise install cargo:sheldon
 # mise use --global cargo:sheldon

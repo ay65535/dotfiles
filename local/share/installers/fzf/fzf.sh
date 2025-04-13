@@ -5,20 +5,21 @@ FLAVOR=${1:-brew}
 case "$FLAVOR" in
 apt)
   apt list fzf
-  # ==> fzf/noble-updates,noble-security 0.44.1-1ubuntu0.1 amd64
+  # fzf/stable 0.38.0-1+b1 arm64
+  # fzf/noble-updates,noble-security 0.44.1-1ubuntu0.1 amd64
   sudo apt -y install fzf
   apt list --installed fzf
   ;;
 mise)
   mise plugins ls-remote | grep fzf
   mise ls-remote fzf
-  # ==> 0.54.1
+  # 0.61.1
   mise install fzf
   mise use --global fzf
   ;;
 *brew)
   brew info fzf
-  # ==> fzf: stable 0.54.1 (bottled), HEAD
+  # ==> fzf: stable 0.61.1, HEAD
   brew install fzf
   ;;
 git*)
