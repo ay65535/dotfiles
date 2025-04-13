@@ -11,7 +11,7 @@ echo "GPG+パスワードストアによるGitの認証情報管理をセット�
 # 必要なパッケージのインストール
 echo "必要なパッケージをインストールしています..."
 sudo apt update
-sudo apt install -y pass gnupg2
+sudo apt -y install pass gnupg2
 
 # GPGキーの存在確認
 if ! gpg --list-secret-keys | grep -q "sec "; then
@@ -40,6 +40,8 @@ Expire-Date: 0
 %echo Done
 EOF
 
+  cat /tmp/gpg-genkey-input
+
   # キー生成
   gpg --batch --generate-key /tmp/gpg-genkey-input
   rm -f /tmp/gpg-genkey-input
@@ -50,7 +52,7 @@ else
 fi
 
 # GPGキーIDの取得（最初のキーを自動選択）
-GPG_ID=$(gpg --list-secret-keys --keyid-format LONG | grep sec | head -n 1 | sed 's/.*\/\([^ ]*\) .*/\1/')
+GPG_ID=$(gpg --list-secret-keys --keyid-format LONG | grep sec | tail -n 1 | sed 's/.*\/\([^ ]*\) .*/\1/')
 
 if [ -z "$GPG_ID" ]; then
   echo "エラー: GPGキーIDを取得できませんでした。"
@@ -73,7 +75,7 @@ echo "Gitの認証情報ヘルパーとしてpass-git-helperを設定します..
 # pass-git-helperがインストールされているか確認
 if ! command -v pass-git-helper &>/dev/null; then
   echo "pass-git-helperをインストールしています..."
-  sudo apt install -y pass-git-helper
+  sudo apt -y install pass-git-helper
 fi
 
 # グローバル設定
@@ -92,11 +94,6 @@ if [ ! -f ~/.config/pass-git-helper/git-pass-mapping.ini ]; then
 target=dev/github
 username_extractor=regex_search
 username_pattern=github.com/([^/]+)
-
-[gitlab.com]
-target=dev/gitlab
-username_extractor=regex_search
-username_pattern=gitlab.com/([^/]+)
 
 # 他のGitサービスも同様に追加できます
 EOF
