@@ -66,13 +66,45 @@ if [[ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions" ]]
   mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions"
 fi
 
-#
 # homebrew
+local/share/installers/homebrew/install_homebrew.sh
+
+#
+# dotter
 #
 
-# https://docs.brew.sh/Homebrew-on-Linux
-sudo apt-get -y install build-essential procps curl file git # deps
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install dotter
+
+# execute dotter
+cd ~/.dotfiles
+mv ~/.dotfiles/.dotter/global.toml{,.bak}
+dotter init
+mv ~/.dotfiles/.dotter/global.toml{.bak,}
+
+# edit local.toml
+sed -i -e "s@includes = \[\]@includes = [\".dotter/${OSDIR}.toml\"]@" ~/.dotfiles/.dotter/local.toml
+sed -i -e 's@packages = \["default"\]@packages = ["default", "dotfiles"]@' ~/.dotfiles/.dotter/local.toml
+cat ~/.dotfiles/.dotter/local.toml
+
+dotter deploy -d
+if [ -f ~/.bash_aliases ]; then
+  cat ~/.bash_aliases
+  mv ~/.bash_aliases{,.bak}
+fi
+if [ -d ~/.config ]; then
+  ls ~/.config
+  mv ~/.config{,.bak}
+fi
+if [ -d ~/.ssh ]; then
+  ls ~/.ssh
+  mv ~/.ssh{,.bak}
+fi
+dotter deploy
+mv ~/.config.bak/* ~/.config/ && rmdir ~/.config.bak
+mv ~/.ssh.bak/* ~/.ssh/ && rmdir ~/.ssh.bak
+ls -la ~
+# dotter undeploy -d
+# dotter undeploy -y  # not work on windows..
 
 #
 # mise
@@ -100,11 +132,7 @@ mise use --global rust
 #  sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
 #mise use --global cargo-binstall
 
-#
-# dotter
-#
-
-mise use --global cargo:dotter
+# mise use --global cargo:dotter
 
 #
 # sheldon
@@ -113,24 +141,5 @@ mise use --global cargo:dotter
 sudo apt -y install pkg-config libssl-dev # sheldon deps
 apt list libssl*
 mise use --global cargo:sheldon
-
-# execute dotter
-cd ~/.dotfiles
-mv ~/.dotfiles/.dotter/global.toml{,.bak}
-dotter init
-mv ~/.dotfiles/.dotter/global.toml{.bak,}
-
-# edit local.toml
-sed -i -e "s@includes = \[\]@includes = [\".dotter/${OSDIR}.toml\"]@" ~/.dotfiles/.dotter/local.toml
-sed -i -e 's@packages = \["default"\]@packages = ["default", "dotfiles"]@' ~/.dotfiles/.dotter/local.toml
-cat ~/.dotfiles/.dotter/local.toml
-
-dotter deploy -d
-dotter deploy -d --force
-# dotter deploy
-# dotter deploy --force
-ls -la ~
-# dotter undeploy -d
-# dotter undeploy -y  # not work on windows..
 
 mise upgrade --bump # upgrade all new versions
