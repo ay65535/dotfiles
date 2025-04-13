@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-mise plugins ls-remote | grep eza
-
-# eza/noble 0.18.2-1 amd64
 # apt list eza*
+# eza/noble 0.18.2-1 amd64
 
-# 0.21.0
+brew info eza
+# ==> eza: stable 0.21.0
+
+mise plugins ls-remote | grep eza
 mise ls-remote eza
+# 0.21.0
 
 mise install eza
 mise use --global eza
