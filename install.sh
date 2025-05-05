@@ -10,11 +10,6 @@ set -eu
 SCRIPT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 #
-# Functions
-#
-
-
-#
 # Main
 #
 
@@ -68,6 +63,7 @@ fi
 
 # homebrew
 local/share/installers/homebrew/install_homebrew.sh
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 #
 # dotter
@@ -110,6 +106,7 @@ ls -la ~
 # mise
 #
 
+#export MISE_CONFIG_DIR=$HOME/.dotfiles/.config/mise/linux
 #export MISE_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise/${OSDIR:?}
 export MISE_CONFIG_DIR=${SCRIPT_ROOT:?}/.config/mise/${OSDIR:?}
 echo $MISE_CONFIG_DIR
@@ -140,6 +137,7 @@ mise use --global rust
 
 sudo apt -y install pkg-config libssl-dev # sheldon deps
 apt list libssl*
+# mise plugins ls-remote | grep sheldon
 mise use --global cargo:sheldon
 
 mise upgrade --bump # upgrade all new versions
