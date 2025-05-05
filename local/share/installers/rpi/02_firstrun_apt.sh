@@ -7,16 +7,23 @@
 if [ ! -f /etc/apt/sources.list.orig ]; then
   sudo cp /etc/apt/sources.list /etc/apt/sources.list.orig
 fi
+cat /etc/apt/sources.list /etc/apt/sources.list.orig
+# ==>
+# deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+# deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+# deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
 
 cat <<EOF | sudo tee /etc/apt/sources.list
 deb https://ftp.udx.icscoe.jp/Linux/debian bookworm main contrib non-free non-free-firmware
-deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
 deb https://ftp.udx.icscoe.jp/Linux/debian bookworm-updates main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
 EOF
 
 if [ ! -f /etc/apt/sources.list.d/raspi.list.orig ]; then
   sudo cp /etc/apt/sources.list.d/raspi.list /etc/apt/sources.list.d/raspi.list.orig
 fi
+cat /etc/apt/sources.list.d/raspi.list.orig
+# ==> deb http://archive.raspberrypi.com/debian/ bookworm main
 
 # Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)). という警告を修正
 sudo mkdir -m 0755 -p /etc/apt/keyrings/
