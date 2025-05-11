@@ -116,7 +116,7 @@ eval "$(mise activate ${SHELL##*/})"
 echo $PATH | tr : '\n'
 # sudo mise self-update
 mise plugins update
-mise outdated
+mise outdated --bump
 mise list --global
 mise reshim
 mise doctor
