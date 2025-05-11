@@ -48,20 +48,27 @@ case "$VERSION_ID" in
 *)
   sudo cp -a /etc/apt/sources.list{,.orig}
   cat /etc/apt/sources.list.orig
-  # ==>
-  # deb http://ports.ubuntu.com/ubuntu-ports/ bionic main restricted universe multiverse
-  # deb http://ports.ubuntu.com/ubuntu-ports/ bionic-updates main restricted universe multiverse
-  # deb http://ports.ubuntu.com/ubuntu-ports/ bionic-backports main restricted universe multiverse
-  # deb http://ports.ubuntu.com/ubuntu-ports/ bionic-security main restricted universe multiverse
+  # (amd64) ==>
+  # deb http://archive.ubuntu.com/ubuntu/ ${VERSION_CODENAME} main restricted universe multiverse
+  # deb http://archive.ubuntu.com/ubuntu/ ${VERSION_CODENAME}-updates main restricted universe multiverse
+  # deb http://archive.ubuntu.com/ubuntu/ ${VERSION_CODENAME}-backports main restricted universe multiverse
+  # deb http://security.ubuntu.com/ubuntu/ ${VERSION_CODENAME}-security main restricted universe multiverse
+  # (arm64) ==>
+  # deb http://ports.ubuntu.com/ubuntu-ports/ ${VERSION_CODENAME} main restricted universe multiverse
+  # deb http://ports.ubuntu.com/ubuntu-ports/ ${VERSION_CODENAME}-updates main restricted universe multiverse
+  # deb http://ports.ubuntu.com/ubuntu-ports/ ${VERSION_CODENAME}-backports main restricted universe multiverse
+  # deb http://ports.ubuntu.com/ubuntu-ports/ ${VERSION_CODENAME}-security main restricted universe multiverse
 
   case $ARCH in
   arm64)
-    SECURITY_URL=http://ports.ubuntu.com/ubuntu-ports/
+    URL=https://ftp.udx.icscoe.jp/Linux/ubuntu/
     FALLBACK_URL=http://ports.ubuntu.com/ubuntu-ports/
+    SECURITY_URL=http://ports.ubuntu.com/ubuntu-ports/
     ;;
   amd64)
-    SECURITY_URL=http://security.ubuntu.com/ubuntu/
+    URL=https://ftp.udx.icscoe.jp/Linux/ubuntu/
     FALLBACK_URL=http://archive.ubuntu.com/ubuntu/
+    SECURITY_URL=http://security.ubuntu.com/ubuntu/
     ;;
   *)
     echo "Unknown architecture: $ARCH" >&2
@@ -75,7 +82,20 @@ case "$VERSION_ID" in
 
   grep -Ev '^\s*#' /etc/apt/sources.list | sort
   grep deb-src /etc/apt/sources.list | sort
+  # deb-src http://archive.canonical.com/ubuntu ${VERSION_CODENAME} partner
+  # deb-src http://archive.ubuntu.com/ubuntu/ ${VERSION_CODENAME} main restricted universe multiverse
+  # deb-src http://archive.ubuntu.com/ubuntu/ ${VERSION_CODENAME}-updates main restricted universe multiverse
+  # deb-src http://archive.ubuntu.com/ubuntu/ ${VERSION_CODENAME}-backports main restricted universe multiverse
+  # deb-src http://security.ubuntu.com/ubuntu/ ${VERSION_CODENAME}-security main restricted universe multiverse
 
+  cat <<EOF | sudo tee /etc/apt/sources.list
+deb $URL ${VERSION_CODENAME} main restricted universe multiverse
+deb $URL ${VERSION_CODENAME}-updates main restricted universe multiverse
+deb $URL ${VERSION_CODENAME}-backports main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu/ ${VERSION_CODENAME}-security main restricted universe multiverse
+EOF
+
+  sudo cp -a /etc/apt/sources.list{,.bak}
   cat <<EOF | sudo tee /etc/apt/sources.list
 #
 # https://hirose31.hatenablog.jp/entry/2023/04/19/194532
@@ -88,6 +108,7 @@ deb ${SECURITY_URL} ${VERSION_CODENAME}-security main restricted universe multiv
 # deb-src mirror+file:/etc/apt/mirrors.txt ${VERSION_CODENAME} main restricted universe multiverse
 # deb-src mirror+file:/etc/apt/mirrors.txt ${VERSION_CODENAME}-updates main restricted universe multiverse
 # deb-src ${SECURITY_URL} ${VERSION_CODENAME}-security main restricted universe multiverse
+EOF
 
 cat <<EOF | sudo tee /etc/apt/mirrors.txt
 #
@@ -105,6 +126,8 @@ EOF
   # sudo vim /etc/apt/mirrors.txt
   ;;
 esac
+
+grep -E '^deb\b' -r /etc/apt/sources.list.d | grep -v file://
 
 # Delete old cache
 sudo rm -rf /var/lib/apt/lists/*
