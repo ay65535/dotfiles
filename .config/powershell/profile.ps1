@@ -132,6 +132,23 @@ if (Get-Command zoxide -ErrorAction SilentlyContinue) {
     Initialize-Zoxide
 }
 
+## 1Password CLI (op)
+if (Get-Command op -ErrorAction SilentlyContinue) {
+    $opInitDir = Join-Path $PSScriptRoot $Platform
+    $opInitPath = Join-Path $opInitDir op-completion.ps1
+    function Update-OpInitScript {
+        op completion powershell | Out-File -Encoding $Utf8Encoding $opInitPath
+    }
+    if (!(Test-Path $opInitPath)) {
+        New-Item -ItemType Directory $opInitDir -Force >$null
+        Update-OpInitScript
+    }
+    function Initialize-Op {
+        . $opInitPath
+    }
+    Initialize-Op
+}
+
 # /opt/homebrew/bin/brew shellenv
 # [System.Environment]::SetEnvironmentVariable('HOMEBREW_PREFIX', '/opt/homebrew', [System.EnvironmentVariableTarget]::Process)
 # [System.Environment]::SetEnvironmentVariable('HOMEBREW_CELLAR', '/opt/homebrew/Cellar', [System.EnvironmentVariableTarget]::Process)
@@ -218,8 +235,14 @@ Register-ArgumentCompleter -CommandName pacs -ParameterName SubCommand -ScriptBl
 # mise
 #
 
-if (Test-Path $HOME/.local/share/mise/shims) {
-    $env:PATH = "$HOME/.local/share/mise/shims" + [IO.Path]::PathSeparator + "$env:PATH"
+$shimPath = switch ($PSVersionTable.Platform) {
+    'Win32NT' { "$env:LOCALAPPDATA\mise\shims" }
+    'Unix' { "$HOME/.local/share/mise/shims" }
+    default { Write-Warning "Unsupported platform: $($PSVersionTable.Platform)" }
+}
+
+if (Test-Path $shimPath) {
+    $env:PATH = Join-Path $shimPath $env:PATH
 }
 
 #
