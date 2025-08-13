@@ -1,14 +1,8 @@
 [tools]
-bat = "latest"
-bottom = "latest"
-"cargo:eza" = "latest"
-duf = "latest"
-dust = "latest"
-fd = "latest"
-node = "latest"
-python = "latest"
-ripgrep = "latest"
 usage = "latest"
 xh = "latest"
-zoxide = "latest"
 ruby = "latest"
+
+[settings]
+experimental = true
+idiomatic_version_file_enable_tools = ["python"]

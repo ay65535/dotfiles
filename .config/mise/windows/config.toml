@@ -1,0 +1,7 @@
+[tools]
+bat = "latest"
+bottom = "latest"
+delta = "latest"
+duf = "latest"
+fd = "latest"
+ripgrep = "latest"
