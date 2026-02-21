@@ -15,6 +15,7 @@ typeset -xU path cdpath fpath manpath infopath xdg_data_dirs
 ##            /: ディレクトリのみ残す。
 
 path=(
+  $HOME/.claude/local(N-/)
   $HOME/.docker/bin(N-/)
   $HOME/.rbenv/shims(N-/)
   $HOME/.cargo/bin(N-/)
@@ -23,6 +24,9 @@ path=(
   $HOME/bin(N-/)
   #
   $HOMEBREW_PREFIX/share/dotnet(N-/)
+  $HOMEBREW_PREFIX/opt/curl/bin(N-/)
+  $HOMEBREW_PREFIX/opt/rustup(N-/)
+  #$HOMEBREW_PREFIX/opt/rust(N-/)
   $HOMEBREW_PREFIX/opt/openjdk/bin(N-/)
   $HOMEBREW_PREFIX/opt/openssl/bin(N-/)
   #$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin(N-/)
@@ -57,6 +61,7 @@ infopath=(
 fpath=(
   $HOMEBREW_PREFIX/share/zsh-completions(N-/)
   $HOMEBREW_PREFIX/share/zsh/site-functions(N-/)
+  $HOME/.docker/completions(N-/)
   "${fpath[@]}"
 )
 xdg_data_dirs=(

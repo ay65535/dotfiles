@@ -2,6 +2,10 @@
 usage = "latest"
 xh = "latest"
 ruby = "latest"
+"npm:@sourcegraph/amp" = "latest"
+"npm:@kilocode/cli" = "latest"
+"npm:clawdbot" = "latest"
+"npm:@musistudio/claude-code-router" = "latest"
 
 [settings]
 experimental = true

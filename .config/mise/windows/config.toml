@@ -4,4 +4,13 @@ bottom = "latest"
 delta = "latest"
 duf = "latest"
 fd = "latest"
+jq = "latest"
+"npm:@google/gemini-cli" = "latest"
+"npm:@kilocode/cli" = "latest"
+"npm:@qwen-code/qwen-code" = "latest"
+"npm:@sourcegraph/amp" = "0.0.1766981979-gc0ab20"
 ripgrep = "latest"
+yq = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = []

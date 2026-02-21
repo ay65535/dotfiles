@@ -25,7 +25,7 @@ if (-not $env:OneDrive) {
         if ($IsWindows) {
             Get-ChildItem -LiteralPath $HOME -Include 'OneDrive - *'
         } elseif ($IsMacOS) {
-            Get-ChildItem -LiteralPath $HOME/Library/CloudStorage -Include OneDrive* -Exclude OneDrive-個人用
+            Get-ChildItem -LiteralPath $HOME/Library/CloudStorage -Include OneDrive* -Exclude OneDrive-個人用, OneDrive-共有ライブラリ-OneDriveCloudTemp
         } elseif ($IsWSL) {
             Get-ChildItem -LiteralPath /mnt/c/Users -Depth 1 -Filter 'OneDrive - *'
         } elseif ($IsLinux) {

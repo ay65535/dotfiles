@@ -3,6 +3,6 @@
 
 if [ ! -f /etc/sudoers.d/00_proxy ]; then
     # sudo cat /etc/sudoers.d/README
-    echo 'Defaults:%sudo env_keep += "http_proxy https_proxy ftp_proxy all_proxy no_proxy"' | sudo tee /etc/sudoers.d/00_proxy
+    echo 'Defaults:%sudo env_keep += "http_proxy https_proxy ftp_proxy no_proxy"' | sudo tee /etc/sudoers.d/00_proxy
     # sudo cat /etc/sudoers.d/00_proxy
 fi

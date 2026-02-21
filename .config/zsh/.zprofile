@@ -13,7 +13,7 @@ for file in $files; do
   . "$file"
 done
 if [ -d ~/.profile.d/${OSDIR:?} ]; then
-  files=($(find ~/.profile.d/${OSDIR:?} -regex '.*\.z?sh$' | sort))
+  files=($(command find ~/.profile.d/${OSDIR:?} -regex '.*\.*sh$' | sort))
   for file in $files; do
     . "$file"
   done
