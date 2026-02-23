@@ -1,26 +1,85 @@
 # https://zenn.dev/kairkarigohan/articles/5b580a2f10b4ea
+
+# [settings]
+# default_target_type = "automatic"
+
 [helpers]
 
 [default]
 depends = []
 
+[default.variables]
+
 [default.files]
-".bash_aliases" = "~/.bash_aliases"
-".bash_profile" = "~/.bash_profile"
 # https://github.com/SuperCuber/dotter/wiki/Setup-and-Configuration#complex-target
 # https://github.com/SuperCuber/dotter/issues/137#issuecomment-1656018017
-".config" = { target = "~/.config", type = "symbolic", recurse = false }
+".claude/commands" = { target = "~/.claude/commands", type = "symbolic", recurse = false }
+# ".config" = { target = "~/.config", type = "symbolic", recurse = false }
+".config/1Password" = { target = "~/.config/1Password", type = "symbolic", recurse = false }
+# ".config/alacritty" = { target = "~/.config/alacritty", type = "symbolic", recurse = false }
+# ".config/amp" = { target = "~/.config/amp", type = "symbolic", recurse = false }
+# ".config/argocd" = { target = "~/.config/argocd", type = "symbolic", recurse = false }
+".config/bash" = { target = "~/.config/bash", type = "symbolic", recurse = false }
+".config/bottom" = { target = "~/.config/bottom", type = "symbolic", recurse = false }
+# ".config/claude" = { target = "~/.config/claude", type = "symbolic", recurse = false }
+# ".config/containers" = { target = "~/.config/containers", type = "symbolic", recurse = false }
+# ".config/cursor" = { target = "~/.config/cursor", type = "symbolic", recurse = false }
+".config/fzf" = { target = "~/.config/fzf", type = "symbolic", recurse = false }
+".config/gem" = { target = "~/.config/gem", type = "symbolic", recurse = false }
+# ".config/gh" = { target = "~/.config/gh", type = "symbolic", recurse = false }
+".config/git" = { target = "~/.config/git", type = "symbolic", recurse = false }
+# ".config/github-copilot" = { target = "~/.config/github", type = "symbolic", recurse = false }
+# ".config/helm" = { target = "~/.config/helm", type = "symbolic", recurse = false }
+# ".config/jgit" = { target = "~/.config/jgit", type = "symbolic", recurse = false }
+# ".config/jj" = { target = "~/.config/jj", type = "symbolic", recurse = false }
+".config/marimo" = { target = "~/.config/marimo", type = "symbolic", recurse = false }
+".config/mise" = { target = "~/.config/mise", type = "symbolic", recurse = false }
+# ".config/mpv" = { target = "~/.config/mpv", type = "symbolic", recurse = false }
+".config/npm" = { target = "~/.config/npm", type = "symbolic", recurse = false }
+# ".config/NuGet" = { target = "~/.config/NuGet", type = "symbolic", recurse = false }
+# ".config/op" = { target = "~/.config/op", type = "symbolic", recurse = false }
+".config/powershell" = { target = "~/.config/powershell", type = "symbolic", recurse = false }
+".config/puls" = { target = "~/.config/puls", type = "symbolic", recurse = false }
+".config/sh" = { target = "~/.config/sh", type = "symbolic", recurse = false }
+# ".config/skills/linear" = { target = "~/.config/skills/linear", type = "symbolic", recurse = false }
+".config/skills/linear" = { target = "~/.codex/skills/linear", type = "symbolic", recurse = false }
+".config/tmux" = { target = "~/.config/tmux", type = "symbolic", recurse = false }
+".config/vim" = { target = "~/.config/vim", type = "symbolic", recurse = false }
+".config/wezterm" = { target = "~/.config/wezterm", type = "symbolic", recurse = false }
+".config/wget" = { target = "~/.config/wget", type = "symbolic", recurse = false }
+".config/yt-dlp" = { target = "~/.config/yt-dlp", type = "symbolic", recurse = false }
 ".profile.d" = { target = "~/.profile.d", type = "symbolic", recurse = false }
-".shellcheckrc" = "~/.shellcheckrc"
-".zshenv" = "~/.zshenv"
 "bin" = { target = "~/bin", type = "symbolic", recurse = false }
 "local" = { target = "~/local", type = "symbolic", recurse = false }
 "secret/.secret" = { target = "~/.secret", type = "symbolic", recurse = false }
 "secret/.ssh" = { target = "~/.ssh", type = "symbolic", recurse = false }
 
-# ".config/powershell/profile.ps1" = ""
+".bash_aliases" = "~/.bash_aliases"
+".bash_profile" = "~/.bash_profile"
+".claude/CLAUDE.md" = "~/.claude/CLAUDE.md"
+".config/AGENTS.md" = "~/.config/AGENTS.md"
+".config/bash_completion" = "~/.config/bash_completion"
+# ".config/starship.toml" = "~/.config/starship"
+".config/wgetrc" = "~/.config/wgetrc"
+".shellcheckrc" = "~/.shellcheckrc"
 
-[default.variables]
+[unix.files]
+".config/zsh" = { target = "~/.config/zsh", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
+".config/sheldon" = { target = "~/.config/sheldon", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
+".config/fish" = { target = "~/.config/fish", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
+".config/readline" = { target = "~/.config/readline", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
+".config/rsync" = { target = "~/.config/rsync", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
+".zshenv" = "~/.zshenv"
 
-# [settings]
-# default_target_type = "automatic"
+[linux.files]
+".config/gtk-3.0" = { target = "~/.config/gtk-3.0", type = "symbolic", recurse = false, if = "dotter.linux" }
+
+[macos.files]
+# ".config/iterm2" = { target = "~/.config/iterm2", type = "symbolic", recurse = false, if = "dotter.macos" }
+".config/karabiner" = { target = "~/.config/karabiner", type = "symbolic", recurse = false, if = "dotter.macos" }
+
+[windows.files]
+".config/mintty" = { target = "~/.config/mintty", type = "symbolic", recurse = false, if = "dotter.windows" }
+".config/putty" = { target = "~/.config/putty", type = "symbolic", recurse = false, if = "dotter.windows" }
+".config/scoop" = { target = "~/.config/scoop", type = "symbolic", recurse = false, if = "dotter.windows" }
+"local/share/installers/powershell/profile.ps1" = { target = "~/Documents/PowerShell", type = "symbolic", recurse = false, if = "dotter.windows" }
