@@ -15,7 +15,7 @@ depends = []
 # https://github.com/SuperCuber/dotter/issues/137#issuecomment-1656018017
 ".claude/commands" = { target = "~/.claude/commands", type = "symbolic", recurse = false }
 # ".config" = { target = "~/.config", type = "symbolic", recurse = false }
-".config/1Password" = { target = "~/.config/1Password", type = "symbolic", recurse = false }
+"secret/.config/1Password" = { target = "~/.config/1Password", type = "symbolic", recurse = false }
 # ".config/alacritty" = { target = "~/.config/alacritty", type = "symbolic", recurse = false }
 # ".config/amp" = { target = "~/.config/amp", type = "symbolic", recurse = false }
 # ".config/argocd" = { target = "~/.config/argocd", type = "symbolic", recurse = false }
@@ -57,7 +57,7 @@ depends = []
 ".bash_aliases" = "~/.bash_aliases"
 ".bash_profile" = "~/.bash_profile"
 ".claude/CLAUDE.md" = "~/.claude/CLAUDE.md"
-".config/AGENTS.md" = "~/.config/AGENTS.md"
+#".config/AGENTS.md" = "~/.config/AGENTS.md"
 ".config/bash_completion" = "~/.config/bash_completion"
 # ".config/starship.toml" = "~/.config/starship"
 ".config/wgetrc" = "~/.config/wgetrc"
