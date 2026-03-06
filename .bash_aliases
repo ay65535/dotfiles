@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# export HOSTIP_WIN=$(ip route show | grep -i default | awk '{print $3}')
+# export HOSTIP_WSL=$(hostname -I | awk '{print $1}')
+
 alias q=exit
 
 # Enable checkhash option for potential performance improvement
