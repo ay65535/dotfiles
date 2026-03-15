@@ -3,13 +3,14 @@ _zinit
 .DS_Store
 .spacedrive
 .zcompcache/
-.zcompdump
+.zcompdump*
 *.cache.zsh
 *.log
 *.pid
 *.zwc
 **/*sh/*history
 *htoprc
+mise-activate.ps1
 op-completion.ps1
 startship-init.ps1
 zinit.git/
