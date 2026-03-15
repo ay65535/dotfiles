@@ -1,7 +1,7 @@
 # https://zenn.dev/kairkarigohan/articles/5b580a2f10b4ea
 
-# [settings]
-# default_target_type = "automatic"
+[settings]
+default_target_type = "automatic"
 
 [helpers]
 
@@ -25,37 +25,33 @@ depends = []
 # ".config/containers" = { target = "~/.config/containers", type = "symbolic", recurse = false }
 # ".config/cursor" = { target = "~/.config/cursor", type = "symbolic", recurse = false }
 ".config/fzf" = { target = "~/.config/fzf", type = "symbolic", recurse = false }
-".config/gem" = { target = "~/.config/gem", type = "symbolic", recurse = false }
+# ".config/gem" = { target = "~/.config/gem", type = "symbolic", recurse = false }
 # ".config/gh" = { target = "~/.config/gh", type = "symbolic", recurse = false }
 ".config/git" = { target = "~/.config/git", type = "symbolic", recurse = false }
 # ".config/github-copilot" = { target = "~/.config/github", type = "symbolic", recurse = false }
 # ".config/helm" = { target = "~/.config/helm", type = "symbolic", recurse = false }
 # ".config/jgit" = { target = "~/.config/jgit", type = "symbolic", recurse = false }
 # ".config/jj" = { target = "~/.config/jj", type = "symbolic", recurse = false }
-".config/marimo" = { target = "~/.config/marimo", type = "symbolic", recurse = false }
-".config/mise" = { target = "~/.config/mise", type = "symbolic", recurse = false }
+# ".config/marimo" = { target = "~/.config/marimo", type = "symbolic", recurse = false }
+# ".config/mise" = { target = "~/.config/mise", type = "symbolic", recurse = false }
 # ".config/mpv" = { target = "~/.config/mpv", type = "symbolic", recurse = false }
 ".config/npm" = { target = "~/.config/npm", type = "symbolic", recurse = false }
 # ".config/NuGet" = { target = "~/.config/NuGet", type = "symbolic", recurse = false }
 # ".config/op" = { target = "~/.config/op", type = "symbolic", recurse = false }
-".config/powershell" = { target = "~/.config/powershell", type = "symbolic", recurse = false }
-".config/puls" = { target = "~/.config/puls", type = "symbolic", recurse = false }
 ".config/sh" = { target = "~/.config/sh", type = "symbolic", recurse = false }
 # ".config/skills/linear" = { target = "~/.config/skills/linear", type = "symbolic", recurse = false }
-".config/skills/linear" = { target = "~/.codex/skills/linear", type = "symbolic", recurse = false }
+# ".config/skills/linear" = { target = "~/.codex/skills/linear", type = "symbolic", recurse = false }
 ".config/tmux" = { target = "~/.config/tmux", type = "symbolic", recurse = false }
 ".config/vim" = { target = "~/.config/vim", type = "symbolic", recurse = false }
-".config/wezterm" = { target = "~/.config/wezterm", type = "symbolic", recurse = false }
-".config/wget" = { target = "~/.config/wget", type = "symbolic", recurse = false }
-".config/yt-dlp" = { target = "~/.config/yt-dlp", type = "symbolic", recurse = false }
+# ".config/wget" = { target = "~/.config/wget", type = "symbolic", recurse = false }
+# ".config/yt-dlp" = { target = "~/.config/yt-dlp", type = "symbolic", recurse = false }
 ".profile.d" = { target = "~/.profile.d", type = "symbolic", recurse = false }
 "bin" = { target = "~/bin", type = "symbolic", recurse = false }
 "local" = { target = "~/local", type = "symbolic", recurse = false }
 "secret/.secret" = { target = "~/.secret", type = "symbolic", recurse = false }
-"secret/.ssh" = { target = "~/.ssh", type = "symbolic", recurse = false }
+# "secret/.ssh" = { target = "~/.ssh", type = "symbolic", recurse = false }
 
-".bash_aliases" = "~/.bash_aliases"
-".bash_profile" = "~/.bash_profile"
+".bash_aliases.tmpl" = "~/.bash_aliases"
 ".claude/CLAUDE.md" = "~/.claude/CLAUDE.md"
 #".config/AGENTS.md" = "~/.config/AGENTS.md"
 ".config/bash_completion" = "~/.config/bash_completion"
@@ -71,15 +67,19 @@ depends = []
 ".zshenv" = "~/.zshenv"
 
 [linux.files]
+".config/mise/linux/config.toml" = "~/.config/mise/config.toml"
 ".config/powershell" = { target = "~/.config/powershell", type = "symbolic", recurse = false }
 
 [macos.files]
+".bash_profile" = "~/.bash_profile"
 # ".config/iterm2" = { target = "~/.config/iterm2", type = "symbolic", recurse = false }
 # ".config/karabiner" = { target = "~/.config/karabiner", type = "symbolic", recurse = false }
+".config/mise/macos/config.toml" = "~/.config/mise/config.toml"
 "local/share/powershell/profile.macos.ps1" = { target = "~/.config/powershell/profile.ps1", type = "template" }
 
 [windows.files]
 # ".config/mintty" = { target = "~/.config/mintty", type = "symbolic", recurse = false }
+".config/mise/windows/config.toml" = "~/.config/mise/config.toml"
 # ".config/putty" = { target = "~/.config/putty", type = "symbolic", recurse = false }
 # ".config/scoop" = { target = "~/.config/scoop", type = "symbolic", recurse = false }
 "local/share/powershell/profile.ps1" = { target = "~/Documents/PowerShell", type = "template" }

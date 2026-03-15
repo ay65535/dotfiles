@@ -1,4 +1,2 @@
-includes = [".dotter/proxy.local.toml"]
-
-[variables]
+[default.variables]
 network_env = "proxy"

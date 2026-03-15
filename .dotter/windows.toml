@@ -1,5 +1,5 @@
+[default.variables]
+host_os = "windows"
+
 [dotfiles.files]
 "." = { target = "~/.dotfiles", type = "symbolic", recurse = false }
-
-[variables]
-host_os = "windows"

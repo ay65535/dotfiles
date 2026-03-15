@@ -1,2 +1,2 @@
-[variables]
+[default.variables]
 shell_name = "bash"
