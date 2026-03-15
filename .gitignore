@@ -43,6 +43,8 @@ zoxide-init.ps1
 /.config/zsh/.iterm2_shell_integration.zsh
 /.config/zsh/.iterm2/
 
+/.devcontainer/devcontainer.env
+
 /.dotter/**/cache.toml
 /.dotter/cache
 /.dotter/local.toml

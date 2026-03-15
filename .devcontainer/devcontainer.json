@@ -1,0 +1,37 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Custom Ubuntu 24.04",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+
+	// Mount the workspace to ~/.dotfiles in the container
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/ubuntu/.dotfiles,type=bind,consistency=cached",
+	"workspaceFolder": "/home/ubuntu/.dotfiles",
+
+	"mounts": [
+		"source=/opt/src/dotfiles,target=/opt/src/dotfiles,type=bind,consistency=cached"
+	],
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	"runArgs": [
+		"--env-file", ".devcontainer/devcontainer.env"
+	],
+	"overrideCommand": false,
+	"remoteUser": "ubuntu",
+	"updateRemoteUserUID": true,
+	"postCreateCommand": "bash .devcontainer/scripts/bootstrap.sh"
+}
