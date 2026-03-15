@@ -1,0 +1,4 @@
+includes = [".dotter/proxy.local.toml"]
+
+[variables]
+network_env = "proxy"

@@ -47,7 +47,7 @@ zoxide-init.ps1
 
 /.dotter/**/cache.toml
 /.dotter/cache
-/.dotter/local.toml
+/.dotter/*local.toml
 /.local/bin/clion
 /.local/bin/fleet
 /.local/bin/gateway

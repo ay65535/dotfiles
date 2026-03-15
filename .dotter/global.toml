@@ -59,27 +59,30 @@ depends = []
 ".claude/CLAUDE.md" = "~/.claude/CLAUDE.md"
 #".config/AGENTS.md" = "~/.config/AGENTS.md"
 ".config/bash_completion" = "~/.config/bash_completion"
-# ".config/starship.toml" = "~/.config/starship"
-".config/wgetrc" = "~/.config/wgetrc"
+".config/starship.toml" = "~/.config/starship.toml"
 ".shellcheckrc" = "~/.shellcheckrc"
 
 [unix.files]
-".config/zsh" = { target = "~/.config/zsh", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
-".config/sheldon" = { target = "~/.config/sheldon", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
-".config/fish" = { target = "~/.config/fish", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
-".config/readline" = { target = "~/.config/readline", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
-".config/rsync" = { target = "~/.config/rsync", type = "symbolic", recurse = false, if = "(or dotter.linux dotter.macos)" }
+".config/zsh" = { target = "~/.config/zsh", type = "symbolic", recurse = false }
+#".config/sheldon" = { target = "~/.config/sheldon", type = "symbolic", recurse = false }
+# ".config/fish" = { target = "~/.config/fish", type = "symbolic", recurse = false }
+# ".config/readline" = { target = "~/.config/readline", type = "symbolic", recurse = false }
+# ".config/rsync" = { target = "~/.config/rsync", type = "symbolic", recurse = false }
 ".zshenv" = "~/.zshenv"
 
 [linux.files]
-".config/gtk-3.0" = { target = "~/.config/gtk-3.0", type = "symbolic", recurse = false, if = "dotter.linux" }
+".config/powershell" = { target = "~/.config/powershell", type = "symbolic", recurse = false }
 
 [macos.files]
-# ".config/iterm2" = { target = "~/.config/iterm2", type = "symbolic", recurse = false, if = "dotter.macos" }
-".config/karabiner" = { target = "~/.config/karabiner", type = "symbolic", recurse = false, if = "dotter.macos" }
+# ".config/iterm2" = { target = "~/.config/iterm2", type = "symbolic", recurse = false }
+# ".config/karabiner" = { target = "~/.config/karabiner", type = "symbolic", recurse = false }
+"local/share/powershell/profile.macos.ps1" = { target = "~/.config/powershell/profile.ps1", type = "template" }
 
 [windows.files]
-".config/mintty" = { target = "~/.config/mintty", type = "symbolic", recurse = false, if = "dotter.windows" }
-".config/putty" = { target = "~/.config/putty", type = "symbolic", recurse = false, if = "dotter.windows" }
-".config/scoop" = { target = "~/.config/scoop", type = "symbolic", recurse = false, if = "dotter.windows" }
-"local/share/installers/powershell/profile.ps1" = { target = "~/Documents/PowerShell", type = "symbolic", recurse = false, if = "dotter.windows" }
+# ".config/mintty" = { target = "~/.config/mintty", type = "symbolic", recurse = false }
+# ".config/putty" = { target = "~/.config/putty", type = "symbolic", recurse = false }
+# ".config/scoop" = { target = "~/.config/scoop", type = "symbolic", recurse = false }
+"local/share/powershell/profile.ps1" = { target = "~/Documents/PowerShell", type = "template" }
+
+[shell.files]
+".config/sheldon/plugins.toml.tmpl" = "~/.config/sheldon/plugins.toml"

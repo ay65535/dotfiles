@@ -1,0 +1,69 @@
+# sheldon configuration file
+shell = "{{shell_name}}"
+
+[plugins]
+
+{{#if (and (eq host_os "linux") (eq network_env "proxy"))}}
+[plugins.certs]
+inline = '''
+export CERT_DIR=/etc/ssl/certs
+export SSL_CERT_DIR=$CERT_DIR
+export CURL_CA_BUNDLE=$CERT_DIR/ca-certificates.crt
+export NODE_EXTRA_CA_CERTS=$CURL_CA_BUNDLE
+export REQUESTS_CA_BUNDLE=$CURL_CA_BUNDLE
+'''
+{{/if}}
+
+{{#if (eq network_env "proxy")}}
+[plugins.proxy]
+inline = '''
+export http_proxy={{proxy_url}}
+export https_proxy=$http_proxy
+export no_proxy={{proxy_no_proxy}}
+'''
+{{/if}}
+
+{{#if (eq host_os "linux")}}
+[plugins.homebrew]
+inline = 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+{{/if}}
+
+{{#if (eq host_os "macos")}}
+[plugins.homebrew]
+inline = 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+{{/if}}
+
+[plugins.mise]
+inline = 'eval "$(mise activate {{shell_name}})"'
+
+{{#if (eq shell_name "bash")}}
+[plugins.eza-completion]
+remote = 'https://github.com/eza-community/eza/raw/main/completions/bash/eza'
+use = ["eza"]
+{{/if}}
+
+[plugins.uv-completion]
+inline = 'eval "$(uv generate-shell-completion {{shell_name}})"'
+
+[plugins.uvx-completion]
+inline = 'eval "$(uvx --generate-shell-completion {{shell_name}})"'
+
+[plugins.fzf]
+inline = 'eval "$(fzf --{{shell_name}})"'
+
+[plugins.starship]
+inline = 'eval "$(starship init {{shell_name}})"'
+
+[plugins.aliases]
+inline = '''
+alias q=exit
+'''
+
+{{#if (eq shell_name "zsh")}}
+[plugins.zsh_syntax_highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+use = ["zsh-syntax-highlighting.zsh"]
+{{/if}}
+
+[plugins.zoxide]
+inline = 'eval "$(zoxide init {{shell_name}})"'
