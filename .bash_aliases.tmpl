@@ -1,0 +1,7 @@
+eval "$(
+{{#if (eq host_os "macos")}}
+/opt/homebrew/bin/sheldon source
+{{else}}
+/home/linuxbrew/.linuxbrew/bin/sheldon source
+{{/if}}
+)"

@@ -1,6 +1,5 @@
-#!/bin/bash
-
-set -eu
+#!/usr/bin/env bash
+set -euo pipefail
 
 #
 # Script Variables
